@@ -25,3 +25,12 @@ Version 1.1.1 (2011-02-26)
 * Aufzeichnung von User und Timestamp bei Einträgen in den Tarifen
 * Neuer Twitterclient
 
+Version 1.1.2 (2011-03-01)
+==========================
+* Blogdesign identisch Hauptseite
+* Zend und Dojo Logo eingebaut
+* Forkbutton für GitHub eingebaut
+* Passwort ändern
+* Vergessenes Passwort
+* FAQ Eintrag zu möglichen Erweitungen von Polit-Inserate.at
+

@@ -73,7 +73,7 @@ class UserController extends Mobile_Controller_Action
                 if (!$this->user_table->userActive($username))
                     $this->_helper->redirector('inactive', 'user');
                 
-                if ($this->submitLogin($form, $username, $password) ) {
+                if ($this->submitLogin($username, $password) ) {
                     $this->unsetSSL();
                     $this->_helper->redirector('index', $this->auth->getIdentity()->username);
                 } else {
@@ -200,11 +200,32 @@ class UserController extends Mobile_Controller_Action
         $form->setAction('/user/lostpassword');
         $this->checkToken($form); // TODO1
         if ( $this->getRequest()->has('lost_hidden') ) {
-            // TODO2
-        }
-        
-        if ($this->_flashMessenger->hasMessages()) {
-            $this->view->message = end($this->_flashMessenger->getMessages());
+            if ($form->isValid($_POST)) {
+                $values = $form->getValues();
+                if ('' != $values['email']) {
+                    if ($this->user_table->checkEmail($values['email'])) {
+                        $username = $this->user_table->getUsernameByEmail($values['email']);
+                        $id_user = $this->user_table->getUserId($username);
+                        
+                        require_once 'Intern/Authentication/Mailer.php';
+                        $mailer = new Authentication_Mailer();
+                        $newpassword = $mailer->sendLostPasswordMail($values['email'], $id_user);
+                        
+                        $staticSalt = $this->configuration->password->salt;
+                        
+                        $this->user_table->updatePassword($id_user, $newpassword, $staticSalt);
+                        
+                        $data = array('email' => '',);
+                        $form->setDefaults($data);
+                        
+                        $this->view->message = 'Email wurde versendet.';
+                    } else {
+                        $this->view->message = 'Ungültige Email.';
+                    }
+                }
+            } else {
+                $this->view->message = 'Ungültige Email.';
+            }
         }
         
         $this->view->form = $form;
@@ -216,8 +237,9 @@ class UserController extends Mobile_Controller_Action
         if (!$this->auth->hasIdentity())
             $this->_helper->redirector('index', 'index');
         
+        $username = $this->auth->getIdentity()->username;
         if ($this->getRequest()->has('cancel') )
-            $this->_helper->redirector('index', 'index');
+            $this->_helper->redirector($username, 'profile', 'user');
         
         $this->setSSL();
         
@@ -225,11 +247,27 @@ class UserController extends Mobile_Controller_Action
         $form->setAction('/user/changepassword');
         $this->checkToken($form); // TODO1
         if ( $this->getRequest()->has('password_hidden') ) {
-            // TODO2
-        }
-        
-        if ($this->_flashMessenger->hasMessages()) {
-            $this->view->message = end($this->_flashMessenger->getMessages());
+            if ($form->isValid($_POST)) {
+                $values = $form->getValues();
+                if ('' != $values['oldpassword'] && '' != $values['newpassword1'] && '' != $values['newpassword2']) {
+                    if (0 == strcmp($values['newpassword1'], $values['newpassword2'])) {
+                        if ($this->submitLogin($username, $values['oldpassword'])) {
+                            $staticSalt = $this->configuration->password->salt;
+                            $id_user = $this->user_table->getUserId($username);
+                            
+                            $this->user_table->updatePassword($id_user, $values['newpassword1'], $staticSalt);
+                            $this->_helper->flashMessenger->addMessage("Passwort wurde geändert.");
+                            $this->_helper->redirector($username, 'profile', 'user');
+                        } else {
+                            $this->view->message = 'Ungültige Authentifizierung.';
+                        }
+                    } else {
+                        $this->view->message = 'Neue Passwörter sind nicht identisch.';
+                    }
+                } else {
+                    $this->view->message = 'Bitte Felder ausfüllen.';
+                }
+            }
         }
         
         $this->view->form = $form;
@@ -278,7 +316,7 @@ class UserController extends Mobile_Controller_Action
         if ($form->isValid($_POST) ) {
             $values = $form->getValues();
             if ('' != $values['username'] && '' != $values['password1'] && '' != $values['password2'] && '' != $values['user_email']) {
-                if ($values['password1'] == $values['password2']) {
+                if (0 == strcmp($values['password1'], $values['password2'])) {
                     if (!$this->user_table->checkUsername($values['username'])) {
                         if (!$this->user_table->checkEmail($values['user_email'])) {
                             $staticSalt = $this->configuration->password->salt;
@@ -315,7 +353,7 @@ class UserController extends Mobile_Controller_Action
         return false;
     }
     
-    public function submitLogin($form, $username, $password)
+    public function submitLogin($username, $password)
     {
         $staticSalt = $this->configuration->password->salt;
         
@@ -345,7 +383,6 @@ class UserController extends Mobile_Controller_Action
             $this->user_table->updateLastAccess($username);
             return true;
         } else {
-            //$this->checkToken($form);
             $this->_helper->flashMessenger->addMessage("Ungültige Authentifizierung.");
             sleep(3);
             return false;

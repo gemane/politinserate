@@ -5,9 +5,10 @@ $this->headTitle()->append('Verlauf der nicht zugeordnete Inserate');
 * This notice MUST stay intact for legal use
 * Visit Dynamic Drive at http://www.dynamicdrive.com/ for this script and 100s more
 ***********************************************/
-$this->headScript()->appendFile('http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'text/javascript', array('defer' => 'defer'));
-$this->headScript()->appendScript($this->table['tooltips'])
-                   ->appendFile('/js/intern/ddimgtooltip.js', 'text/javascript', array('defer' => 'defer'));
+if (!empty($this->table['ids']))
+    $this->headScript()->appendScript($this->table['tooltips'])
+                    ->appendFile('/js/intern/ddimgtooltip.js', 'text/javascript', array('defer' => 'defer'));
+
 ?>
 <div style="display:inline;" class="tagspan_link" title="Zugeordnete Inserate"><a href="/stream/tagged">Zugeordnet</a></div>
 <div style="display:inline;" class="tagspan_link_inactive" title="Nicht zugeordnete Inserate">Nicht zugeordnet</div>

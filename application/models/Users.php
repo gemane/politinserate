@@ -47,6 +47,16 @@ class Application_Model_Users extends Zend_Db_Table_Abstract
         return $result[0]['username'];
     }
     
+    public function getUsernameByEmail($email)
+    {
+        $select = $this->select()->from(array('acd_inserate_user'),
+                                        array('username'))
+                                 ->where('user_email = ?', $email);
+        $result = $this->fetchAll($select);
+        
+        return $result[0]['username'];
+    }
+    
     public function getUserId($username)
     {
         $select = $this->select()->from(array('acd_inserate_user'),
@@ -159,6 +169,20 @@ class Application_Model_Users extends Zend_Db_Table_Abstract
         }
     }
     
+    public function checkPassword($password)
+    {
+        $select = $this->select()->from(array('acd_inserate_user'),
+                                        array('password'))
+                                 ->where('password = ?', $password);
+        $result = $this->fetchAll($select)->toArray();
+        
+        if (empty($result)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
     public function checkEmail($email)
     {
         $select = $this->select()->from(array('acd_inserate_user'),
@@ -214,6 +238,14 @@ class Application_Model_Users extends Zend_Db_Table_Abstract
         $this->update($values, $where);
     }
     
+    public function updatePassword($id_user, $password, $staticSalt)
+    {
+        $where = $this->getAdapter()->quoteInto('id_user = ?', $id_user);
+        $values['password'] = sha1($staticSalt . $password);
+        
+        $this->update($values, $where);
+    }
+    
     public function updateLastAccess($username)
     {
         $data = array('last_access' => date('Y-m-d H:i:s'));
@@ -223,9 +255,9 @@ class Application_Model_Users extends Zend_Db_Table_Abstract
         }
     }
     
-    public function deleteOldUser()
+    public function deleteOldUser($days = 8)
     {
-        $sevenDays = date('Y-m-d H:i:s', time() - 8*24*60*60);
+        $sevenDays = date('Y-m-d H:i:s', time() - $days*24*60*60);
         $where = 'date_register < "' . $sevenDays . '" AND user_activated = 0 AND id_user != 1';
         $this->delete($where);
     }

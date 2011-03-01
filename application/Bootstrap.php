@@ -69,7 +69,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     public function _initCache()
     {
         $temp_path = realpath(APPLICATION_PATH . '/../data/cache');
-        $frontendOptions    = array('lifetime' => 7200, 'automatic_serialization' => true);  // 7200 = 2 h
+        $frontendOptions    = array('lifetime' => 24*3600, 'automatic_serialization' => true);  // 3600 = 1 h
         $backendOptions     = array('cache_dir' => $temp_path);
         $this->cache = Zend_Cache::factory('Page', 'File', $frontendOptions, $backendOptions);
         Zend_Registry::set('cache', $this->cache);

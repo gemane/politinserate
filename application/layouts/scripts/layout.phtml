@@ -50,7 +50,7 @@ if ($this->dojo()->isEnabled() && !Zend_Registry::get('StartPage'))
 </div>
 <?php if ('testing' == APPLICATION_ENV) : ?>
 <div class="layout_position layout_size layout_design" style="background-color:red;border:1px solid black;padding-top:5px;padding-bottom:5px;margin-bottom:0px;">
-<span style="color:white;text-align:center;">Testseite (Datenbank liegt auf einem freien Server)</span>
+<span style="color:white;text-align:center;">Testseite</span>
 </div>
 <?php endif ?>
 
@@ -68,9 +68,19 @@ if (isset($this->ev))
 <div style="width:210px;float:right; border-left: 1px dashed #191919;">
 
 <div style="font-size: 70%; clear:both; ">
-<div style="margin-left: 40px; width: 50px; float: left;line-height:100%;"><a style="text-decoration:none;" href="http://blog.politinserate.at/feed/" title="RSS-Abo der Blogbeiträge"><img style="border:none;" src="/images/rssfeedicon.jpg" height="35" width="35" alt="RSS-Abo starten" />&nbsp;RSS</a></div>
-<div style="margin-left: 15px; width: 50px; float: left; line-height:100%;"><a style="text-decoration:none;" href="http://twitter.com/politinserate" title="@politinserate auf Twitter folgen"><img style="margin-left:3px; border:none;" src="/images/twitter.jpg" height="35" width="35" alt="@politinserate auf Twitter folgen" />Twitter</a></div>
+    <div style="margin-left: 40px; width: 50px; float: left;line-height:100%;"><a style="text-decoration:none;" href="http://blog.politinserate.at/feed/" title="RSS-Abo der Blogbeiträge"><img style="border:none;" src="/images/rssfeedicon.jpg" height="35" width="35" alt="RSS-Abo starten" />&nbsp;RSS</a></div>
+    <div style="margin-left: 15px; width: 50px; float: left; line-height:100%;"><a style="text-decoration:none;" href="http://twitter.com/politinserate" title="@politinserate auf Twitter folgen"><img style="margin-left:3px; border:none;" src="/images/twitter.jpg" height="35" width="35" alt="@politinserate auf Twitter folgen" />Twitter</a></div>
 </div>
+
+<!--<div style="padding: 10px 0px 0px 10px;clear:both;">
+    <div style="padding: 10px; text-align:left;background-color:#FCFF98;border:1px solid black;color:#852806;">
+        <dl style="margin:0px;">
+            <dt>Inserate</dt><dd>xx</dd>
+            <dt>Zahlungen</dt><dd>xxxx EUR</dd>
+        </dl>
+        im letzten Monat.
+    </div>
+</div>-->
 
 <!--<div id="sidebar" style="padding: 10px 0px 0px 10px; clear:left;">
 <iframe src="<?php //echo '/blog/sidebar.php'; ?>" width="210" height="250" scrolling="no" frameborder="0" margin="0"></iframe>

@@ -18,7 +18,7 @@ $this->headTitle()->append('Inserat Nr. ' . $this->inserat[0]['id_inserat']);
     <li><?php echo $this->formatCurrency($this->inserat[0]['price_inserat']) ?></li>
     <li>&nbsp;</li>
 <?php endif ?>
-    <li><a href="/stream<?php echo $this->imageOriginal ?>"><img src="<?php echo $this->image['image'] ?>" width="<?php echo $this->image['width'] ?>" height="<?php echo $this->image['height'] ?>" border="1" alt="Inserat" <?php if (1 == $this->tagged) echo 'title="Bezahlt von' . $this->inserat[0]['payer'] . '"' ?> /></a></li>
+    <li><a href="/stream<?php echo $this->imageOriginal ?>"><img src="<?php echo $this->image['image'] ?>" width="<?php echo $this->image['width'] ?>" height="<?php echo $this->image['height'] ?>" border="1" alt="Inserat" <?php if (1 == $this->tagged) echo 'title="Bezahlt von ' . $this->inserat[0]['payer'] . '"' ?> /></a></li>
     <li>&nbsp;</li>
     <li>Hochgeladen von: <?php echo $this->inserat[0]['uploader'] ?></li>
 <?php if (1 == $this->tagged) : ?>

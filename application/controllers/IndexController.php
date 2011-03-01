@@ -20,7 +20,6 @@
 * @source     http://github.com/gemane/politinserate
 */
 
-include_once('Intern/Image/Editing.php');
 include_once('Intern/Mobile/Controller.php');
 
 class IndexController extends Mobile_Controller_Action
@@ -31,9 +30,7 @@ class IndexController extends Mobile_Controller_Action
     {   
         parent::init();
         
-        $this->table_config = new Application_Model_Config();
         $this->table_inserat = new Application_Model_Inserate();
-        $this->image = new Image_Editing();
         
         $this->configuration = Zend_Registry::get('configuration');
         $this->cache = Zend_Registry::get('cache');
@@ -73,6 +70,7 @@ class IndexController extends Mobile_Controller_Action
             $id_region_party = $regions[rand(0, $length_regions)];
             $id_region_printmedium = $regions[rand(0, $length_regions)];
             
+            $this->table_config = new Application_Model_Config();
             $this->view->region_printmedium = 
                 (0 == $id_region_printmedium) ? ' gesamt' : ' in ' . $this->table_config->getRegion($id_region_printmedium);
             $this->view->region_party = 
@@ -216,6 +214,8 @@ class IndexController extends Mobile_Controller_Action
     {
         $ID_Inserate = $this->table_inserat->getLastTaggedID_Inserate($this->view->num_column);
         if (!empty($ID_Inserate)) {
+            include_once('Intern/Image/Editing.php');
+            $this->image = new Image_Editing();
             $i = 0;
             foreach ($ID_Inserate as $id_inserat) {
                 $table[$id_inserat] = $this->table_inserat->getInseratTagged($id_inserat);
@@ -286,7 +286,7 @@ class IndexController extends Mobile_Controller_Action
         if ('' != $values['name'] && '' != $values['email'] && '' != $values['titel'] && '' != $values['message']) {
             require_once 'Intern/Authentication/Mailer.php';
             $mailer = new Authentication_Mailer();
-            $activationCode = $mailer->sendContactMail($values['email'], $values['name'], $values['titel'], $values['message']); 
+            $mailer->sendContactMail($values['email'], $values['name'], $values['titel'], $values['message']); 
             $this->view->message = 'Mitteilung wurde gesendet.';
             $form = $this->setContact($form);
         } else {

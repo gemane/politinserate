@@ -75,6 +75,60 @@ class Authentication_Mailer
         return $activationCode;
     }
     
+    public function sendLostPasswordMail($emailAddress, $id_user, $languageCode = 'de_at')
+    {
+        $sitename = $this->configuration->general->sitename;
+        $url = $this->configuration->general->url;
+ 
+        $templatePath = APPLICATION_PATH . '/../data/templates/registration/email_password_lost_' . $languageCode . '.txt';
+        
+        if (!is_file($templatePath)) {
+            require_once 'Intern/Exception/Exception.php';
+            throw new Intern_Exception('Missing template for registration mail - language code: '.$languageCode);
+        }
+        
+        $templateTxt = file_get_contents($templatePath);
+        
+        // http://www.laughing-buddha.net/php/lib/password
+        $length = 8;
+        $newpassword = "";
+        $possible = "2346789bcdfghjkmnpqrtvwxyzBCDFGHJKLMNPQRTVWXYZ";
+        $maxlength = strlen($possible);
+    
+        // check for length overflow and truncate if necessary
+        if ($length > $maxlength) {
+            $length = $maxlength;
+        }
+        
+        $i = 0; 
+        while ($i < $length) { 
+            $char = substr($possible, mt_rand(0, $maxlength-1), 1);
+                
+            // have we already used this character in $password?
+            if (!strstr($newpassword, $char)) { 
+                // no, so it's OK to add it onto the end of whatever we've already got...
+                $newpassword .= $char;
+                $i++;
+            }
+        }
+        
+        //replace tags: [sitename], [new_password link], [url]
+        $templateTxt = str_replace('[sitename]', $sitename, $templateTxt);
+        $templateTxt = str_replace('[new_password]', $newpassword, $templateTxt);
+        $templateTxt = str_replace('[url]', $url, $templateTxt);
+        
+        // Username will not be send to avoid having it with the password together
+        
+        $mailer = new Zend_Mail('utf-8');
+        $mailer->addTo($emailAddress, '');
+        $mailer->setSubject(sprintf('Neues Passwort für %s', $sitename));
+        $mailer->setBodyHtml($templateTxt, 'utf8');
+        $mailer->setFrom($this->configuration->mail->from);
+        $mailer->send();
+        
+        return $newpassword;
+    }
+    
     public function sendWelcomeMail($emailAddress, $name, $languageCode = 'de_at')
     {
         $sitename = $this->configuration->general->sitename;
