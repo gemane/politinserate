@@ -1,0 +1,6 @@
+<p>Korrekturvorschlag für folgendes Inserat:</p>
+
+<p><a href="[url]">[url]</a></p>
+
+<h3>Kategorie: [correction]</h3>
+<p>[message]</p>
