@@ -1,0 +1,13 @@
+<?php 
+$this->headTitle()->append('Kontakt');
+?>
+<h2>Kontakt</h2>
+<p>Sag uns was Du von dieser Seite denkst. Wir würden <br />
+uns über dein Feedback freuen.</p>
+<p style="font-size:90%;">Antworten zu allgemeine Fragen über diese Seite <br />kannst Du in den <a href="/faq">FAQ</a> finden. Solltest Du die Antwort nicht finden, <br />kannst Du uns mit Hilfe des Formulars per Email erreichen. <br />Wir werden Dir so schnell wie möglich weiterhelfen.</p>
+<?php if (!empty($this->message)) : ?>
+<span class="errors"><?php   echo $this->message ?></span>
+<?php endif ?>
+<div style="float:left; padding-left:80px;">
+<?php echo $this->formFixer($this->form) ?>
+</div>

@@ -1,0 +1,44 @@
+<?php 
+$this->headTitle()->append('Inserat Nr. ' . $this->inserat[0]['id_inserat']);
+?>
+<?php if (1 == $this->tagged) : ?>
+<div style="text-align:left;" class="tagspan_link" title="Zugeordnete Inserate"><a href="/stream/tagged<?php echo $this->id_medium ?>">&laquo; zurück</a></div>
+<?php endif ?>
+<h2>Inserat Nr. <?php echo $this->inserat[0]['id_inserat'] ?></h2>
+<?php if (!empty($this->message)) : ?>
+<span class="errors"><?php   print_r($this->message) ?></span>
+<?php endif ?>
+<ul class="inserat">
+<?php if (1 == $this->tagged) : ?>
+    <li>Werbung für: <?php echo $this->inserat[0]['party'] ?> (<?php echo $this->inserat[0]['region_party'] ?>)</li>
+    <li>Bezahlt von: <?php echo $this->inserat[0]['payer'] ?></li>
+    <li>Printmedium: <?php echo $this->inserat[0]['printmedium'] ?> (<?php echo $this->inserat[0]['region_printmedium_bit'] ?>) - <?php echo $this->formatDate($this->inserat[0]['print_date']) ?></li>
+    <li>Kategorie: <?php if (1 == $this->inserat[0]['cover']) : ?>Titelblatt / <?php endif ?><?php echo $this->inserat[0]['printmedium_type_name'] ?></li>
+    <li>Format: <?php if (1 < $this->inserat[0]['pages']) echo $this->inserat[0]['pages'] . ' x ' ?><?php echo $this->inserat[0]['size'] ?> / <?php echo $this->inserat[0]['size_width'] . ' x ' . $this->inserat[0]['size_height'] ?>mm (b x h)</li>
+    <li><?php echo $this->formatCurrency($this->inserat[0]['price_inserat']) ?></li>
+    <li>&nbsp;</li>
+<?php endif ?>
+    <li><a href="/stream<?php echo $this->imageOriginal ?>"><img src="<?php echo $this->image['image'] ?>" width="<?php echo $this->image['width'] ?>" height="<?php echo $this->image['height'] ?>" border="1" alt="Inserat" <?php if (1 == $this->tagged) echo 'title="Bezahlt von' . $this->inserat[0]['payer'] . '"' ?> /></a></li>
+    <li>&nbsp;</li>
+    <li>Hochgeladen von: <?php echo $this->inserat[0]['uploader'] ?></li>
+<?php if (1 == $this->tagged) : ?>
+    <li>Getagged von: <?php echo $this->inserat[0]['tagger'] ?></li>
+    <li>Quelle: <?php echo $this->inserat[0]['source'] ?></li>
+<?php endif ?>
+    <li>Letzte Änderung: <?php echo $this->formatTime($this->inserat[0]['timestamp']) ?></li>
+    <li>&nbsp;</li>
+</ul>
+<?php if (-1 == $this->tagged) : ?>
+<div style="text-align:center;" class="tagspan"><a href="/eingabe/medium/id/<?php echo $this->inserat[0]['id_inserat'] ?>">Taggen</a></div>
+<?php endif ?>
+<?php if ($this->admin) : ?>
+<div style="display:inline" class="tagspan" title="Datei mit Tarife herunterladen"><a href="/eingabe/medium/id/<?php echo $this->inserat[0]['id_inserat'] ?>">Korrektur Printmedium</a></div>
+<div style="display:inline" class="tagspan" title="Datei mit Tarife herunterladen"><a href="/eingabe/format/id/<?php echo $this->inserat[0]['id_inserat'] ?>">Korrektur Format</a></div>
+<div style="display:inline" class="tagspan" title="Datei mit Tarife herunterladen"><a href="/eingabe/partei/id/<?php echo $this->inserat[0]['id_inserat'] ?>">Korrektur Partei</a></div>
+<?php endif ?>
+<?php if ($this->correction) : ?>
+<h3>Korrekturvorschlag</h3>
+<div style="float:left; padding:10px 0 0 80px;">
+<?php echo $this->formFixer($this->form) ?>
+</div>
+<?php endif ?>

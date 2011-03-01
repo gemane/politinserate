@@ -1,0 +1,27 @@
+Version 1.0.0 (2010-09-23)
+==========================
+* Initial public release
+
+Version 1.1.0 (2011-02-22)
+==========================
+* Designänderungen (Usability)
+* Social Media Inhalte hinzugefügt (Facebook, Twitter, Feedback Button)
+* Sichtbarkeit von Politikern anwählbar
+* Definition von Formaten mit Höhe und Spaltenanzahl statt fixen Darstellungen
+* Kategorie verschiedener Formate von Printmedien in der Tarifverwaltung (z.B. Tageszeitung, Magazin)
+* Titelblatt ist in der Tarifverwaltung definierbar
+* Angabe der Dimension und der Spaltenbreite in mm
+* date_from, date_to von DB acd_inserate_size nach acd_inserate_datafile verschoben
+* Download der Daten via CSV (funktioniert wieder)
+* Spezielle Darstellung für Mobiltelefone
+* Schnittstelle zu Smartphones (Foto hochladen)
+* Neues Logo
+
+Version 1.1.1 (2011-02-26)
+==========================
+* Korrekturvorschlag von Inseraten mit Emailversand an Admin /stream/index/inserat/xx
+* Beschreibung: Empfehlung für Fotoaufnahme /eingabe/foto
+* Auswahl Titelblatt bei Eingabe von Format /eingabe/format/id/xx
+* Aufzeichnung von User und Timestamp bei Einträgen in den Tarifen
+* Neuer Twitterclient
+

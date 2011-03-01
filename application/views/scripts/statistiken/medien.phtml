@@ -1,0 +1,76 @@
+<?php 
+$title = (false == $this->region) ? '' : ' - ' . $this->region;
+$title .= (false == $this->party) ? '' : ' - ' . $this->party;
+$this->headTitle()->append('Medienzahlungen' .  $title);
+$this->headScript()->appendFile('/js/intern/plot_medium.js', 'text/javascript', array('defer' => 'defer'))
+                   ->appendScript($this->dataPaymentsMedium . "\n" .
+                                  $this->dataColorsMedium . "\n" .
+                                  $this->dataLegendMedium . "\n" .
+                                  $this->dataLabelMedium . "\n");
+?>
+<h3>Einnahmen der Medien
+<?php if (false != $this->region) : ?>
+in <?php echo $this->region ?> 
+<?php endif ?> für Inserate
+<?php if (false != $this->party) : ?>
+von der Partei "<?php echo $this->party ?>" 
+<?php endif ?>
+</h3>
+<div style="text-align:left;margin-top:10px;">
+<?php
+$this->tabContainer()->captureStart('mainTabContainer', array('style'=>'width:100%;', 'doLayout' => 'false'));
+
+$this->contentPane()->captureStart('plot', array(), array('title' => 'Diagramm', 'selected' => 'true')); 
+?>
+<h2 style="text-align:right;">Jahr <?php echo $this->year ?></h2>
+<?php if (Zend_Registry::get('browser')) : ?>
+<div id="legendMedium" style="width: 700px;"></div> 
+<div id="chartMedium" style="width: 700px; height: 405px;"></div>
+<?php else : ?>
+<h3 style="text-align:center;margin:50px;">Bitte Browser upgraden.</h3>
+<?php endif ?>
+<div style="clear:both;">Einnahmen in EUR. Nur zugeordnete Inserate zählen.</div>
+<?php
+echo $this->contentPane()->captureEnd('plot');
+
+$this->contentPane()->captureStart('table', array(), array('title' => 'Tabelle')); 
+?>
+<div>
+<h2 style="text-align:right;">Jahr <?php echo $this->year ?></h2>
+<?php echo $this->partial('partials/statistik/partial_medien.phtml', array('table' => $this->table)) ?>
+</div>
+<?php
+echo $this->contentPane()->captureEnd('table');
+
+$this->contentPane()->captureStart('form', array(), array('title' => 'Navigation')); 
+?>
+<div>
+<br />
+<h2 style="text-align:left;">Konkretisiere die Darstellung</h2>
+<?php if (false == $this->region) : ?>
+<h3>Wähle ein Bundesland aus</h3>
+<?php   $column = 1; foreach ($this->form_region as $value) : ?>
+<a href="/statistiken/medien<?php echo $value['link'] ?>" title="<?php echo $value['name'] ?>" ><img src="<?php echo $value['image'] ?>" style="border:none;"  alt="Navigation zu <?php echo $value['name'] ?>" /></a>
+<?php       if ($this->num_column == $column++) : ?><br /><?php endif ?>
+<?php   endforeach ?>
+<br />
+<?php endif ?>
+<?php if (false == $this->party) : ?>
+<br />
+<h3>Wähle eine Partei aus</h3>
+<?php   $column = 1; foreach ($this->form_party as $value) : ?>
+<a href="/statistiken/medien<?php echo $value['link'] ?>" title="<?php echo $value['name'] ?>" ><img src="<?php echo $value['image'] ?>" style="border:none;"  alt="Navigation zu <?php echo $value['name'] ?>" /></a>
+<?php       if ($this->num_column == $column++) : ?><br /><?php endif ?>
+<?php   endforeach ?>
+<?php endif ?>
+<?php if (false != $this->party || false != $this->region) : ?>
+<h2><div style="clear:both;padding-top:30px;" class="tagspan_link"><a href="/statistiken/medien/"> &laquo; zurück</a></div></h2>
+<?php endif ?>
+</div>
+<?php
+echo $this->contentPane()->captureEnd('form');
+
+echo $this->tabContainer()->captureEnd('mainTabContainer');
+?>
+
+</div>

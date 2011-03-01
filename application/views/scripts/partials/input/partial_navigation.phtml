@@ -1,0 +1,15 @@
+<div class="navigation_container">
+<?php foreach ($this->list as $key => $value) : ?>
+<?php   switch ($key) {
+            case $this->page: 
+?>
+    <div class="navigation navigation_active"><?php echo $value[0] ?></div><img style="float:left;" src="/images/arrow.png" width="16" height="29" alt="Arrow right" />
+<?php   break; case 'first': break; ?>
+    <div class="navigation"><a href="<?php echo $this->prev_link ?>" style="text-decoration: none;">Zurück</a></div><img style="float:left;" src="/images/arrow.png" width="16" height="29" alt="Arrow right" />
+<?php   break; case 'last': break;?>
+    <div class="navigation"><a href="<?php echo $this->next_link ?>" style="text-decoration: none;">Weiter</a></div><img style="float:left;" src="/images/arrow.png" width="16" height="29" alt="Arrow right" />
+<?php   break; default: ?>
+    <div class="navigation"><a href="<?php echo $value[1] . 'id/' . $this->id ?>" style="text-decoration: none;"><?php echo $value[0] ?></a></div><img style="float:left;" src="/images/arrow.png" width="16" height="29" alt="Arrow right" />
+<?php } ?>
+<?php endforeach ?>
+</div>

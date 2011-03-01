@@ -1,0 +1,30 @@
+<div class="statistik">
+    <table class="table_statistik" cellpadding="3" summary="Zahlungen der Printmedien">
+        <tr>
+            <th class="label_medien">Printmedium</th>
+            <th class="label">Gesamt</th>
+            <th class="label">Jan</th>
+            <th class="label">Febr</th>
+            <th class="label">März</th>
+            <th class="label">Apr</th>
+            <th class="label">Mai</th>
+            <th class="label">Juni</th>
+            <th class="label">Juli</th>
+            <th class="label">Aug</th>
+            <th class="label">Sept</th>
+            <th class="label">Okt</th>
+            <th class="label">Nov</th>
+            <th class="label">Dez</th>
+        </tr>
+<?php foreach ($this->table['printmedien'] as $printmedium) : ?>
+        <tr>
+            <td class="label_medien"><?php echo $printmedium['printmedium'] ?></td>
+            <td class="label"><?php echo number_format($this->table[$printmedium['id_printmedium']]['all'], 0, ',', '.') ?>.-</td>
+<?php   for ($month = 1; $month <= 12; $month++) : ?>
+            <td class="label"><?php echo number_format($this->table[$printmedium['id_printmedium']][$month], 0, ',', '.') ?>.-</td>
+<?php   endfor ?>
+        </tr>
+<?php endforeach ?>
+    </table>
+</div>
+Einnahmen in EUR. Nur zugeordnete Inserate zählen.

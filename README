@@ -1,0 +1,102 @@
+README
+======
+
+The goal of this project is to document political advertisements in newspapers.
+
+FEATURES
+=======================================================================
+- Upload images
+- Tag with printmedium, party and size
+- Insert new tariff data from printmedium
+- Stream of advertisments
+- Statistik of paid money
+- App for iPhone and Android (soon)
+
+TODO
+=======================================================================
+See TODO file in docs folder
+
+REQUIREMENTS
+=======================================================================
+
+- PHP Version 5.2.13 with ZIP-Extension
+- Zend 1.10. from http://www.zendframework.com
+- Dojo 1.4.3
+
+INSTALLATION
+=======================================================================
+
+1. Install Package from GitHub https://github.com/gemane/politinserate
+
+2. Install Zend Framework in your include_path or symlink your 
+   Zend Framework library into the library directory. 
+
+3. Create empty folders with full read+write mode
+   (use chmod 777 xyz in Unix for example)
+    
+    * data
+        - cache
+        - downloads (temp folder for downloads, e.g csv from tariff)
+        - session
+        - tarife (tariff file will be uploaded here)
+            - temp (temporay folder for failed uploads)
+        - uploads
+            - images
+                - original (original images from upload)
+    
+    * public
+        - uploads
+            - default (middle sized images)
+            - thumbnail (small sized images)
+    
+    * temp
+        - zf_log_info.txz (log file)
+
+3. Create application.ini and config.ini from default files 
+   in folder "/application/configs/"
+
+4. Install database with files from "/docs/database/" 
+   (prefix "acd_" means "Austrian Coding for Democracy")
+
+5. Create a vhost that points its DocumentRoot to the public
+   subdirectory. As an example:
+
+    <VirtualHost *>
+        DocumentRoot "/var/www/inserate/public"
+        ServerName inserate.local
+
+        <Directory "/var/www/inserate/public">
+            Options Indexes MultiViews FollowSymLinks
+            AllowOverride All
+            Order allow,deny
+            Allow from all
+        </Directory>
+    </VirtualHost>
+    
+
+   In this particular example, we use the ServerName "inserate.local"; you
+   will need to add this to your hosts file:
+
+    127.0.1.1 inserate.local
+
+6. Finally, simply fire your browser to:
+
+    http://inserate.local/
+
+CUSTOM DOJO BUILDS
+=======================================================================
+I have provided a profile for creating a custom Dojo build for 
+the application. You will need a copy of the Dojo source and 
+use the "/docs/dojo/inserate.profile.js" file to create the build.
+
+REQUESTS
+=======================================================================
+If you have any feature requests, feel free to send them to:
+
+    Gerold Neuwirt (check for Emailaddress elsewhere)
+
+I may or may not honor them. :)
+
+LICENSE
+=======================================================================
+Please see LICENSE.txt

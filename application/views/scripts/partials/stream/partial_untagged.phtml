@@ -1,0 +1,6 @@
+                <ul class="stream">
+                    <li style="height:120px; vertical-align:bottom; margin-bottom:5px;"><a href="/eingabe/<?php echo $this->link ?>/id/<?php echo $this->id_inserat ?>"><img src="<?php echo $this->image ?>" width="<?php echo $this->width ?>" height="<?php echo $this->height ?>" alt="Inserat" rel="imgtip[<?php echo $this->id_inserat ?>]" style="border:none; <?php if (120 > $this->height) echo 'margin-top:' . (120-$this->height) . 'px;' ?>" /></a></li>
+                    <li><?php echo $this->source ?></li>
+                    <li><?php echo $this->uploader ?></li>
+                    <li><?php echo $this->formatTime($this->upload_time) ?></li>
+                </ul>

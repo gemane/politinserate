@@ -1,0 +1,18 @@
+<h1>An error occurred on [sitename]</h1>
+
+<h2>[titel]</h2>
+
+<h3>Exception information:</h3>
+
+<p>
+<b>Message:</b> [message]
+</p>
+
+<h3>Stack trace:</h3>
+<pre>[trace]
+</pre>
+
+<h3>Request Parameters:</h3>
+<pre>
+[parameter]
+</pre>

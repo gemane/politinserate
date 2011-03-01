@@ -1,0 +1,43 @@
+<?php 
+$this->headTitle()->append('Verlauf der zugeordnete Inserate');
+/***********************************************
+* Image w/ description tooltip v2.0- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+* This notice MUST stay intact for legal use
+* Visit Dynamic Drive at http://www.dynamicdrive.com/ for this script and 100s more
+***********************************************/
+$this->headScript()->appendFile('http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'text/javascript', array('defer' => 'defer'));
+$this->headScript()->appendScript($this->table['tooltips'])
+                   ->appendFile('/js/intern/ddimgtooltip.js', 'text/javascript', array('defer' => 'defer'));
+?>
+<div style="display:inline;" class="tagspan_link_inactive" title="Zugeordnete Inserate">Zugeordnet</div>
+<div style="display:inline;" class="tagspan_link" title="Nicht zugeordnete Inserate"><a href="/stream/untagged">Nicht zugeordnet</a></div>
+<div style="display:inline;" class="tagspan_link" title="Unbrauchbare Inserate"><a href="/stream/trash">Unbrauchbar</a></div>
+<br /><br />
+<?php if ($this->csv) : ?>
+<div style="text-align:left;" class="tagspan" title="CSV der Inserate herunterladen"><a href="/stream/exportcsv/">Download Inserate</a></div>
+<?php endif ?>
+<?php if ($this->thanks) : ?>
+<div style="color:brown; font-size:28px; font-weight:bold;margin-top:20px;">Danke für das Zuordnen, <?php if (!empty($this->name)) echo $this->name ?>!</div>
+Klicken Sie <a href="/stream/untagged">hier</a>, um weitere Inserate zuzuordnen.
+<br /><br />
+<?php endif ?>
+<h2>Zugeordnete Inserate</h2> <!-- TODO1 Anzahl der zugeordneten Inseraten -->
+<table class="table_stream" cellpadding="2" summary="Verlauf der zugeordneten Inserate">
+    <tr>
+<?php if (!empty($this->table['ids'])) : foreach ($this->table['ids'] as $id) :?>
+        <td>
+<?php       echo $this->partialLoop('partials/stream/partial_tagged.phtml', $this->table[$id]) ?>
+        </td>
+<?php       if ($this->num_column == $this->column++) : ?>
+    </tr>
+    <tr>
+<?php       $this->column = 1 ?>
+<?php       endif ?>
+<?php endforeach; else : ?>
+        <td>
+            <h3><span class="errors">Keine Inserate vorhanden.</span></h3>
+            [<a href="/">zurück</a>]
+        </td>
+<?php endif ?>
+    </tr>
+</table>

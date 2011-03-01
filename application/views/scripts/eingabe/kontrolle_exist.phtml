@@ -1,0 +1,39 @@
+<?php 
+$this->headTitle()->append('überprüfung der Eingabe');
+?>
+<?php echo $this->partial('partials/input/partial_navigation.phtml', $this->navigation) ?>
+<h2 style="clear:left;">Identisches Inserat gefunden</h2>
+<div style="width:300px;float:left;margin-left:70px;color:#852806;">
+<ul class="inserat" style="color:#852806;">
+    <li style="height:120px; vertical-align:bottom; margin-bottom:5px;"><a href="/stream/index/inserat/<?php echo $this->inserat_tagged[0]['id_inserat'] ?>"><img src="<?php echo $this->image_tagged['image'] ?>" width="<?php echo $this->image_tagged['width'] ?>" height="<?php echo $this->image_tagged['height'] ?>" alt="Inserat" <?php if (120 > $this->image_tagged['height']) echo 'style="margin-top:' . (120-$this->image_tagged['height']) . 'px;"' ?> /></a></li>
+    <li>Werbung für: <?php echo $this->inserat_tagged[0]['party'] ?> (<?php echo $this->inserat[0]['region_party'] ?>)</li>
+    <li>Bezahlt von: <?php echo $this->inserat_tagged[0]['payer'] ?></li>
+    <li>Printmedium: <?php echo $this->inserat_tagged[0]['printmedium'] ?> (<?php echo $this->inserat_tagged[0]['region_printmedium_bit'] ?>) - <?php echo $this->formatDate($this->inserat_tagged[0]['print_date']) ?></li>
+    <li>Kategorie: <?php if (1 == $this->inserat_tagged[0]['cover']) : ?>Titelblatt / <?php endif ?><?php echo $this->inserat_tagged[0]['printmedium_type_name'] ?></li>
+    <li>Format: <?php if (1 < $this->inserat_tagged[0]['pages']) echo $this->inserat_tagged[0]['pages'] . ' x ' ?><?php echo $this->inserat_tagged[0]['size'] ?> / <?php echo $this->inserat_tagged[0]['size_width'] . ' x ' . $this->inserat_tagged[0]['size_height'] ?>mm (b x h)</li>
+    <li><?php echo $this->formatCurrency($this->inserat_tagged[0]['price_inserat']) ?></li>
+    <li>&nbsp;</li>
+    <li>Hochgeladen von: <?php echo $this->inserat_tagged[0]['uploader'] ?></li>
+    <li>Getagged von: <?php echo $this->inserat_tagged[0]['tagger'] ?></li>
+    <li>Quelle: <?php echo $this->inserat_tagged[0]['source'] ?></li>
+    <li><?php echo $this->formatTime($this->inserat_tagged[0]['timestamp']) ?></li>
+</ul>
+</div>
+<div style="width:300px;float:left;margin-left:20px;">
+<ul class="inserat">
+    <li style="height:120px; vertical-align:bottom; margin-bottom:5px;"><a href="/stream/index/inserat/<?php echo $this->inserat[0]['id_inserat'] ?>"><img src="<?php echo $this->image['image'] ?>" width="<?php echo $this->image_tagged['width'] ?>" height="<?php echo $this->image_tagged['height'] ?>" alt="Inserat" <?php if (120 > $this->image_tagged['height']) echo 'style="margin-top:' . (120-$this->image_tagged['height']) . 'px;"' ?> /></a></li>
+    <li>Werbung für: <?php echo $this->inserat[0]['party'] ?> (<?php echo $this->inserat[0]['region_party'] ?>)</li>
+    <li>Bezahlt von: <?php echo $this->inserat[0]['payer'] ?></li>
+    <li>Printmedium: <?php echo $this->inserat[0]['printmedium'] ?> (<?php echo $this->inserat[0]['region_printmedium_bit'] ?>) - <?php echo $this->formatDate($this->inserat[0]['print_date']) ?></li>
+    <li>Kategorie: <?php if (1 == $this->inserat[0]['cover']) : ?>Titelblatt / <?php endif ?><?php echo $this->inserat[0]['printmedium_type_name'] ?></li>
+    <li>Format: <?php if (1 < $this->inserat[0]['pages']) echo $this->inserat[0]['pages'] . ' x ' ?><?php echo $this->inserat[0]['size'] ?> / <?php echo $this->inserat[0]['size_width'] . ' x ' . $this->inserat[0]['size_height'] ?>mm (b x h)</li>
+    <li><?php echo $this->formatCurrency($this->inserat[0]['price_inserat']) ?></li>
+    <li>&nbsp;</li>
+    <li>Hochgeladen von: <?php echo $this->inserat[0]['uploader'] ?></li>
+    <li>Getagged von: <?php echo $this->inserat[0]['tagger'] ?></li>
+    <li>Quelle: <?php echo $this->inserat[0]['source'] ?></li>
+    <li><?php echo $this->formatTime($this->inserat[0]['timestamp']) ?></li>
+    <li><?php echo $this->formFixer($this->form) ?></li>
+</ul>
+</div>
+

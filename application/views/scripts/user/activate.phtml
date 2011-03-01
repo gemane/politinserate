@@ -1,0 +1,25 @@
+<?php 
+$this->headTitle()->append('Aktivierung');
+//$this->headLink()->appendStylesheet('/css/form.css');
+?>
+<h2>Aktivierung</h2>
+<?php if ($this->activatedOK) { ?>
+<p>Danke, dass Sie sich registriert haben. </p>
+<p>Ihr Account ist jetzt aktiv.</p>
+<p>Sie müssen sich jetzt noch einloggen, <br />um Ihren Account zu verwenden:</p>
+<?php   if (!empty($this->message)) : ?>
+<span class="errors"><?php foreach($this->message as $message) echo $message . '<br />' ?></span>
+<?php   endif ?>
+<?php   echo $this->formFixer($this->form) ?>
+<? } else if ($this->userAlreadyActive) { ?>
+<p>Dieser Account ist bereits aktiv.</p>
+<p>Zurück zur <a href="/">Homepage</a></p>
+<? } else { ?>
+<div style="width:500px;margin:auto;">
+<h3>Schlechter Aktivierungscode.</h3>
+
+<p>Wenn Sie der Email gefolgt sind, die wir Ihnen zugesendet haben, kann es sein, dass Ihre Registrierung bereits abgelaufen ist. Der Account muss innerhalb von 7 Tagen aktiviert werden.</p>
+<p>Sie können sich hier noch einmal registrieren:</p>
+<p><a href="/user/register">Registrierung</a></p>
+</div>
+<? } ?>

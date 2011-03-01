@@ -1,0 +1,11 @@
+<?php 
+$this->headTitle()->append('Foto hochladen');
+?>
+<h2 style="clear:left;">Inserat hochladen</h2>
+<p class="errors" style="font-size:14px; width:300px;text-align:center;margin:0 auto;padding-bottom:20px;">Es wird empfohlen, dass das Foto die Seite in voller Größe darstellt und das Datum der Erscheinung erkennbar ist.</p>
+<?php if (!empty($this->message)) : ?>
+<span class="errors"><?php   print_r($this->message) ?></span>
+<?php endif ?>
+<?php if ($this->max_uploads) : ?>
+<?php echo $this->formFixer($this->form) ?>
+<?php endif ?>

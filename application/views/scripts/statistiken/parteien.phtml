@@ -1,0 +1,88 @@
+<?php 
+$title = (false == $this->region) ? '' : ' - ' . $this->region;
+$title .= (false == $this->printmedium) ? '' : ' - ' . $this->printmedium;
+$this->headTitle()->append('Parteizahlungen' . $title );
+$this->headScript()->appendFile('/js/intern/plot_party.js', 'text/javascript', array('defer' => 'defer'))
+                   ->appendScript($this->dataPaymentsParty . "\n" .
+                                  $this->dataPaymentsGovernment . "\n" .
+                                  $this->dataColorsParty . "\n" .
+                                  $this->dataColorsGovernment . "\n" .
+                                  $this->dataLegendParty . "\n" .
+                                  $this->dataLegendGovernment . "\n" .
+                                  $this->dataLabelParty . "\n" .
+                                  $this->yaxis . "\n");
+?>
+<h3>Ausgaben der Parteien 
+<?php if (false != $this->region) : ?>
+in <?php echo $this->region ?> 
+<?php endif ?>
+für Inserate
+<?php if (false != $this->printmedium) : ?>
+im Printmedium "<?php echo $this->printmedium ?>" 
+<?php endif ?>
+</h3>
+<div style="text-align:left;margin-top:10px;">
+<?php
+$this->tabContainer()->captureStart('mainTabContainer',
+                                    array('design' => 'headline'),
+                                    array('style'=>'width:100%', 'doLayout' => 'false'));
+
+$this->contentPane()->captureStart('plot', array(), array('title' => 'Diagramm', 'selected' => 'true')); 
+?>
+<h2 style="text-align:right;">Jahr <?php echo $this->year ?></h2>
+<?php if (Zend_Registry::get('browser')) : ?>
+<div id="legendParty" style="width: 700px;"></div> 
+<div id="chartParty" style="width: 700px; height: 405px; float:left;"></div>
+<?php else : ?>
+<h3 style="text-align:center;margin:50px;">Bitte Browser upgraden.</h3>
+<?php endif ?>
+<div style="clear:both;">Ausgaben in EUR. Nur zugeordnete Inserate zählen.</div>
+<?php
+echo $this->contentPane()->captureEnd('plot');
+
+$this->contentPane()->captureStart('table', array(), array('title' => 'Tabelle')); 
+?>
+<div>
+<h2 style="text-align:right;">Jahr <?php echo $this->year ?></h2>
+<?php echo $this->partial('partials/statistik/partial_party.phtml', array('table' => $this->table)) ?>
+</div>
+<?php
+echo $this->contentPane()->captureEnd('table');
+
+$this->contentPane()->captureStart('form', array(), array('title' => 'Navigation')); 
+?>
+<div>
+<br />
+<h2 style="text-align:left;">Konkretisiere die Darstellung</h2>
+<?php if (false == $this->region) : ?>
+<h3>Wähle ein Bundesland aus</h3>
+<?php   $column = 1; foreach ($this->form_region as $value) : ?>
+<a href="/statistiken/parteien<?php echo $value['link'] ?>" title="<?php echo $value['name'] ?>" ><img src="<?php echo $value['image'] ?>" style="border:none;" alt="Navigation zu <?php echo $value['name'] ?>" /></a>
+<?php       if ($this->num_column == $column++) : ?><br /><?php endif ?>
+<?php   endforeach ?>
+<br />
+<?php endif ?>
+<?php if (false == $this->printmedium) : ?>
+<br />
+<h3>Wähle ein Printmedium aus</h3>
+<?php   $column = 1; foreach ($this->form_printmedium as $value) : ?>
+<?php       if (file_exists(APPLICATION_PATH . '/../public/images/uploads/logo_printmedium/logo_' . strtolower($this->preparePath($value['name'])) . '.png') ) : ?>
+<a href="/statistiken/parteien<?php echo $value['link'] ?>" title="<?php echo $value['name'] ?>" ><img src="<?php echo '/images/uploads/logo_printmedium/logo_' . strtolower($this->preparePath($value['name'])) . '.png' ?>" style="border:none;" alt="Navigation zu <?php echo $value['name'] ?>" /></a>
+<?php       else : ?>
+<div class="tagspan_medium" style="background-color: #<?php echo $value['color'] ?>;" ><a href="/statistiken/parteien<?php echo $value['link'] ?>"  title="<?php echo $value['name'] ?>" ><?php echo $value['name'] ?></a></div>
+<?php       endif ?>
+<?php       if ($this->num_column == $column++) : ?><br /><?php endif ?>
+<?php   endforeach ?>
+<?php endif ?>
+<?php if (false != $this->printmedium || false != $this->region) : ?>
+<h2><div style="clear:both;padding-top:30px;" class="tagspan_link"><a href="/statistiken/parteien/"> &laquo; zurück</a></div></h2>
+<?php endif ?>
+</div>
+<?php
+echo $this->contentPane()->captureEnd('form');
+
+echo $this->tabContainer()->captureEnd('mainTabContainer');
+?>
+</div>
+
+

@@ -1,0 +1,14 @@
+<?php 
+$this->headTitle()->append('Login');
+//$this->headLink()->appendStylesheet('/css/input.css');
+//$this->headLink()->appendStylesheet('/css/form.css');
+?>
+<h2>Konfiguration</h2>
+<?php if (!empty($this->message)) : ?>
+<span class="errors"><?php   print_r($this->message) ?></span>
+<?php endif ?>
+<br />
+<?php echo $this->formFixer($this->form) ?>
+<div style="clear:both;">
+
+</div>

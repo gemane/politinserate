@@ -1,0 +1,53 @@
+-- phpMyAdmin SQL Dump
+-- version 2.11.10.1
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.2
+-- Erstellungszeit: 17. Februar 2011 um 17:13
+-- Server Version: 4.1.22
+-- PHP-Version: 4.4.8
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Datenbank: `db213870`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `acd_inserate_user`
+--
+
+DROP TABLE IF EXISTS `acd_inserate_user`;
+CREATE TABLE `acd_inserate_user` (
+  `id_user` int(11) NOT NULL auto_increment,
+  `username` varchar(255) NOT NULL default '',
+  `password` varchar(255) NOT NULL default '',
+  `date_register` datetime NOT NULL default '0000-00-00 00:00:00',
+  `last_access` datetime NOT NULL default '0000-00-00 00:00:00',
+  `user_email` varchar(255) NOT NULL default '',
+  `user_activated` int(11) NOT NULL default '0',
+  `user_activationcode` varchar(255) NOT NULL default '',
+  `user_fullname` varchar(255) NOT NULL default '',
+  `user_show` tinyint(4) NOT NULL default '0',
+  `prefered_region` int(11) NOT NULL default '0',
+  `prefered_printmedium` int(11) NOT NULL default '0',
+  `max_uploads` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id_user`),
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `user_email` (`user_email`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=62 ;
+
+--
+-- Daten für Tabelle `acd_inserate_user`
+--
+
+INSERT INTO `acd_inserate_user` (`id_user`, `username`, `password`, `date_register`, `last_access`, `user_email`, `user_activated`, `user_activationcode`, `user_fullname`, `user_show`, `prefered_region`, `prefered_printmedium`, `max_uploads`) VALUES
+(1, 'anonym', 'd41d8cd98f00b204e9800998ecf8427e', '2010-06-06 00:00:00', '0000-00-00 00:00:00', '', 0, '', '', 0, 0, 0, 3);

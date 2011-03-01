@@ -1,0 +1,34 @@
+<?php echo $this->doctype() ?> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php
+echo $this->headTitle()->setIndent(4);
+echo $this->headLink()->setIndent(4);
+echo $this->headMeta()->setIndent(4);
+echo $this->headStyle()->setIndent(4);
+?>
+
+</head>
+<body class="body tundra" style="background:white;">
+<?php if (false == $this->image) : ?>
+<div style="text-align:center;padding:20px;">
+    <img src="/images/avatar.png" width="346" height="432" border="1" alt="Inserat SimpsonParty" />
+    <p><span class="errors">Keine ID angegeben.</span></p>
+</div>
+<?php else : ?>
+<div style="text-align:center;padding:20px;">
+    <a href="<?php echo $this->imageOriginal ?>">
+        <img src="<?php echo $this->image['image'] ?>" width="<?php echo $this->image['width'] ?>" height="<?php echo $this->image['height'] ?>" border="1" alt="Inserat" />
+    </a>
+</div>
+<?php echo $this->formFixer($this->rotate) ?> <!-- TODO2: Reload der Hauptseite nach dem Drehen -->
+<?php endif ?>
+
+<?php
+if ($this->dojo()->isEnabled())
+    echo $this->dojo(); 
+    
+echo $this->headScript();
+?>
+</body>
+</html>

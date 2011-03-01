@@ -1,0 +1,58 @@
+/* Navigation */
+
+a.paginator {
+    text-decoration:none;
+}
+
+.PaginatorTag-active {
+    font-size: 16px;
+    font-weight:bold;
+    background-color: #DCDCDC;
+    border: 1px solid #967700;
+}
+
+.PaginatorTag-inactive {
+    font-size: 14px;
+    background-color: #ECECEC;
+    border: 1px solid #967700;
+}
+
+.PaginatorTag-active,
+.PaginatorTag-inactive {
+    color: #000;
+    line-height: 1.8;
+    padding: 3px 4px;
+    white-space: nowrap;
+    text-decoration: none;
+    display:inline;
+}
+
+.PaginatorTag {
+    display:inline;
+}
+
+.PaginatorTag a:hover{
+    font-size: 16px;
+    background-color: #DCDCDC;
+    border: 1px solid #967700;
+    color: #000;
+    line-height: 1.8;
+    padding: 3px 4px;
+    white-space: nowrap;
+    text-decoration: none;
+    font-weight:bold;
+    display:inline;
+}
+
+.PaginatorTag a {
+    font-size: 14px;
+    background-color: #ECECEC;
+    border: 1px solid #967700;
+    color: #000;
+    line-height: 1.8;
+    padding: 3px 4px;
+    white-space: nowrap;
+    text-decoration: none;
+    font-weight:bold;
+    display:inline;
+}

@@ -1,0 +1,79 @@
+; Personal settings for the project
+; ---------------------------------
+
+[main]
+;General settings
+general.author = "Gerold Neuwirt"
+general.sitename = "Polit-Inserate.at"
+general.subtitle = "Wir zahlen, sie werben."
+general.url = http://example.org
+general.mobile = http://m.example.org
+general.uploads = 3;
+general.columns = 6;
+general.year = 2010;
+general.filesize = 8388608
+general.captcha = true
+general.pubKey  = 
+general.privKey = 
+general.ssl = false
+general.cache = false
+general.csv = false
+general.csvtime = 18
+general.random = false
+general.senderror = true
+general.subject = "Inserate"
+general.mobiletesting = false
+general.advertisments = false
+
+;Mail transport settings
+
+;mail.smpt - when false - sendmail is used
+mail.smtp = true
+mail.host = smtp.example.org
+mail.smtpconfig.name = example.org
+mail.smtpconfig.port = 25
+mail.smtpconfig.auth = login
+mail.smtpconfig.username = 
+mail.smtpconfig.password = 
+mail.from = "no-reply@example.org"
+
+; User Authentication
+auth.active= true
+auth.timeout= 300
+password.salt= ""
+
+; Smartphone Apps
+app.android.hash = ""
+app.iphone.hash = ""
+app.symbian.hash = ""
+
+; Twitter-Bot
+twitter.active = false
+twitter.email = admin@www.example.org
+twitter.login = 
+twitter.password = 
+twitter.tagname = "inserate"
+twitter.life = 120
+
+[testing : main]
+general.url = http://dev.example.org
+general.mobile = http://mdev.example.org
+
+general.subject = "Inserate-Testing"
+general.senderror = false
+general.mobiletesting = false
+general.advertisments = false
+
+twitter.active = false
+twitter.email = webmaster@www.example.org
+twitter.login = 
+twitter.password = 
+
+[development : main]
+general.url = http://inserate.local
+general.mobile = http://mobile.local
+
+general.pubKey  = 
+general.privKey = 
+
+general.advertisments = false

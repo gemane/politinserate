@@ -1,0 +1,54 @@
+<?php 
+$this->headTitle()->append('Hauptseite');
+
+/***********************************************
+* Image w/ description tooltip v2.0- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+* This notice MUST stay intact for legal use
+* Visit Dynamic Drive at http://www.dynamicdrive.com/ for this script and 100s more
+***********************************************/
+$this->headScript()->appendFile('http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'text/javascript', array('defer' => 'defer'));
+if (!empty($this->table['tooltips'])) {
+    $this->headScript()->appendScript($this->table['tooltips'])
+                       ->appendFile('/js/intern/ddimgtooltip.js', 'text/javascript', array('defer' => 'defer'));
+}
+?>
+<div style="font-size:90%;margin:0px 90px 0px;text-align:left;">
+<h3 class="front" style="text-align:left;">Wofür dient <?php echo $this->title ?>?</h3>
+Mit <?php echo $this->title ?> soll politische Werbung in den Printmedien dokumentiert werden. Ein Teil des Geldes kommt nicht nur von den Parteiförderungen, sondern von den Regierungen und ist somit Steuergeld. Die Parteien erkaufen sich damit gute Bewertungen in den Printmedien, wodurch die <a href="http://de.wikipedia.org/wiki/Vierte_Gewalt">Vierte Gewalt</a> im Staat ad absurdum geführt wird.
+</div>
+<div style="margin: 0 auto;padding-top:0px; ">
+<!--<h3 class="front" style="text-align:center;">Wie kann ich helfen?</h3>-->
+<?php if ($this->mobile) : ?>
+<img src="/images/flow.png" width="336" height="105" />
+<?php else : ?>
+<img src="/images/flow.png" width="640" height="210" />
+<?php endif ?>
+</div>
+
+<div style="clear:both; padding-top:20px;" >
+<?php echo $this->formFixer($this->form) ?>
+</div>
+
+<div style="padding-left:25px; display:block;padding-top:5px;">
+    <table class="table_stream" cellpadding="2" summary="Verlauf der zugeordneten Inserate">
+        <tr>
+<?php if (!empty($this->table)) : ?>
+<?php   foreach ($this->table['ids'] as $id) : ?>
+            <td>
+<?php echo $this->partialLoop('partials/stream/partial_tagged.phtml', $this->table[$id]) ?>
+            </td>
+<?php   endforeach ?>
+<?php else : ?>
+            <td>
+                <ul  class="errors" style="text-align:left; list-style-type: none;">
+                    <li>Keine zugeordneten Inserate vorhanden.</li>
+                </ul>
+            </td>
+<?php endif ?>
+        </tr>
+    </table>
+    <div class="more"><a href="/stream/">Weitere Inserate &gt;&gt;</a></div>
+</div>
+
+
+

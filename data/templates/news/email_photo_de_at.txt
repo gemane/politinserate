@@ -1,0 +1,15 @@
+<h3>Sehr geehrte(r) [name],</h3>
+
+<p>Ein neues Inserat wurde von [uploader] via [source] hochgeladen.</p>
+
+<p>Das Inserat kann unter dem folgenden Link betrachten werden:</p>
+
+<p><a href="[url]">[url]</a></p>
+
+<ul style="list-style-type: none;">
+    <li> Mit freundlichen Grüßen,</li>
+    <li>Das [sitename]-Team</li>
+    <li>[siteurl]</li>
+</ul>
+
+<p>Diese E-Mail haben Sie erhalten, weil Sie die Funktion "Bei neuem Inserat benachrichtigen" in Ihrem Profil aktiviert haben.</p>

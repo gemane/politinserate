@@ -1,0 +1,4 @@
+<p>Absender: [name]<br />
+
+<h3>[titel]</h3>
+<p>[message]</p>

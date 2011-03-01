@@ -1,0 +1,16 @@
+<h3>Sehr geehrte(r) [name],</h3>
+
+<p>Ihr Account von "[sitename]" ist jetzt aktiv. </p>
+
+<p>Sie können nun mehrere Inserate auf unserer Seite hochladen (Default: 10 pro Tag). Außerdem können Sie neue Tarife und Printmedien hinzufügen bzw. editieren.</p>
+
+<p>Weiterführende Informationen sowie Antworten auf häufig gestellte Fragen finden Sie auf unserer Seite unter [url]/faq. </p>
+<p>Besuchen Sie auch Ihre Profilseite unter dem Link [url]/user/profile/[name].</p>
+
+<ul style="list-style-type: none;">
+    <li> Mit freundlichen Grüßen,</li>
+    <li>Das [sitename]-Team</li>
+    <li>[url]</li>
+</ul>
+
+<p>Diese E-Mail haben Sie erhalten, weil Sie Ihren Account bei "[sitename]" aktiviert haben.</p>

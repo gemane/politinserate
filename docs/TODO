@@ -1,0 +1,99 @@
+TODO
+====
+
+Timeline:
+=========
+- ## Passwort vergessen; Passwort ändern
+- ## Kategorien der Printmedien (Tageszeitung, Magazin) bei der Eingabe der Formate verfügbar machen
+- Ursprünglichen Bildnamen aus Datenbank löschen
+- acd_inserate_printmedium -> color_printmedium löschen
+- Logo der Zeitung statt Farbe -> Statistik Medium Farbe automatisch -> StatistikenController (nur optional)
+- Twitter Klasse in den Libraries löschen oder bearbeiten
+
+Neues Design:
+http://wp-themes.com/evolve/?TB_iframe=true&width=600&height=400
+
+Größere Features:
+=================
+Packet 1:
+- Guardian (Inserate?)
+- gleiche Tariffe zusammenfassen (nur Wochentage sind unterschiedlich, Bundesländer enthalten gleich Tarifformate)
+- Automatisches Backup der Datenbank!!
+- Bilder auf CDN legen
+- Log-In via Facebook/Twitter
+- Paypal-Button
+- Facebook Empfehlen Button
+- Sonderformat mit Breite und Höhe in mm kann ausgewählt werden
+
+Packet 2:
+- besseres Design (-> Doppelseite)
+- Logo
+- Smartphone Apps
+- AGBs und Datenschutzerklärung überarbeiten
+- Hilfetext bei der Eingabe von neuen Inseraten hinzufügen
+- Verlauf der Inserate nach Parteien/Medien/Regionen sortieren
+- Verlauf der Inserate nur von einem Monat darstellen
+- Kalender mit Tagen von eingetragenen oder fehlenden Inseraten
+- Regierungsnahe Institutionen (ÖBB, Wiener Linien, ...) einbinden
+- Benachrichtigung bei Überschreitung von Grenzen, bsp. 100000 EUR Grenze an Inseraten.
+- SSL Zertifikat (Muss auf df bezahlt werden)
+- https://sslsites.de/politinserate.at/
+- Weekdays Tabelle in Sizes eingliedern
+- Teamförderung für bestimmte Printmedien und Regionen
+- ACL
+- LiRE (Bilderkennung)
+
+Kleinere Features bzw. Bugs:
+============================
+grep -R --exclude=*~ TODO1 *
+
+Version 1:
+controllers/TarifeController.php:                // TODO1 Überprüfen, ob id_datafile in dem Printmedium existiert
+controllers/TarifeController.php:                        // TODO1 Überprüfen, ob Wochentag bereits ausgewählt wurde
+controllers/UserController.php:        $this->checkToken($form); // TODO1
+controllers/StatistikenController.php:                'color' => 'DDDDDD', // TODO1 $value['logo_printmedium'], 
+controllers/EingabeController.php:                                // TODO1 Falls nur Seitennummer unterschiedlich, dann darauf hinweisen.
+controllers/EingabeController.php:                'id_printmedium'        => $id_printmedium,  // TODO1 Funktioniert nicht mit _bit
+controllers/EingabeController.php:                // TODO1 Ursache des Fehlers überprüfen -> Timeout
+controllers/StreamController.php:        $table = $stream->setTableTagged($id_user); // TODO1 Aus dem Cache laden und nach User filtern
+forms/Format.php:        $this   ->addElement('NumberSpinner', 'pages', // TODO1 benötigt index
+models/Tariff.php:        $select = $this->select()->from(array('d' => 'acd_inserate_size'), // TODO1 Types Datenbank einbinden
+views/scripts/stream/untagged.phtml:<h2>Nicht zugeordnete Inserate</h2> <!-- TODO1 Anzahl der nicht zugeordneten Inseraten -->
+views/scripts/stream/tagged.phtml:<h2>Zugeordnete Inserate</h2> <!-- TODO1 Anzahl der zugeordneten Inseraten -->
+
+Service/Twitter.php:    // TODO1 Heißt jetzt Plixi
+
+Version 2:
+controllers/UserController.php:    public function lostpasswordAction() // TODO2
+controllers/UserController.php:    public function changepasswordAction() // TODO2
+controllers/UserController.php:    public function deleteAction() // TODO2
+controllers/EingabeController.php:                // TODO2 Kommentar hinzufügen -> Warum in den Mülleimer?
+controllers/EingabeController.php:        $mailer->sendNewInseratMail($id_inserat, $values['id_source'], $username); // TODO2 Nur gesammelt versenden (z.B. 1x am Tag)
+controllers/EingabeController.php:        $mailer->sendNewInseratMail($id_inserat, $app, $username); // TODO2 Nur gesammelt versenden (z.B. 1x am Tag)
+controllers/StreamController.php:        // TODO2 Dimension sollte immer überprüft werden (eventuell über EXIF)
+controllers/StreamController.php:        $ch = curl_init($link_image); // TODO2 Bildgröße ermitteln
+forms/Untagged.php:    // TODO2: Sortieren nach, Quelle (Homepage, Twitter), Datum, Uploader
+forms/Sizes.php:                        'label'          => 'So', // TODO2 So & Fei
+forms/Configuration.php:                         // TODO2 Twitteraccount zuordnen
+models/Stream.php:        $ID_Inserate = $this->table_inserat->getAllTaggedID_Inserate($id_user); // TODO2: Darstellung über Paginator
+views/scripts/user/profile.phtml:<!--TODO2 Benachrichtigung über neue hochgeladenen Inseraten-->
+views/scripts/eingabe/image.phtml:<?php echo $this->formFixer($this->rotate) ?> <!-- TODO2: Reload der Hauptseite nach dem Drehen -->
+
+Authentication/Mailer.php:        $email = 'gerold.neuwirt@gmail.com'; // TODO2 Emailverteiler mit Berücksichtigung der Region
+Service/Twitter.php:    protected function getTweets() // TODO2 Try -> Catch
+Service/Twitter.php:            $twitter_search = new Zend_Service_Twitter_Search('atom'); // TODO2 funktioniert das?
+Service/Twitter.php:            // TODO2 Suche nach einem Tag für die Seite, ...
+Service/Twitter.php:        // TODO2 Dürfen Bilder von diesen Seiten legal geladen werden?
+Service/Twitter.php:        // -> http://tweetphoto.com // TODO2 Größeres Bild laden
+Service/Twitter.php:            // TODO2 Oder Datum des hochladens (gepostet) auf Twitpic verwenden
+Service/Twitter.php:        // TODO2 Mit "Neu" markieren
+
+plot_front.js:        max: yaxis, // TODO2 Seems to be a bug -> calculate max yaxis
+
+Version 3:
+Bootstrap.php:        // TODO3: Übersetzungen
+controllers/EingabeController.php:        // TODO3 Foto zuschneiden -> Nur Inserat als Thumbnail sichtbar
+controllers/EingabeController.php:                $form->url_image_front->receive(); // TODO3: Process bar (Hochladen und größe ändern)
+controllers/StreamController.php:                // TODO3 Processanzeige
+
+

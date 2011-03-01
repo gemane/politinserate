@@ -1,0 +1,119 @@
+<?php 
+$this->headTitle()->append($this->titel);
+$this->showTooltips();
+?>
+<h2><?php echo $this->titel ?></h2>
+<?php if (!empty($this->message)) : ?>
+<span class="errors"><?php   print_r($this->message) ?></span>
+<?php endif ?>
+<?php if (Zend_Registry::get('PrintmediumTypes')) : ?>
+
+<?php
+$this->headScript()->appendFile('/js/intern/form_addfields.js', 'text/javascript');
+$this->headScript()->appendScript($this->types . "\n");
+?>
+
+<script type="text/javascript">
+
+var updatefield_url = "/ajax/updatefield/format/html/medium/";
+
+function UpdateFields() {
+
+    var len = printmedium_types.length;
+    for (var i = 0; i < len; i++) {
+        ajaxUpdateField(i+1, printmedium_types[i]);
+    }
+}
+
+function ajaxUpdateField(id_update, type_id) {
+    $.ajax(
+        {
+            type: "POST",
+            url: updatefield_url + id_update,
+            data: "id=" + id_update + "&type=" + type_id,
+            async: false,
+            cache: false,
+            success: function(newElement) {
+                
+                // Insert new element before the Add button
+                $("#addElement-label").before(newElement);
+                
+                // Parse the element to receive Dojo style
+                var n = dojo.byId("newType" + id_update);
+                n.outerHTML = newElement;
+                dojo.parser.parse(n);
+                
+                // Increment and store id
+                $("#id").val(id_update + 1);
+            }
+        }
+    );
+}
+
+</script>
+
+<?php endif ?>
+<?php echo $this->formFixer($this->form) ?>
+<?php if ($this->downloadDatafile) : ?>
+
+<div style="clear:both; font-size:16px; font-weight:bold; margin-bottom:10px;">Eintrag für das Printmedium "<?php echo $this->printmedium ?>" und dem folgenden Datenfile:</div>
+<div style="clear:both; margin-bottom:20px;" class="tagspan" title="Tarifblatt herunterladen"><a href="/tarife/download/<?php echo $this->year ?>/<?php echo $this->preparePath($this->printmedium) ?>/<?php echo $this->path ?>">Tarifblatt herunterladen: <?php echo $this->path ?></a></div>
+<?php endif ?>
+<?php if (!empty($this->table)) : ?>
+<div style="clear:both; text-align:left;">
+<?php $this->tabContainer()->captureStart('mainTabContainer', array('style'=>'width:100%;', 'doLayout' => 'false')); ?>
+<?php foreach ($this->table['printmedien'] as $medium) : ?>
+<?php $contentPaneOptions = ($medium['id_printmedium'] == $this->id_medium) ? array('title' => $medium['printmedium'], 'selected' => 'true') : array('title' => $medium['printmedium']) ?>
+
+<?php   $this->contentPane()->captureStart('medium' . $medium['id_printmedium'], array(), $contentPaneOptions ) ?>
+
+    <div style="text-align:center;">
+    <br />
+    <h2><?php echo $medium['printmedium'] ?></h2>
+<?php   if (!empty($this->table['types'][$medium['id_printmedium']]) ) : ?>
+    <table class="table_types" cellpadding="5" summary="Formate des Printmediums">
+<?php echo $this->partialLoop('partials/tariff/partial_types.phtml', $this->table['types'][$medium['id_printmedium']]);?>
+    </table>
+  <?php endif ?>
+<?php   if (empty($medium['keywords_printmedium'])) :?>
+    <span style="font-size:14px;margin-top:0px;margin-bottom:15px;">&nbsp;</span>
+<?php   else : ?>
+    <span style="font-size:14px;margin-top:0px;margin-bottom:15px;">Alias: "<?php echo $medium['keywords_printmedium'] ?>"</span>
+<?php   endif ?>
+    <div style="background-color: #852806;padding:5px;margin:0px 20px 20px;"></div>
+<?php   if (empty($this->table[$medium['id_printmedium']])) : ?>
+        <div style="clear:both;" ><span class="errors">Kein Datenfile vorhanden.</span></div>
+<?php   else : ?>
+<?php       foreach ($this->table['datafiles'][$medium['id_printmedium']] as $datafile) : ?>
+    <div style="clear:both;"><?php echo $datafile['region_printmedium_bit'] ?> (<?php echo $datafile['year'] ?>) </div>
+    <div style="font-size: 90%; font-style:italic;"><?php echo $this->formatDate($datafile['date_from']) . ' - ' . $this->formatDate($datafile['date_to']) ?></div>
+    <table class="table_tariff" cellpadding="5" summary="Tarife der Anzeigen">
+        <tr>
+            <th>Bezeichnung</th>
+            <th>Breite</th>
+            <th>Höhe</th>
+            <th>Titelblatt</th>
+            <th>Format</th>
+            <th>Wochentage</th>
+            <th>Preis</th>
+        </tr>
+<?php           if (empty($this->table[$medium['id_printmedium']][$datafile['id_datafile']]) ) : ?>
+        <tr>
+            <td colspan="5"><span class="errors">Daten müssen noch eingetragen werden.</span></td>
+        </tr>
+<?php           else : ?>
+<?php               echo $this->partialLoop('partials/tariff/partial_tariff.phtml', $this->table[$medium['id_printmedium']][$datafile['id_datafile']]);
+                endif ?>
+    </table>
+    <br />
+<?php       endforeach ?>
+<?php   endif ?>
+    </div>
+<?php   echo $this->contentPane()->captureEnd('medium' . $medium['id_printmedium']); ?>
+
+<?php endforeach ?>
+<?php echo $this->tabContainer()->captureEnd('mainTabContainer') ?>
+</div>
+<?php else : ?>
+<span class="errors">Kein Einträge vorhanden.</span>
+<?php endif ?>

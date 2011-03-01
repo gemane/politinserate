@@ -1,0 +1,38 @@
+<?php 
+$this->headTitle()->append('Hauptseite');
+/***********************************************
+* Image w/ description tooltip v2.0- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+* This notice MUST stay intact for legal use
+* Visit Dynamic Drive at http://www.dynamicdrive.com/ for this script and 100s more
+***********************************************/
+$this->headScript()->appendFile('http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'text/javascript', array('defer' => 'defer'));
+if (!empty($this->table['tooltips'])) {
+    $this->headScript()->appendScript($this->table['tooltips'])
+                       ->appendFile('/js/intern/ddimgtooltip.js', 'text/javascript', array('defer' => 'defer'));
+}
+?>
+
+<?php echo $this->formFixer($this->form) ?>
+<br /><br />
+<h2>Inserate zuordnen</h2>
+<table class="table_stream" cellpadding="2" summary="Verlauf der nicht zugeordneten Inserate">
+    <tr>
+<?php if (!empty($this->table['ids'])) : ?>
+<?php   foreach ($this->table['ids'] as $id) : ?>
+        <td>
+<?php echo $this->partialLoop('partials/stream/partial_untagged.phtml', $this->table[$id]) ?>
+        </td>
+<?php       if ($this->num_column == $this->column++) : ?>
+    </tr>
+    <tr>
+<?php       $this->column = 1 ?>
+<?php       endif ?>
+<?php   endforeach ?>
+<?php else : ?>
+        <td>
+            <h3><span class="errors">Keine Inserate vorhanden.</span></h3>
+            [<a href="/">zurück</a>]
+        </td>
+<?php endif ?>
+    </tr>
+</table>

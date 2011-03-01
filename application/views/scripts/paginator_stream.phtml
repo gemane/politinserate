@@ -1,0 +1,51 @@
+<?php $this->headLink()->appendStylesheet('/css/paginator.css') ?>
+
+<?php if ($this->pageCount): ?>
+<!-- First page link -->
+<?php if (isset($this->previous)): ?>
+  <a class="paginator" href="<?php echo $this->url(array('page' => $this->first)); ?>">
+    &lt;&lt;
+  </a> 
+<?php else: ?>
+  <span class="disabled">&lt;&lt;</span> 
+<?php endif; ?>
+ 
+<!-- Previous page link -->
+<?php if (isset($this->previous)): ?>
+  <a class="paginator" href="<?php echo $this->url(array('page' => $this->previous)); ?>">
+    &lt;
+  </a> 
+<?php else: ?>
+  <span class="disabled">&lt;</span> 
+<?php endif; ?>
+
+<!-- Numbered page links -->
+<?php foreach ($this->pagesInRange as $page): ?>
+  <?php if ($page != $this->current): ?>
+    <a class="paginator" href="<?php echo $this->url(array('page' => $page)); ?>">
+        <?php echo $page; ?>
+    </a> 
+  <?php else: ?>
+    <strong><?php echo $page; ?> </strong>
+  <?php endif; ?>
+<?php endforeach; ?>
+ 
+<!-- Next page link -->
+<?php if (isset($this->next)): ?>
+  <a class="paginator" href="<?php echo $this->url(array('page' => $this->next)); ?>">
+    &gt;
+  </a> 
+<?php else: ?>
+  <span class="disabled">&gt;</span> 
+<?php endif; ?>
+ 
+<!-- Last page link -->
+<?php if (isset($this->next)): ?>
+  <a class="paginator" href="<?php echo $this->url(array('page' => $this->last)); ?>">
+    &gt;&gt;
+  </a>
+<?php else: ?>
+  <span class="disabled">&gt;&gt;</span>
+<?php endif; ?>
+ 
+<?php endif; ?>

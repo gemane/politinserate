@@ -1,0 +1,14 @@
+<h3>Sehr geehrte(r) [name],</h3>
+
+<p>Danke, dass Sie sich bei "[sitename]" registriert haben. </p>
+
+<p>Um die Registrierung abzuschließen, müssen Sie auf den folgenden Link klicken:</p>
+<p>[url][activation_link]</p>
+
+<ul style="list-style-type: none;">
+    <li> Mit freundlichen Grüßen,</li>
+    <li>Das [sitename]-Team</li>
+    <li>[url]</li>
+</ul>
+
+<p>Diese E-Mail haben Sie erhalten, weil Sie sich bei "[sitename]" registriert haben.</p>

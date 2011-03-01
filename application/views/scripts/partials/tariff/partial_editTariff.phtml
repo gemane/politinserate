@@ -1,0 +1,15 @@
+        <tr>
+            <?php if (0 < $this->id_height_image) : ?>
+            <td rel="imgtip[<?php echo $this->id_height_image ?>]"><?php echo $this->size ?></td>
+            <?php else : ?>
+            <td><?php echo $this->size ?></td>
+            <?php endif ?>
+            <td><?php echo $this->printmedium_width ?></td>
+            <td><?php echo $this->size_height ?></td>
+            <td><?php echo (1 == $this->cover) ? 'Ja' : 'Nein' ?></td>
+            <td><?php echo $this->printmedium_type_name ?></td>
+            <td><?php echo $this->weekdays ?></td>
+            <td style="text-align:right;"><?php echo number_format($this->price, 0, ',', '.') ?>.-</td>
+            <td><div style="display:inline" class="tagspan" title="Tarif editieren"><a href="/tarife/form/medium/<?php echo $this->id_printmedium ?>/file/<?php echo $this->id_datafile  ?>/tariff/<?php echo $this->id_size  ?>">Editieren</a></div></td>
+            <td><div style="display:inline" class="tagspan" title="Tarif löschen"><a href="/tarife/delete/medium/<?php echo $this->id_printmedium ?>/file/<?php echo $this->id_datafile  ?>/tariff/<?php echo $this->id_size  ?>" onclick="loeschen(this, '/tarife/delete/medium/<?php echo $this->id_printmedium ?>/file/<?php echo $this->id_datafile  ?>/tariff/<?php echo $this->id_size  ?>')">Löschen</a></div></td>
+        </tr>

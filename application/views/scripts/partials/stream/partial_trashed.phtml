@@ -1,0 +1,9 @@
+                <ul class="stream">
+                    <li style="height:120px; vertical-align:bottom; margin-bottom:5px;"><a href="/stream/index/inserat/<?php echo $this->id_inserat ?>"><img src="<?php echo $this->image ?>" width="<?php echo $this->width ?>" height="<?php echo $this->height ?>" alt="Inserat" rel="imgtip[<?php echo $this->id_inserat ?>]" style="border:none; <?php if (120 > $this->height) echo 'margin-top:' . (120-$this->height) . 'px;' ?>" /></a></li>
+                    <li><?php echo $this->uploader ?></li>
+                    <li><?php echo $this->user ?></li>
+                    <li><?php echo $this->formatTime($this->timestamp) ?></li>
+                    <?php if (true == Zend_Registry::get('admin')) : ?>
+                    <li style=" padding-top:20px;"><div style="display:inline;" class="tagspan" title="Inserat löschen"><a href="/stream/delete/inserat/<?php echo $this->id_inserat ?>" onclick="loeschen(this, '/stream/delete/inserat/<?php echo $this->id_inserat ?>')">Löschen</a></div></li>
+                    <?php endif ?>
+                </ul>

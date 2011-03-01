@@ -1,0 +1,105 @@
+<?php 
+$this->headTitle()->append('Tarife editieren');
+$this->headScript()->appendScript('
+function loeschen(objLink, strHREF){
+    if(confirm("Wollen Sie den Eintrag wirklich löschen?")){
+        objLink.href = strHREF;
+    }
+}
+');
+$this->showTooltips();
+?>
+<h3><div style="text-align:right;" class="tagspan_link" title="Übersicht Tarife"><a href="/tarife/index/medium/<?php echo $this->id_medium ?>">&laquo; zurück</a></div></h3><h2>Anzeigentarife in den Printmedien editieren</h2>
+<?php if ($this->advertisments) : ?> <!-- TODO3 Weitere Werbewege -->
+<div style="display:inline;" class="tagspan_link_inactive" title="Inserate">Inserate</div>
+<div style="display:inline;" class="tagspan_link" title="Inserate"><a href="/online">Online-Werbung</a></div>
+<div style="display:inline;" class="tagspan_link" title="Plakate"><a href="/plakate">Plakate</a></div>
+<div style="display:inline;" class="tagspan_link" title="Postwurfe"><a href="/postwurf">Postwurf</a></div>
+<div style="display:inline;" class="tagspan_link" title="Werbegeschenke"><a href="/werbegeschenke">Werbegeschenke</a></div>
+<br /><br />
+<?php endif ?>
+<h3 class="errors">Hierarchie: Printmedium &raquo; Tarifblatt &raquo; Tarif</h3>
+<?php if (!empty($this->message)) : ?>
+<span class="errors"><?php   print_r($this->message) ?></span>
+<?php endif ?>
+<br />
+<div style="text-align:right;" class="tagspan" title="Neues Printmedium hinzufügen"><a href="/tarife/form/medium/0/">Neues Printmedium</a></div>
+<br />
+<?php if (!empty($this->table)) : ?>
+<div style="clear:both; text-align:left;">
+<?php $this->tabContainer()->captureStart('mainTabContainer', array('style'=>'width:100%;', 'doLayout' => 'false')); ?>
+<?php foreach ($this->table['printmedien'] as $medium) : ?>
+<?php $contentPaneOptions = ($medium['id_printmedium'] == $this->id_medium) ? array('title' => $medium['printmedium'], 'selected' => 'true') : array('title' => $medium['printmedium']) ?>
+
+<?php   $this->contentPane()->captureStart('medium' . $medium['id_printmedium'], array(), $contentPaneOptions) ?>
+
+    <div style="text-align:center;">
+    <br />
+    <div class="tagspan_edit" style="display:inline;" title="Name und Farbe des Printmediums editieren"><h2><a href="/tarife/form/medium/<?php echo $medium['id_printmedium'] ?>"><?php echo $medium['printmedium'] ?></a></h2></div>
+<?php   if (!empty($this->table['types'][$medium['id_printmedium']]) ) : ?>
+    <table class="table_types" cellpadding="5" summary="Formate des Printmediums">
+<?php echo $this->partialLoop('partials/tariff/partial_types.phtml', $this->table['types'][$medium['id_printmedium']]);?>
+    </table>
+  <?php endif ?>
+<?php   if (empty($medium['keywords_printmedium'])) :?>
+    <span style="font-size:14px;margin-top:0px;margin-bottom:15px;">&nbsp;</span>
+<?php   else : ?>
+    <span style="font-size:14px;margin-top:0px;margin-bottom:15px;">Alias: "<?php echo $medium['keywords_printmedium'] ?>"</span>
+<?php   endif ?>
+    <div style="background-color: #852806;padding:5px;margin:0px 20px 20px;"></div>
+<?php   if ($this->table['delete'][$medium['id_printmedium']][0]) : ?>
+    <div style="display:inline;" class="tagspan" title="Printmedium löschen"><a href="/tarife/delete/medium/<?php echo $medium['id_printmedium'] ?>" onclick="loeschen(this, '/tarife/delete/medium/<?php echo $medium['id_printmedium'] ?>')">Löschen</a></div>
+<?php   endif ?>
+    <div style="text-align:right;" class="tagspan" title="Neues Tarifblatt hochladen"><a href="/tarife/form/medium/<?php echo $medium['id_printmedium'] ?>/file/0/">Neues Tarifblatt</a></div>
+<?php   if (empty($this->table[$medium['id_printmedium']])) : ?>
+    <span class="errors">Kein Tarifblatt vorhanden.</span>
+<?php   else : ?>
+<?php       foreach ($this->table['datafiles'][$medium['id_printmedium']] as $datafile) : ?>
+<br />
+    <div class="tagspan_edit" style="display:inline;" title="Eintrag des Tarifblatts editieren"><a href="/tarife/form/medium/<?php echo $medium['id_printmedium'] ?>/file/<?php echo $datafile['id_datafile'] ?>"><?php echo $datafile['region_printmedium_bit'] ?> (<?php echo $datafile['year'] ?>)</a></div>
+<?php           if (!isset($this->table['delete'][$datafile['id_datafile']])) : ?>
+    <div style="display:inline;" class="tagspan" title="Eintrag mit Tarifblatt löschen"><a href="/tarife/delete/medium/<?php echo $medium['id_printmedium'] ?>/file/<?php echo $datafile['id_datafile'] ?>" onclick="loeschen(this, '/tarife/delete/medium/<?php echo $medium['id_printmedium'] ?>/file/<?php echo $datafile['id_datafile'] ?>')">Löschen</a></div>
+<?php           endif ?>
+    <div style="font-size: 90%; font-style:italic; padding-top:6px;"><?php echo $this->formatDate($datafile['date_from']) . ' - ' . $this->formatDate($datafile['date_to']) ?></div>
+    <table class="table_tariff" cellpadding="5" summary="Tarife der Anzeigen">
+        <tr>
+            <th>Bezeichnung</th>
+            <th>Breite</th>
+            <th>Höhe</th>
+            <th>Titelblatt</th>
+            <th>Format</th>
+            <th>Wochentage</th>
+            <th>Preis</th>
+<?php           if (empty($this->table[$medium['id_printmedium']][$datafile['id_datafile']]) ) : ?>
+        </tr>
+        <tr>
+            <td colspan="7"><span class="errors">Daten müssen noch eingetragen werden.</span></td>
+        </tr>
+        <tr>
+            <td colspan="7">
+<?php           else : ?>
+            <th></th>
+            <th></th>
+        </tr>
+<?php               echo $this->partialLoop('partials/tariff/partial_editTariff.phtml', $this->table[$medium['id_printmedium']][$datafile['id_datafile']]);
+?>
+        <tr>
+            <td colspan="9">
+<?php           endif ?>
+                <div class="tagspan_expanded" title="Neuer Tarif Eintrag"><a href="/tarife/form/medium/<?php echo $medium['id_printmedium'] ?>/file/<?php echo $datafile['id_datafile'] ?>/tariff/0/">Neuer Eintrag</a></div>
+            </td>
+        </tr>
+    </table>
+    <br />
+<?php       endforeach ?>
+<?php   endif ?>
+    </div>
+<?php   echo $this->contentPane()->captureEnd('medium' . $medium['id_printmedium']); ?>
+
+<?php endforeach ?>
+<?php echo $this->tabContainer()->captureEnd('mainTabContainer') ?>
+</div>
+<?php else : ?>
+<br />
+<span class="errors">Kein Einträge vorhanden.</span>
+<?php endif ?>

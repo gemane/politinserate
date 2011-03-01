@@ -1,0 +1,30 @@
+<?php 
+$this->headTitle()->append('Printmedium auswählen');
+$this->headScript()->appendScript('
+function openwindow(url) 
+{
+ fenster = window.open(url, "window1", "width=' . ($this->imageDefault['width']+80) . ', height=' . ($this->imageDefault['height']+100) . ', status=yes, scrollbars=yes, resizable=yes");
+ fenster.focus();
+}
+');
+?>
+<?php echo $this->partial('partials/input/partial_navigation.phtml', $this->navigation) ?>
+<?php if ($this->tagged) : ?>
+<h2 style="clear:left;">Inserat wurde bereits zugeordnet</h2>
+<p>Änderungen sind nur vom Administrator möglich.</p>
+<?php else : ?>
+<h2 style="clear:left;">Printmedium auswählen</h2>
+<?php endif ?>
+<?php if (!empty($this->message)) : ?>
+<span class="errors"><?php   print_r($this->message) ?></span>
+<?php endif ?>
+<?php if ($this->max_entries && !$this->tagged) : ?>
+<div style="float:left; padding-left:80px;">
+<span class="errors" style="font-size:14px;clear:both;">Printmedium nicht vorhanden? Trage Fehlendes <a href="/tarife/edit/" target="_blank">hier</a> ein<?php if (!$this->auth) :?><br />(nur möglich wenn angemeldet)<br /><?php endif ?>.
+</span>
+<?php echo $this->formFixer($this->form) ?>
+</div>
+<div style="float:left;margin-left:20px;">
+    <a href="/eingabe/image/id/<?php echo $this->id ?>" target="_blank" onclick="openwindow(this.href);return false"><img src="<?php echo $this->imageThumbnail['image'] ?>" width="<?php echo $this->imageThumbnail['width'] ?>" height="<?php echo $this->imageThumbnail['height'] ?>" border="1" alt="Inserat" /></a>
+</div>
+<?php endif ?>

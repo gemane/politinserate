@@ -1,0 +1,8 @@
+            <ul class="stream">
+                <li style="height:120px; vertical-align:bottom; margin-bottom:5px; border:none;"><a href="/stream/index/inserat/<?php echo $this->id_inserat ?>"><img src="<?php echo $this->image ?>" width="<?php echo $this->width ?>" height="<?php echo $this->height ?>" alt="Inserat" rel="imgtip[<?php echo $this->id_inserat ?>]" style="border:none; <?php if (120 > $this->height) echo 'margin-top:' . (120-$this->height) . 'px;' ?>" /></a></li>
+                <li><?php echo $this->party ?> <?php echo $this->region_party ?></li>
+                <li><?php echo $this->payer ?></li>
+                <li><?php echo $this->printmedium ?></li>
+                <li><?php echo $this->formatDate($this->print_date) ?></li>
+                <li><?php echo $this->formatCurrency($this->price_inserat) ?></li>
+            </ul>

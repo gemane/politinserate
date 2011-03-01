@@ -1,0 +1,64 @@
+<?php $this->headTitle()->append('FAQ') ?>
+<h2>FAQ</h2>
+
+<div style="text-align:left; font-size:90%; width:90%; margin-left:5%;">
+<h4>Was sind die Vorraussetzungen für das Foto eines Inserats?</h4>
+<p>Es sollte die Anzeige in voller Größe dargestellt und das Datum der Erscheinung erkennbar sein. Falls dies nicht so ist, dann wäre es von Vorteil, wenn die Zuordnung unmittelbar durchgeführt wird.</p>
+
+<h4>Wie erkenne ich, ob das Inserat von der Partei oder von der Regierung bezahlt wird?</h4>
+<p>Am Besten erkennbar am Logo. Beispielsweise, ob das Logo der SPÖ Wien oder der Gemeinde Wien angezeigt wird. Bei letzterem hat mit hoher Wahrscheinlichkeit die Gemeinde Wien bezahlt.</p>
+
+<h4>Werden auch Inserate von staatsnahen Betrieben berücksichtigt, bspw. ÖBB?</h4>
+<p>Die aktuelle Version erlaubt es noch nicht diese einzutragen, da es auch nicht ganz eindeutig ist wie diese einzuordnen sind. Wenn ein guter Vorschlag kommt wie man dies umsetzen kann, wird eine entsprechende Funktion eingebaut.</p>
+
+<h4>Das Printmedium ist nicht vorhanden. Kann ich ein neues Eintragen?</h4>
+<p>Um ein neues Printmedium einzutragen muss man angemeldet sein. Dann gibt es unter Tarife die Möglichkeit ein neues Printmedium einzutragen.</p>
+
+<h4>Der Tarif ist nicht eingetragen. Was soll ich tun?</h4>
+<p>Falls das Printmedium mit einem entsprechenden Datenblatt bereits eingetragen wurde, kann man weitere Tarife hinzufügen. Auch hier muss man angemeldet sein.</p>
+
+<h4>Es gibt soviele Postwurfsendungen, Plakate, ... von der Partei soundso, wo kann ich das eintragen?</h4>
+<p>Mit dieser Seite wird vorerst nur versucht Inserate in den Printmedien zu dokumentieren, alles andere sind Erweiterungen, wofür die Manpower derzeit zu gering ist. Aber es werden natürlich weitere Entwickler gesucht die mithelfen, die Seite auszubauen. Der Source Code kann von <a href="https://github.com/gemane/politinserate">GitHub</a> geholt werden.</p>
+
+<h4>Was sind die Vorteile einer Registrierung?</h4>
+<p>Anonym kann nur ein Foto pro Tag hochgeladen bzw nur 4 Einträge verändert werden. Als registrierter Benutzer liegt die Grenze zum Hochladen bei 10 Fotos, Einträge können jedoch unbegrenzt verändert werden. Außerdem ist es möglich neue Tarife einzutragen bzw. diese zu korrigieren.</p>
+
+<h4>Wie genau stimmen die Berechnungen?</h4>
+<p>Wenn die Daten korrekt zugeordnet wurden, entsprechen die Tarife wie in den Tarifblättern angegeben. Wie jedoch unten erwähnt, können wir nicht feststellen, ob ein Rabatt gewährt wurde oder nicht. Falls ein Tarif falsch eingetragen wurde, können Sie diesen im eingeloggten Zustand verändern.</p>
+
+<h4>Woher stammen die Tarife?</h4>
+<p>Die Tarife können auf den Seiten der Printmedien gefunden werden. Sind also allgemein zugänglich.</p>
+
+<h4>Sind das die tatsächlichen Preise für Inserate?</h4>
+<p>Uns ist natürlich unbekannt, ob der zahlenden Partei ein Rabatt gegeben wurde. Deshalb könnten die Kosten beispielsweise um 20% niedriger liegen.</p>
+
+<h4>Seid Ihr dagegen, dass Politiker Werbung machen dürfen?</h4>
+<p>Nein, es geht nur darum aufzuzeigen, wer für die Inserate zahlt. Wie mit diesen Daten umzugehen ist, liegt bei den Medien und der Bevölkerung.</p>
+
+<?php if ($this->csv) : ?>
+<h4>Ich möchte die Verteilung visualisieren. Woher bekomme ich die Daten? </h4>
+<p>Die Inserate können auf der Seite <a href="<?php echo $this->csv_inserate ?>"><?php echo $this->csv_inserate ?></a> heruntergeladen werden. Die Datei enthält alle relevanten Daten und ein Archiv mit kleinen Bildern. Ein Update der Daten erfolgt nur alle 24 Stunden. Das Datenformat ist in CSV und einer UTF-8 Codierung.</p>
+<?php endif ?>
+
+<?php if ($this->twitter) : ?>
+<h4>Wie kann man Fotos über Twitter hochladen?</h4>
+<p>Alle Tweets die den Twitternamen <a href="http://twitter.com/politinserate">@politinserate</a> enthalten werden auf Links untersucht. Falls diese auf http://twitpic.com oder http://yfrog.com verweisen werden die Fotos als neue Inserate behandelt.</p>
+<?php endif ?>
+
+<h4>Was ist mit "Unbrauchbar" gemeint?</h4>
+<p>Es kann sein, dass ein Inserat nicht lesbar und somit nicht einem Printmedium oder einer Partei zuzuordnen ist. Weiters könnten Fotos von einem Inserat mehrmals existieren, die man deshalb am Besten in diesen Ordner verschiebt.</p>
+<p>Wenn nach 30 Tagen keine Änderung an dem Inserat vorgenommen wurde, wird dieses automatisch vom Server gelöscht. Nicht zugeordnete Inserate wandern nach 180 Tagen in den "Unbrauchbar" Ordner, da diese nicht mehr zuzuordnen sind.</p>
+
+<h4>Tolle Idee! Von wem kam die?</h4>
+<p>Diese Idee stammt von Georg Holzer, welcher auf seiner <a href="http://www.k2020.at/2010/04/15/inserate-in-die-datenbank/">http://www.k2020.at/</a> Seite den Vorschlag machte, die Inserate in den Medien zu dokumentieren.</p>
+
+<h4>Kann ich mithelfen?</h4>
+<p>Der Source Code für die Webseite und die Apps können in den folgenden Repositores gefunden werden:
+    <ol>
+        <li>Webseite: <a href="http://github.com/gemane/politinserate">https://github.com/gemane/politinserate</a></li>
+        <li>Android: <a href="http://github.com/salendron/Polit-Inserate">https://github.com/salendron/Polit-Inserate</a></li>
+        <li>iPhone: <a href="http://github.com/">https://github.com/</a></li>
+    </ol>
+</p>
+
+</div>

@@ -1,0 +1,38 @@
+<?php 
+$this->headTitle()->append('Verlauf der nicht zugeordnete Inserate');
+/***********************************************
+* Image w/ description tooltip v2.0- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+* This notice MUST stay intact for legal use
+* Visit Dynamic Drive at http://www.dynamicdrive.com/ for this script and 100s more
+***********************************************/
+$this->headScript()->appendFile('http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'text/javascript', array('defer' => 'defer'));
+$this->headScript()->appendScript($this->table['tooltips'])
+                   ->appendFile('/js/intern/ddimgtooltip.js', 'text/javascript', array('defer' => 'defer'));
+?>
+<div style="display:inline;" class="tagspan_link" title="Zugeordnete Inserate"><a href="/stream/tagged">Zugeordnet</a></div>
+<div style="display:inline;" class="tagspan_link_inactive" title="Nicht zugeordnete Inserate">Nicht zugeordnet</div>
+<div style="display:inline;" class="tagspan_link" title="Unbrauchbare Inserate"><a href="/stream/trash">Unbrauchbar</a></div>
+<br /><br />
+<h2>Nicht zugeordnete Inserate</h2> <!-- TODO1 Anzahl der nicht zugeordneten Inseraten -->
+<span class="errors" style="font-size:14px;clear:both;">Inserate werden nach 180 Tagen automatisch in den Mülleimer verschoben.</span>
+<table class="table_stream" cellpadding="2" summary="Verlauf der nicht zugeordneten Inserate">
+    <tr>
+<?php if (!empty($this->table['ids'])) : ?>
+<?php   foreach ($this->table['ids'] as $id) : ?>
+        <td>
+<?php echo $this->partialLoop('partials/stream/partial_untagged.phtml', $this->table[$id]) ?>
+        </td>
+<?php       if ($this->num_column == $this->column++) : ?>
+    </tr>
+    <tr>
+<?php       $this->column = 1 ?>
+<?php       endif ?>
+<?php   endforeach ?>
+<?php else : ?>
+        <td>
+            <h3><span class="errors">Keine Inserate vorhanden.</span></h3>
+            [<a href="/">zurück</a>]
+        </td>
+<?php endif ?>
+    </tr>
+</table>
