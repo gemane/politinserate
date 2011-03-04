@@ -59,6 +59,8 @@ class EingabeController extends Mobile_Controller_Action
         $this->configuration = Zend_Registry::get('configuration');
         $this->cache = Zend_Registry::get('cache');
         
+        $this->view->headScript()->appendScript('document.getElementById("nav_input").style.textDecoration = "underline";');
+
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         
         if ($this->mobile)
@@ -341,7 +343,6 @@ class EingabeController extends Mobile_Controller_Action
                     } else {
                         if ($this->table_inserat->checkAllTagged($id_inserat)) {
                             if (false != $id_inserat_tagged = $this->table_inserat->checkInseratExists($id_inserat)) {
-                                // TODO1 Falls nur Seitennummer unterschiedlich, dann darauf hinweisen.
                                 $this->view->image_tagged = $this->image->orientationImageThumbnail($id_inserat_tagged);
                                 $this->view->inserat_tagged = $this->table_inserat->getInseratAll($id_inserat_tagged);
                                 $this->view->image = $this->image->orientationImageThumbnail($id_inserat);

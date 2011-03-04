@@ -33,22 +33,25 @@ class Application_Model_Stream
     *
     * @return array Data of all tagged advertisments.
     */
-    public function setTableTagged($id_user = false)
+    public function setTableTagged($year = false, $month = false, $id_user = false)
     {
-        $ID_Inserate = $this->table_inserat->getAllTaggedID_Inserate($id_user); // TODO2: Darstellung über Paginator
+        $ID_Inserate = $this->table_inserat->getAllTaggedID_Inserate(false, false, $id_user);
+        
+        $table['num_tagged'] = count($ID_Inserate);
         
         if (!empty($ID_Inserate)) {
             $this->configuration = Zend_Registry::get('configuration');
             foreach ($ID_Inserate as $id_inserat) {
-                $table[$id_inserat] = $this->table_inserat->getInseratTagged($id_inserat);
-                $table = $this->setImage($id_inserat, $table);
+                $table[$id_inserat['id_inserat']] = $this->table_inserat->getInseratTagged($id_inserat['id_inserat']);
+                $table = $this->setImage($id_inserat['id_inserat'], $table);
                 $table['ids'][] =  $id_inserat;
-                $table['tooltips'] =  $this->tooltipTagged($table);
             }
+            
+            $table['tooltips'] =  $this->tooltipTagged($table);
             
             if ($this->configuration->general->csv)
                 $lockfile = APPLICATION_PATH . '/../temp/lock_csv_inserate';
-                if (86400 < (time() - filemtime($lockfile))) {
+                if (86400 < (time() - filemtime($lockfile))) { // 86400
                     $this->createCSV();
                     $locktime = mktime($this->configuration->general->csv_time, 0, 0);
                     touch($lockfile, $locktime);
@@ -69,9 +72,11 @@ class Application_Model_Stream
     *
     * @return array Data of all tagged advertisments.
     */
-    public function setTableUntagged()
+    public function setTableUntagged($year = false, $month = false, $id_user = false)
     {
         $ID_Inserate = $this->table_inserat->getAllUntaggedID_Inserate();
+        
+        $table['num_untagged'] = count($ID_Inserate);
         
         if (!empty($ID_Inserate)) {
             foreach ($ID_Inserate as $id_inserat) {
@@ -99,6 +104,8 @@ class Application_Model_Stream
     public function setTableTrashed()
     {
         $ID_Inserate = $this->table_inserat->getAllTrashedID_Inserate();
+        
+        $table['num_trash'] = count($ID_Inserate);
         
         if (!empty($ID_Inserate)) {
             foreach ($ID_Inserate as $id_inserat) {
@@ -187,12 +194,12 @@ class Application_Model_Stream
         $tooltips = 'var tooltips=[];';
         foreach ($table['ids'] as $key) {
             $image = '/images/';
-            if (empty($table[$key][0]['government']))
-                $image .= 'logo_party/logo_' . strtolower($this->preparePath($table[$key][0]['party'])) .  '.jpg';
+            if (empty($table[$key['id_inserat']][0]['government']))
+                $image .= 'logo_party/logo_' . strtolower($this->preparePath($table[$key['id_inserat']][0]['party'])) .  '.jpg';
             else
-                $image .= 'logo_government/logo_' . $this->preparePath($table[$key][0]['region_abb']) .  '.png';
+                $image .= 'logo_government/logo_' . $this->preparePath($table[$key['id_inserat']][0]['region_abb']) .  '.png';
             
-            $tooltips .= 'tooltips[' . $key . ']=["' . $image . '", "Bezahlt von<br /><strong>' . $table[$key][0]['payer'] . '</strong>", {font:"normal 12px Arial"}];';
+            $tooltips .= 'tooltips[' . $key['id_inserat'] . ']=["' . $image . '", "Bezahlt von<br /><strong>' . $table[$key['id_inserat']][0]['payer'] . '</strong>", {font:"normal 12px Arial"}];';
         }
         return $tooltips . "\n";
      }
@@ -240,7 +247,7 @@ class Application_Model_Stream
         fputcsv($fp, $line_csv, ';');
         if (!empty($ID_Inserate)) {
             foreach ($ID_Inserate as $id_inserat) {
-                $inserat = $this->table_inserat->getInseratAll($id_inserat);
+                $inserat = $this->table_inserat->getInseratAll($id_inserat['id_inserat']);
                 if (!empty($inserat[0]['party'])) {
                     $file_thumbnail = 'inserat_' . sprintf('%06d', $inserat[0]['id_inserat']) . '_t.jpg';
                     $file_default = $path_image . 'default/' . 'inserat_' . sprintf('%06d', $inserat[0]['id_inserat']) . '_d.jpg';

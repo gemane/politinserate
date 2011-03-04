@@ -14,7 +14,7 @@ if (!empty($this->table['ids']))
 <div style="display:inline;" class="tagspan_link_inactive" title="Nicht zugeordnete Inserate">Nicht zugeordnet</div>
 <div style="display:inline;" class="tagspan_link" title="Unbrauchbare Inserate"><a href="/stream/trash">Unbrauchbar</a></div>
 <br /><br />
-<h2>Nicht zugeordnete Inserate</h2> <!-- TODO1 Anzahl der nicht zugeordneten Inseraten -->
+<h2>Nicht zugeordnete Inserate (<?php echo $this->table['num_untagged'] ?>)</h2>
 <span class="errors" style="font-size:14px;clear:both;">Inserate werden nach 180 Tagen automatisch in den Mülleimer verschoben.</span>
 <table class="table_stream" cellpadding="2" summary="Verlauf der nicht zugeordneten Inserate">
     <tr>

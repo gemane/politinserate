@@ -9,8 +9,8 @@ var submenu = new Array()
 
 //Set submenu contents. Expand as needed. For each content, make sure everything exists on ONE LINE. Otherwise, there will be JS errors.
  
-submenu[0] = '<ul id="subnavigation" style="margin: 0 auto;"><li><a href="/stream/tagged">Zugeordnet</a> <li><a href="/stream/untagged">Nicht zugeordnet</a> <li><a href="/stream/trash">Unbrauchbar</a></li></ul>'
-submenu[1] = '<ul id="subnavigation" style="margin: 0 auto;"><li><a href="/statistiken/parteien">Parteien</a> <li><a href="/statistiken/medien">Medien</a> <li><a href="/statistiken/regionen">Regionen</a></li></ul>'
+submenu[0] = '<ul id="main_subnavigation" style="margin: 0 auto;"><li><a href="/stream/tagged">Zugeordnet</a> <li><a href="/stream/untagged">Nicht zugeordnet</a> <li><a href="/stream/trash">Unbrauchbar</a></li></ul>'
+submenu[1] = '<ul id="main_subnavigation" style="margin: 0 auto;"><li><a href="/statistiken/parteien">Parteien</a> <li><a href="/statistiken/medien">Medien</a> <li><a href="/statistiken/regionen">Regionen</a></li></ul>'
 
 //Set delay before submenu disappears after mouse moves out of it (in milliseconds)
 var delay_hide = 500

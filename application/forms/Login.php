@@ -40,8 +40,10 @@ class Application_Form_Login extends Zend_Dojo_Form
         $token->setTimeout($configuration->auth->timeout);
         
         $hidden = new Zend_Form_Element_Hidden('login_hidden');
+        $return_link = new Zend_Form_Element_Hidden('return_link');
         
         $this->addElement($hidden, 'login_hidden')
+             ->addElement($return_link, 'return_link')
              ->addElement($token)
              ->addElement('ValidationTextBox','username',
                             array(

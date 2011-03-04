@@ -34,3 +34,15 @@ Version 1.1.2 (2011-03-01)
 * Vergessenes Passwort
 * FAQ Eintrag zu möglichen Erweitungen von Polit-Inserate.at
 
+Version 1.1.3 (2011-03-04)
+==========================
+* Anzahl der gesamten Inserate in den Streamdarstellungen
+* Anzahl Inserate und Zahlungen im aktuellen Monat im Layout
+* Verlauf der Inserate im zugeordneten Bereich pro Monat anzeigen
+* Design verbessert (Gradient)
+* Blogroll im Layout eingefügt
+* Menü verändert (FAQ und Blog verschoben)
+* Finetuning Blogdesign
+* Login leitet zur ursprünglichen Seite zurück
+
+

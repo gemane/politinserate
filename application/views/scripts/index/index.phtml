@@ -12,7 +12,7 @@ if (!empty($this->table['tooltips'])) {
                        ->appendFile('/js/intern/ddimgtooltip.js', 'text/javascript', array('defer' => 'defer'));
 }
 ?>
-<div style="font-size:90%;margin:0px 90px 0px;text-align:left;">
+<div style="text-align:left; font-size:90%; width:90%; margin-left:5%;padding-top:20px;">
 <h3 class="front" style="text-align:left;">Wofür dient <?php echo $this->title ?>?</h3>
 Mit <?php echo $this->title ?> soll politische Werbung in den Printmedien dokumentiert werden. Ein Teil des Geldes kommt nicht nur von den Parteiförderungen, sondern von den Regierungen und ist somit Steuergeld. Die Parteien erkaufen sich damit gute Bewertungen in den Printmedien, wodurch die <a href="http://de.wikipedia.org/wiki/Vierte_Gewalt">Vierte Gewalt</a> im Staat ad absurdum geführt wird.
 </div>
@@ -25,7 +25,7 @@ Mit <?php echo $this->title ?> soll politische Werbung in den Printmedien dokume
 <?php endif ?>
 </div>
 
-<div style="clear:both; padding-top:20px;" >
+<div style="clear:both; padding-top:20px;"<?php if (!$this->mobile) echo ' class="upload_form_width"' ?> >
 <?php echo $this->formFixer($this->form) ?>
 </div>
 
@@ -49,6 +49,3 @@ Mit <?php echo $this->title ?> soll politische Werbung in den Printmedien dokume
     </table>
     <div class="more"><a href="/stream/">Weitere Inserate &gt;&gt;</a></div>
 </div>
-
-
-

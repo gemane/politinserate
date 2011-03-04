@@ -52,6 +52,7 @@ class Application_Form_Trash extends Zend_Dojo_Form
                             'label'      => 'Abbrechen',
                         )
                     );
+                    // TODO1 Button mit "Nicht identisch" unterhalb anordnen, mit Hinweis, dass die Seitennummer nicht berücksichtigt wird
         
     }
 }

@@ -6,4 +6,5 @@ RewriteCond %{REQUEST_FILENAME} -l [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^.*$ - [NC,L]
 RewriteRule ^js - [NC,L]
+RewriteRule ^blog - [NC,L]
 RewriteRule ^.*$ index.php [NC,L]

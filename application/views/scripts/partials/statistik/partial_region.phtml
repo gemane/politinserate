@@ -19,9 +19,9 @@
 <?php foreach ($this->table['regions'] as $region) : ?>
         <tr>
             <td class="label_region"><?php echo $region['region'] ?></td>
-            <td class="label"><?php echo number_format($this->table[$region['id_config']]['all'], 0, ',', '.') ?>.-</td>
+            <td class="label"><?php $this->formatCurrency($this->table[$region['id_config']]['all'], Zend_Currency::NO_SYMBOL) ?>.-</td>
 <?php   for ($month = 1; $month <= 12; $month++) : ?>
-            <td class="label"><?php echo number_format($this->table[$region['id_config']][$month], 0, ',', '.') ?>.-</td>
+            <td class="label"><?php $this->formatCurrency($this->table[$region['id_config']][$month], Zend_Currency::NO_SYMBOL) ?>.-</td>
 <?php   endfor ?>
         </tr>
 <?php endforeach ?>

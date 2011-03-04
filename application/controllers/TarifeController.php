@@ -80,6 +80,8 @@ class TarifeController extends Mobile_Controller_Action
         $this->configuration = Zend_Registry::get('configuration');
         $this->auth = Zend_Registry::get('auth');
         
+        $this->view->headScript()->appendScript('document.getElementById("nav_tariff").style.textDecoration = "underline";');
+        
         $this->getCache();
         
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
@@ -757,7 +759,7 @@ class TarifeController extends Mobile_Controller_Action
     protected function deleteTariff($id_size)
     {
         $this->table_inserat = new Application_Model_Inserate();
-        if (0 == $this->table_inserat->getNumInserate($id_size)) {
+        if (0 == $this->table_inserat->getNumInserateBySize($id_size)) {
             $id_weekdays = $this->table_tariff->getId_weekdays($id_size);
             
             $this->table_tariff->deleteTariff($id_size);

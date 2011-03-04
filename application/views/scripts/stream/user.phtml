@@ -10,22 +10,26 @@ if (!empty($this->table['ids']))
                     ->appendFile('/js/intern/ddimgtooltip.js', 'text/javascript', array('defer' => 'defer'));
 
 ?>
-<h2>Zugeordnete Inserate von <?php echo $this->name ?></h2>
+<h2>Zugeordnete Inserate von <?php echo $this->name ?> (Gesamt <?php echo $this->table['num_tagged'] ?>)</h2>
 <br />
 <?php //echo $this->formFixer($this->form) ?>
 <table class="table_stream" cellpadding="2" summary="Verlauf der zugeordneten Inserate">
     <tr>
 <?php if (!empty($this->table['ids'])) : ?>
-<?php   foreach ($this->table['ids'] as $id) : ?>
+<?php   foreach ($this->table['ids'] as $id) : 
+            //if (false != $this->month && $this->month == date('n', strtotime($id['print_date'])) ) : 
+                //if (false != $this->year && $this->year == date('Y', strtotime($id['print_date'])) ) : ?>
         <td>
-<?php       echo $this->partialLoop('partials/stream/partial_tagged.phtml', $this->table[$id]) ?>
+<?php               echo $this->partialLoop('partials/stream/partial_tagged.phtml', $this->table[$id['id_inserat']]) ?>
         </td>
-<?php       if ($this->num_column == $this->column++) : ?>
+<?php               if ($this->num_column == $this->column++) : ?>
     </tr>
     <tr>
-<?php       $this->column = 1 ?>
-<?php       endif ?>
-<?php   endforeach ?>
+<?php               $this->column = 1 ?>
+<?php               endif ?>
+<?php           //endif; 
+            //endif;
+        endforeach ?>
 <?php else : ?>
         <td>
             <h3><span class="errors">Keine Inserate vorhanden.</span></h3>

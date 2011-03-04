@@ -21,9 +21,11 @@
 class Zend_View_Helper_FormatCurrency extends Zend_View_Helper_Abstract
 {
     
-    public function formatCurrency($value)
+    public function formatCurrency($value, $symbol = Zend_Currency::USE_SYMBOL, $precision = 0)
     {
-        $currency = new Zend_Currency('de_AT');
+        $currency = new Zend_Currency();
+        $currency->setFormat(array('precision' => $precision, 'display' => $symbol));
+
         
         echo $currency->toCurrency($value);
     }

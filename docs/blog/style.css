@@ -1,0 +1,487 @@
+/*
+THEME NAME: SEO Basics
+DESCRIPTION: Orange, black, and gray combined to create a clean, great-looking theme. Includes an SEO control panel. Supports rotating 125x125 sidebar ads, widgets, gravatars, and microformats. Valid XHTML and CSS. Based on Sandbox.
+VERSION: 1.1.2
+AUTHOR: SEO Design Solutions
+AUTHOR URI: http://www.seodesignsolutions.com/
+TAGS: fixed-width, two-columns, right-sidebar, orange, black, custom-header, theme-options, microformats
+*/
+
+#header h1 {
+	margin: 0;
+	padding: 0;
+}
+
+a:hover {
+	background-color: #ddd;
+}
+
+a img {
+	border: 0 none;
+}
+
+body {
+	font-family: "Gill Sans", "Gill Sans MT", Helvetica, Arial, sans-serif;
+	font-size: 18px;
+	background-color: #F58E0E;
+}
+
+#wrapper {
+	width: 1040px;
+	margin: 0 auto;
+	position: relative;
+	background-color: #fff;
+	border: 1px solid #000;
+}
+
+#content {
+	padding:0px;
+}
+
+body.home div#container, body.page div#container {
+	margin-top:0em;
+}
+
+#header-text {
+	padding: 1em;
+	background-color: #FCFF98;
+}
+
+#header-image {
+	text-align: center;
+}
+
+#blog-title {
+	font-size: 2em;
+	text-align: left;
+	margin: 0;
+	padding: 0;
+}
+
+#blog-title a, #blog-title a:hover {
+	background: none;
+	color: #6A2E22;
+	text-decoration: none;
+}
+
+#access {
+	background-color: #1D1D1D;
+	background-image: url(images/menu-bg.jpg);
+	background-repeat: repeat-x;
+	height: 23px;
+	/*margin: 1em 0;*/
+	border-top: 1px solid #191919;
+	border-bottom: 1px solid #191919;
+}
+
+#access div.menu {
+	float: left;
+}
+
+
+div.menu ul ul {
+	border: 1px solid #191919;
+}
+
+div.menu ul li {
+	border-right: 1px solid #191919;
+}
+
+div.menu, div.menu a {
+	color: #fff;
+}
+
+div.menu ul li a {
+	line-height: 23px;
+	padding: 0 1em;
+	font-size: 1.1em;
+}
+
+div.menu ul li a:hover, div.menu ul li.current_page_item a {
+	background-color: #5E6065;
+	background-image: url(images/menu-hover-bg.jpg);
+}
+
+div.menu ul ul {
+}
+
+div.menu ul li ul li {
+	border: 0 none;
+	float: none;
+}
+
+div.menu ul li ul li a {
+	padding-right: 5em;
+	font-size: 1em;
+}
+
+div.menu ul li ul li a, div.menu ul li ul li a:hover, div.menu ul li.current_page_item ul li a {
+	background-image: none;
+}
+
+div.menu ul li ul li a {
+	background-color: #5E6065;
+}
+
+div.menu ul li ul li a:hover, div.menu ul li ul li.current_page_item a {
+	text-decoration: underline;
+}
+
+#header-search {
+	float: right;
+	margin: 3px 0;
+	padding: 0 15px;
+}
+
+#header-search label {
+	color: white;
+	font-variant: small-caps;
+	font-size: 0.9em;	
+}
+
+#header-search label, #header-search button {
+	float: left;
+}
+
+#header-search input, #header-search button {
+	margin: 0;
+	padding: 0;
+	border-width: 0;
+	border: 0 none;
+}
+
+#header-search input.text {
+	width: 111px;
+	height: 12px;
+	background-image: url(images/search-field.jpg);
+	background-repeat: no-repeat;
+	font-size: 0.8em;
+	padding: 2px;
+	margin-left: 1em;
+}
+
+#header-rss {
+	float: right;
+	margin-right: 10px;
+}
+
+.entry-title {
+	margin: 0;
+	padding: 0;
+}
+
+.entry-title a {
+	color: #F58E0E
+}
+
+#rss_icon {
+	padding: 1em;
+}
+
+#rss_icon span {
+	font-size: 1.1em;
+	font-weight: bold;
+	line-height: 62px;
+}
+
+#rss_icon img {
+	float: right;
+}
+
+.entry-title {
+	font-size: 1.5em;
+}
+
+.entry-date {
+	color: #666;
+	margin-bottom: 1em;
+}
+
+.entry-date abbr, .entry-meta abbr {
+	border: 0;
+}
+
+.entry-meta {
+	margin-bottom: 3em;
+	font-style: italic;
+}
+
+body.single .entry-meta {
+	margin-bottom: 0;
+}
+
+#comments-list .comment-author .n {
+	font-weight: bold;
+}
+
+#comments-list .comment-meta {
+	font-style: italic;
+}
+
+#comments-list .comment-author img.avatar {
+	float: left;
+	margin-right: 0.5em;
+}
+
+.sidebar {
+	border-left: 1px dashed #191919;
+}
+
+.sidebar ul {
+	margin: 0 0 0 10px;
+	padding: 0;
+}
+
+
+
+/*
+LAYOUT: Two-Column (Right)
+DESCRIPTION: Two-column fluid layout with one sidebars right of content
+*/
+div#container {
+float:left;
+margin:0 0 0 0;
+padding:20px;
+width:741px;
+}
+
+div#content {
+margin:0 0 0 0;
+padding-left:5%;
+padding-right:5%;
+font-size:90%;
+}
+
+div.sidebar {
+float:right;
+overflow:hidden;
+padding-right:20px;
+}
+
+div#primary {
+width:210px;
+}
+
+div#secondary {
+clear:right;
+width:200px;
+padding-left:10px;
+}
+
+
+
+/* Misc styles */
+
+.clear {
+	clear: both;
+}
+
+div.sidebar .title {
+	font-weight: bold;
+}
+
+div.skip-link {
+	display: none;
+}
+
+
+/* Ad styles */
+
+div.sidebar #ads ul {
+	margin: 0;
+	padding: 0;
+}
+
+div.sidebar #ads li {
+	float: left;
+	padding: 0;
+	margin: 0 10px 10px 0;
+	list-style-type: none;
+}
+
+div.sidebar #ads img {
+	width: 125px;
+	height: 125px;
+}
+
+/* Sandbox styles */
+
+div.menu ul,div.menu ul ul {
+line-height:1;
+list-style:none;
+margin:0;
+padding:0;
+}
+
+div.menu ul a {
+display:block;
+text-decoration:none;
+}
+
+div.menu ul ul ul a {
+font-style:italic;
+}
+
+div.menu ul li ul {
+left:-999em;
+position:absolute;
+}
+
+div.menu ul li:hover ul, div.menu ul li.sfhover ul {
+left:auto;
+}
+
+.entry-title,.entry-meta {
+clear:both;
+}
+
+form#commentform .form-label {
+margin:1em 0 0;
+}
+
+form#commentform span.required {
+background:#fff;
+color:#c30;
+}
+
+form#commentform,form#commentform p {
+padding:0;
+}
+
+input#author,input#email,input#url,textarea#comment {
+padding:0.2em;
+}
+
+div.comments ol li {
+margin:0 0 3.5em;
+}
+
+textarea#comment {
+height:13em;
+margin:0 0 0.5em;
+overflow:auto;
+width:66%;
+}
+
+.alignright,img.alignright{
+float:right;
+margin:1em 0 0 1em;
+}
+
+.alignleft,img.alignleft{
+float:left;
+margin:1em 1em 0 0;
+}
+
+.aligncenter,img.aligncenter{
+display:block;
+margin:1em auto;
+text-align:center;
+}
+
+div.gallery {
+clear:both;
+height:180px;
+margin:1em 0;
+width:100%;
+}
+
+p.wp-caption-text{
+font-style:italic;
+}
+
+div.gallery dl{
+margin:1em auto;
+overflow:hidden;
+text-align:center;
+}
+
+div.gallery dl.gallery-columns-1 {
+width:100%;
+}
+
+div.gallery dl.gallery-columns-2 {
+width:49%;
+}
+
+div.gallery dl.gallery-columns-3 {
+width:33%;
+}
+
+div.gallery dl.gallery-columns-4 {
+width:24%;
+}
+
+div.gallery dl.gallery-columns-5 {
+width:19%;
+}
+
+div#nav-above {
+margin-bottom:1em;
+}
+
+div#nav-below {
+margin-top:1em;
+}
+
+div#nav-images {
+height:150px;
+margin:1em 0;
+}
+
+div.navigation {
+height:1.25em;
+}
+
+div.navigation div.nav-next {
+float:right;
+text-align:right;
+}
+
+div.sidebar h3 {
+font-size:1.2em;
+}
+
+div.sidebar input#s {
+width:7em;
+}
+
+div.sidebar li {
+list-style:none;
+margin:0;
+}
+
+div.sidebar li form {
+margin:0.2em 0 0;
+padding:0;
+}
+
+div.sidebar ul ul {
+margin:0 0 0 1em;
+}
+
+div.sidebar ul ul li {
+list-style:disc;
+margin:0;
+}
+
+div.sidebar ul ul ul {
+margin:0 0 0 0.5em;
+}
+
+div.sidebar ul ul ul li {
+list-style:circle;
+}
+
+div.menu ul li,div.gallery dl,div.navigation div.nav-previous {
+
+}
+
+
+input#author,input#email,input#url,div.navigation div {
+}
+
+div.gallery *,div.sidebar div,div.sidebar h3 {
+margin:0;
+padding:0;
+}

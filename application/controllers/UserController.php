@@ -75,7 +75,11 @@ class UserController extends Mobile_Controller_Action
                 
                 if ($this->submitLogin($username, $password) ) {
                     $this->unsetSSL();
-                    $this->_helper->redirector('index', $this->auth->getIdentity()->username);
+                    if (0 === strpos( $values['return_link'], $this->configuration->general->url) || strpos( $values['return_link'], "http://blog.politinserate.at"))
+                        $this->_helper->redirector->gotoUrl($values['return_link']);
+                    else
+                        $this->_helper->redirector('index', $this->auth->getIdentity()->username);
+                    
                 } else {
                     $this->_helper->redirector('login', 'user');
                 }

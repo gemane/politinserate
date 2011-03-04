@@ -10,31 +10,37 @@ if (!empty($this->table['ids']))
                     ->appendFile('/js/intern/ddimgtooltip.js', 'text/javascript', array('defer' => 'defer'));
 
 ?>
+<?php if ($this->csv) : ?>
+<div style="text-align:left;" class="tagspan" title="CSV der Inserate herunterladen"><a href="/stream/exportcsv/">Download Inserate</a></div>
+<?php endif ?>
 <div style="display:inline;" class="tagspan_link_inactive" title="Zugeordnete Inserate">Zugeordnet</div>
 <div style="display:inline;" class="tagspan_link" title="Nicht zugeordnete Inserate"><a href="/stream/untagged">Nicht zugeordnet</a></div>
 <div style="display:inline;" class="tagspan_link" title="Unbrauchbare Inserate"><a href="/stream/trash">Unbrauchbar</a></div>
 <br /><br />
-<?php if ($this->csv) : ?>
-<div style="text-align:left;" class="tagspan" title="CSV der Inserate herunterladen"><a href="/stream/exportcsv/">Download Inserate</a></div>
-<?php endif ?>
 <?php if ($this->thanks) : ?>
 <div style="color:brown; font-size:28px; font-weight:bold;margin-top:20px;">Danke für das Zuordnen, <?php if (!empty($this->name)) echo $this->name ?>!</div>
 Klicken Sie <a href="/stream/untagged">hier</a>, um weitere Inserate zuzuordnen.
 <br /><br />
 <?php endif ?>
-<h2>Zugeordnete Inserate</h2> <!-- TODO1 Anzahl der zugeordneten Inseraten -->
+<h2>Zugeordnete Inserate (Gesamt <?php echo $this->table['num_tagged'] ?>)</h2>
+<?php echo $this->partial('partials/stream/partial_navigation_date.phtml', $this->navigation) ?>
+
 <table class="table_stream" cellpadding="2" summary="Verlauf der zugeordneten Inserate">
     <tr>
-<?php if (!empty($this->table['ids'])) : foreach ($this->table['ids'] as $id) :?>
+<?php if (!empty($this->table['ids'])) : foreach ($this->table['ids'] as $id) : 
+        if (false != $this->month && $this->month == date('n', strtotime($id['print_date'])) ) : 
+            if (false != $this->year && $this->year == date('Y', strtotime($id['print_date'])) ) : ?>
         <td>
-<?php       echo $this->partialLoop('partials/stream/partial_tagged.phtml', $this->table[$id]) ?>
+<?php           echo $this->partialLoop('partials/stream/partial_tagged.phtml', $this->table[$id['id_inserat']]) ?>
         </td>
-<?php       if ($this->num_column == $this->column++) : ?>
+<?php           if ($this->num_column == $this->column++) : ?>
     </tr>
     <tr>
-<?php       $this->column = 1 ?>
-<?php       endif ?>
-<?php endforeach; else : ?>
+<?php           $this->column = 1 ?>
+<?php           endif ?>
+<?php       endif; 
+        endif;
+    endforeach; else : ?>
         <td>
             <h3><span class="errors">Keine Inserate vorhanden.</span></h3>
             [<a href="/">zurück</a>]

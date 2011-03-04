@@ -31,7 +31,7 @@ class Application_Plugin_CheckMobile extends Zend_Controller_Plugin_Abstract
     
     // used to test your mobile layout. Set this
     // to 'true' to emulate a mobile device
-    // private $test_mobile = false;
+    // private $test_mobile = true;
 
     public function dispatchLoopStartup(Zend_Controller_Request_Abstract $request)
     {

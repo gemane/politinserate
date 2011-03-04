@@ -37,13 +37,15 @@ class StatistikenController extends Zend_Controller_Action
         $this->configuration = Zend_Registry::get('configuration');
         $this->year_from = $this->configuration->general->year;
         $this->year_to = date('Y', time());
-        $this->view->year = $this->getYear();
+        $this->view->year = $this->table_inserat->getYear();
         
         $this->statistics = new Application_Model_Statistics();
         
         $this->id_printmedium = $this->checkParam('medium');
         $this->id_region = $this->checkParam('region');
         $this->id_party = $this->checkParam('partei');
+        
+        $this->view->headScript()->appendScript('document.getElementById("nav_statistic").style.textDecoration = "underline";');
     }
     
     public function indexAction()
@@ -151,16 +153,6 @@ class StatistikenController extends Zend_Controller_Action
         $this->view->dataColorsRegion   = $data['dataColorsRegion'];
         $this->view->dataLegendRegion   = $data['dataLegendRegion'];
         $this->view->dataLabelRegion    = $data['dataLabelRegion'];
-    }
-    
-    protected function getYear()
-    {
-        $date = $this->table_inserat->getRangeDate();
-        $year = $this->getRequest()->getParam('jahr', date('Y', time()));
-        $year = ($year < date('Y', $date['min_date'])) ? date('Y', $date['min_date']) : $year;
-        $year = ($year > date('Y', $date['max_date'])) ? date('Y', $date['max_date']) : $year;
-        
-        return $year;
     }
     
     /**

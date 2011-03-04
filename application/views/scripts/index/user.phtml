@@ -11,8 +11,9 @@ if (!empty($this->table['tooltips'])) {
                        ->appendFile('/js/intern/ddimgtooltip.js', 'text/javascript', array('defer' => 'defer'));
 }
 ?>
-
+<div style="clear:both;"<?php if (!$this->mobile) echo ' class="upload_form_width"' ?>>
 <?php echo $this->formFixer($this->form) ?>
+</div>
 <br /><br />
 <h2>Inserate zuordnen</h2>
 <table class="table_stream" cellpadding="2" summary="Verlauf der nicht zugeordneten Inserate">

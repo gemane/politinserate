@@ -37,17 +37,23 @@ class Application_Model_Inserate extends Zend_Db_Table_Abstract
         return $result;
     }
     
-    public function getAllTaggedID_Inserate($id_user = false)
+    public function getAllTaggedID_Inserate($year = false, $month = false, $id_user = false)
     {
         $select = $this->select()->from(array('acd_inserate'),
-                                            array('id_inserat', 'id_tagger'))
+                                            array('id_inserat', 'id_tagger', 'print_date'))
                                     ->where('tagged = ?', 1)
                                     ->order('print_date DESC');
         
-        if (false != $id_user) 
-            $select_inserat = $select->where('id_tagger = ?', $id_user);
+        if (false != $year) 
+            $select->where('YEAR(print_date) = ?', $year);
         
-        $result = $this->getAdapter()->fetchCol($select);
+        if (false != $month) 
+            $select->where('MONTH(print_date) = ?', $month);
+        
+        if (false != $id_user) 
+            $select = $select->where('id_tagger = ?', $id_user);
+        
+        $result = $this->getAdapter()->fetchAll($select);
         
         return $result;
     }
@@ -64,12 +70,19 @@ class Application_Model_Inserate extends Zend_Db_Table_Abstract
         return $result;
     }
     
-    public function getAllUntaggedID_Inserate()
+    public function getAllUntaggedID_Inserate($year = false, $month = false)
     {
         $select = $this->select()->from(array('acd_inserate'),
-                                            array('id_inserat'))
+                                            array('id_inserat', 'upload_time'))
                                  ->where('tagged = ?', 0)
                                  ->order('id_inserat DESC');
+        
+        if (false != $year) 
+            $select->where('YEAR(upload_time) = ?', $year);
+        
+        if (false != $month) 
+            $select->where('MONTH(upload_time) = ?', $month);
+        
         $result = $this->getAdapter()->fetchCol($select);
         
         return $result;
@@ -98,7 +111,7 @@ class Application_Model_Inserate extends Zend_Db_Table_Abstract
     {
         $this->setSelectAll();
         
-        if ($this->getID_Government($id_inserat) > 0) {
+        if ($this->getID_Government($id_inserat) > 0) { // TODO1 Ist dieser extra Aufruf notwendig?
             $select_inserat = $this->query->join(array('t' => 'acd_inserate_config'),
                                             'd.id_government = t.id_config',
                                             array('government'));
@@ -177,7 +190,7 @@ class Application_Model_Inserate extends Zend_Db_Table_Abstract
         $this->setSelectTagged();
         
         // When Id_Government is set to 0 then advertisment is paid by the party itself.
-        if ($this->getID_Government($id_inserat) > 0) {
+        if ($this->getID_Government($id_inserat) > 0) {  // TODO1 Ist dieser extra Aufruf notwendig?
             $select_inserat = $this->query->join(array('t' => 'acd_inserate_config'),
                                             'd.id_government = t.id_config',
                                             array('government'));
@@ -748,12 +761,51 @@ class Application_Model_Inserate extends Zend_Db_Table_Abstract
             return $result[0]['id_inserat'];
     }
     
-    public function getNumInserate($id_size)
+    public function getNumInserate($tagged = false, $year = false, $month = false)
+    {
+        $select = $this->select()->from(array('acd_inserate'),
+                                            array('num_inserate' => 'COUNT(*)'));
+        
+        if (false != $tagged) 
+            $select->where('tagged = ?', $tagged);
+        
+        if (false != $year) 
+            $select->where('YEAR(print_date) = ?', $year);
+        
+        if (false != $month) 
+            $select->where('MONTH(print_date) = ?', $month);
+        
+        $result = $this->fetchAll($select);
+        
+        return $result[0]['num_inserate'];
+    }
+    
+    public function getNewInserate($tagged = false, $year = false, $month = false)
+    {
+        $select = $this->select()->from(array('acd_inserate'),
+                                            array('num_inserate' => 'COUNT(*)'));
+        
+        if (false != $tagged) 
+            $select->where('tagged = ?', $tagged);
+        
+        if (false != $year) 
+            $select->where('YEAR(upload_time) = ?', $year);
+        
+        if (false != $month) 
+            $select->where('MONTH(upload_time) = ?', $month);
+        
+        $result = $this->fetchAll($select);
+        
+        return $result[0]['num_inserate'];
+    }
+    
+    public function getNumInserateBySize($id_size)
     {
         $select = $this->select()->from(array('acd_inserate'),
                                             array('num_inserate' => 'COUNT(*)'))
                                  ->where('id_size = ?', $id_size);
         $result = $this->fetchAll($select);
+        
         return $result[0]['num_inserate'];
     }
     
@@ -838,6 +890,16 @@ class Application_Model_Inserate extends Zend_Db_Table_Abstract
             return false;
         else
             return $result[0]['cover'];
+    }
+    
+    public function getYear()
+    {
+        $year = Zend_Controller_Front::getInstance()->getRequest()->getParam('jahr', date('Y', time()));
+        $date = $this->getRangeDate();
+        $year = ($year < date('Y', $date['min_date'])) ? date('Y', $date['min_date']) : $year;
+        $year = ($year > date('Y', $date['max_date'])) ? date('Y', $date['max_date']) : $year;
+        
+        return $year;
     }
     
     public function updateDBColumn()

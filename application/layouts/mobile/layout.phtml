@@ -25,7 +25,7 @@ echo $this->headStyle()->setIndent(4);
 </head>
 <body class="body"<?php if (Zend_Registry::get('PrintmediumTypes')) echo ' onload="UpdateFields();"' ?>>
 <div class="layout_position layout_size_mobile" style="padding:0px; margin-bottom:15px; font-size:15px;">
-<div class="links_mobile"><a href="/links">Partner</a> | <a href="http://blog.politinserate.at">Blog</a> | <a href="/faq">Hilfe</a> | 
+<div class="links_mobile"> 
 <?php if (Zend_Registry::get('auth')->hasIdentity()) : ?>
 <a href="/user/profile/<?php echo Zend_Registry::get('auth')->getIdentity()->username ?>">Profil <?php echo Zend_Registry::get('auth')->getIdentity()->username ?></a> | 
 <a href="/logout">Logout</a>
@@ -38,12 +38,14 @@ echo $this->headStyle()->setIndent(4);
 <div class="layout_position layout_size_mobile layout_design" style="background-color: #FCFF98;border:1px solid black;border-bottom:0px;padding-bottom:0px;margin-bottom:0px;">
 <h1 id="header_mobile"><a href="/"><img src="/images/logo.png" width="217" height="52" alt="Logo:Polit-Inserate.at, Wir zahlen, sie werben." style="border:none;" /></a></h1>
 </div>
-<div class="layout_position layout_size_mobile layout_design" style="background-color: #FCFF98;border:1px solid black;border-top:0px; padding-bottom:60px;margin-bottom:0px;font-size: 80%;">
-<ul id="navigation">
+<div class="layout_position layout_size_mobile layout_design" style="background-color: #FCFF98;border:1px solid black;border-top:0px; padding-bottom:10px;margin-bottom:0px;font-size: 80%;">
+<ul id="main_navigation">
     <li><a href="/eingabe/foto">Neues Inserat</a></li>
     <li><a href="/stream/tagged" onmouseover="showit(0)" onmouseout="resetit(event)">Inserate</a></li>
     <li><a href="/statistiken/parteien" onmouseover="showit(1)" onmouseout="resetit(event)">Statistiken</a></li>
     <li><a href="/tarife">Anzeigentarife</a></li>
+    <li><a href="http://blog.politinserate.at">Blog</a></li>
+    <li><a href="/faq">FAQ</a></li>
 </ul>
 <div id="describe" onmouseover="clear_delayhide()" onmouseout="resetit(event)"></div>
 </div>

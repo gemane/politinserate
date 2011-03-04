@@ -159,6 +159,8 @@ class IndexController extends Mobile_Controller_Action
             $this->view->twitter = true;
         else
             $this->view->twitter = false;
+        
+        $this->view->headScript()->appendScript('document.getElementById("nav_faq").style.textDecoration = "underline";');
     }
 
     public function kontaktAction()

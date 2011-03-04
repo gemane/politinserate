@@ -9,5 +9,5 @@
             <td><?php echo (1 == $this->cover) ? 'Ja' : 'Nein' ?></td>
             <td><?php echo $this->printmedium_type_name ?></td>
             <td><?php echo $this->weekdays ?></td>
-            <td style="text-align:right;"><?php echo number_format($this->price, 0, ',', '.') ?>.-</td>
+            <td style="text-align:right;"><?php $this->formatCurrency($this->price, Zend_Currency::NO_SYMBOL) ?>.-</td>
         </tr>

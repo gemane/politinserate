@@ -21,16 +21,16 @@
         <tr>
             <td class="label_party" rowspan="2"><?php echo $party['party'] ?></td>
             <td class="label_party"><?php echo 'Partei' ?></td>
-            <td class="label"><?php echo number_format($this->table[$party['id_config']]['all']['party_payed'], 0, ',', '.') ?>.-</td>
+            <td class="label"><?php $this->formatCurrency($this->table[$party['id_config']]['all']['party_payed'], Zend_Currency::NO_SYMBOL) ?>.-</td>
 <?php   for ($month = 1; $month <= 12; $month++) : ?>
-            <td class="label"><?php echo number_format($this->table[$party['id_config']][$month]['party_payed'], 0, ',', '.') ?>.-</td>
+            <td class="label"><?php $this->formatCurrency($this->table[$party['id_config']][$month]['party_payed'], Zend_Currency::NO_SYMBOL) ?>.-</td>
 <?php   endfor ?>
         </tr>
         <tr>
             <td class="label_party"><?php echo 'Regierung' ?></td>
-            <td class="label"><?php echo number_format($this->table[$party['id_config']]['all']['government_payed'], 0, ',', '.') ?>.-</td>
+            <td class="label"><?php $this->formatCurrency($this->table[$party['id_config']]['all']['government_payed'], Zend_Currency::NO_SYMBOL) ?>.-</td>
 <?php   for ($month = 1; $month <= 12; $month++) : ?>
-            <td class="label"><?php echo number_format($this->table[$party['id_config']][$month]['government_payed'], 0, ',', '.') ?>.-</td>
+            <td class="label"><?php $this->formatCurrency($this->table[$party['id_config']][$month]['government_payed'], Zend_Currency::NO_SYMBOL) ?>.-</td>
 <?php   endfor ?>
         </tr>
 <?php endforeach ?>

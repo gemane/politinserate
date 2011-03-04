@@ -19,27 +19,26 @@ h3 { margin: 0; font-size: 100%; }
 #header_mobile { display:block; font-size: 160%; font-weight: bold; text-align:center; margin: 0; color: #852806; }
 #footer { text-align:center; clear: both; margin-bottom:20px; }
 
-#navigation { top: 0.6em;}
-#subnavigation { top: 2.6em; border: 1px solid #852806; }
-#navigation, 
-#subnavigation { display:block;  padding: 0; margin: 0; list-style-type: none; }
-#navigation li { display: inline; padding: 0; margin: 0; }
-#subnavigation li { display: inline; padding: 0; margin: 0; }
-#navigation a, 
-#subnavigation a { display: inline-block; padding: 0.4em 0.2em; text-decoration: none; }
-#navigation a:link, 
-#navigation a:visited, 
-#subnavigation a:link, 
-#subnavigation a:visited { color: #852806; }
-#navigation a:hover, 
-#navigation a:active, 
-#subnavigation a:hover, 
-#subnavigation a:active { background-color: #852806; color: #FCFF98; }
-
-div.login { right: 1em; text-align: right; float: right; position: absolute; top: 0.5em; }
+#main_navigation { top: 0.6em;}
+#main_subnavigation { top: 2.6em; border: 1px solid #852806; }
+#main_navigation, 
+#main_subnavigation { display:block;  padding: 0; margin: 0; list-style-type: none; }
+#main_navigation li { display: inline; padding: 0; margin: 0; }
+#main_subnavigation li { display: inline; padding: 0; margin: 0; }
+#main_navigation a, 
+#main_subnavigation a { display: inline-block; padding: 0.4em 0.2em; text-decoration: none; }
+#main_navigation a:link, 
+#main_navigation a:visited, 
+#main_subnavigation a:link, 
+#main_subnavigation a:visited { color: #852806; }
+#main_navigation a:hover, 
+#main_navigation a:active, 
+#main_subnavigation a:hover, 
+#main_subnavigation a:active { background-color: #852806; color: #FCFF98; }
 
 div.links { text-align: left; left: 1em; top: 0.5em; position: relative; }
 div.links_mobile { text-align: center; top: 0.5em; position: relative; }
+div.login { text-align: right; right: 1em; top: 0.5em; float: right; position: absolute;  }
 div.links, 
 div.links_mobile
 div.login { display:block; }
@@ -56,7 +55,7 @@ div.more a:hover { border: 1px solid #9C8D47; background-color: #FCFF98; padding
 
 div.layout_position { position: relative; margin: 0 auto; margin-bottom: 10px; }
 div.layout_size { display: block; width: 1000px; padding: 20px; }
-div.layout_size_mobile { display: block; padding: 20px; }
+div.layout_size_mobile { display: block; padding: 20px 0; }
 div.layout_design { background-color: #FFFFFF; text-align: center; border: 1px solid black; }
 div.layout_title {text-align: center; font-size: 36px; padding-bottom: 15px; }
 
@@ -105,7 +104,8 @@ table.table_stream { border: thin solid #FFFFFF; border-spacing: 1px; margin: au
 div.input a { font-size: 24px; background: url(/images/button_front.png) 0 0 repeat-x; background-color: #e8e8e8; border: 1px solid #b89e3a; padding-top: 10px; padding-bottom: 10px; padding-left: 30px; padding-right: 30px; margin:auto; width:400px; display: block; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; }
 div.input a:hover { background: url(/images/button_front_active.png) 0 0 repeat-x; background-color: #DCDCDC; padding-top: 10px; margin: auto; }
 
-dl.upload_form { background: url(/images/button_front.png) 0 0 repeat-x; background-color: #e8e8e8; border:1px solid #b89e3a; padding-left:30px; padding-right: 30px; padding-top: 5px; padding-bottom: 5px; text-align: left; margin: 0 auto; width: 400px; display: block; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius:10px; }
+div.upload_form_width dl {width:400px; text-align: left; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius:10px; }
+dl.upload_form { background: url(/images/button_front.png) 0 0 repeat-x; background-color: #e8e8e8; border:1px solid #b89e3a; padding-left:30px; padding-right: 30px; padding-top: 5px; padding-bottom: 5px;  margin: 0 auto; display: block; }
 dl.upload_form input { font-size: 16px; font-weight: bold; padding: 5px; padding-left: 50px; padding-right: 50px; }
 dl.upload_form dd { margin-left: 0px; }
 
@@ -224,22 +224,24 @@ dl.datafile_form dd { padding-bottom: 15px; text-align: left; clear: right; }
 
 span.width { padding-right: 10px; padding-top: 10px; font-weight: bold; display: block; }
 
-div.navigation_container { padding-bottom: 50px; margin-bottom: 20px; margin-left: 150px; }
-div.navigation { vertical-align: middle; background-repeat: no-repeat; height: 21px; float: left; padding: 4px 8px; }
-div.navigation_active { font-weight: bold; }
+div.input_navigation_container { padding-bottom: 50px; margin-bottom: 20px; margin-left: 150px; }
+div.input_navigation { vertical-align: middle; background-repeat: no-repeat; height: 21px; float: left; padding: 4px 8px; }
+div.input_navigation_active { font-weight: bold; }
 
 /*========================================================================================================
 |   BLOGROLL
 ========================================================================================================*/
 
+.widgettitle {font-size: 90%; color: #666666;}
 .widget_rss_icon { list-style-type: none; display: none; }
-.widget_links,
-.widget_recent_entries { text-align: left; font-size: 90%; padding: 10px 0px 0px 10px; list-style-type: none; clear:left; }
-.widget_links li,
-.widget_recent_entries li { padding-left: 0px; list-style-type: none; }
-.widget_links a,
-.widget_recent_entries a { color: #852806; text-decoration: none; }
-.widget_links a:hover,
-.widget_recent_entries a:hover { background-color: #852806; color: #FFF; }
-#sidebar ul { padding: 0px; }
+.widget { text-align: left;  padding: 10px 0px 0px 20px; list-style-type: none; clear:left; }
+.widget li { padding-left: 0px; list-style-type: none; }
+.widget a { color: #852806; text-decoration: none; }
+.widget a:hover { background-color: #852806; color: #FFF; }
+.widget_FacebookLikeBox {padding: 10px 0px 0px 0px;}
+.facebook_title {font-weight:bold;text-align:left;}
+div.sidebar .title { font-weight: bold;}
+div.sidebar ul { padding: 0px; margin:0px;}
+div.sidebar ul ul { margin:0 0 0 1em;}
+div.sidebar ul ul li {list-style: disc outside none;font-size: 90%;font-size: 0.9em;margin:0px;}
 

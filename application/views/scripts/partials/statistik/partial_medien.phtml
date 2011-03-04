@@ -19,9 +19,9 @@
 <?php foreach ($this->table['printmedien'] as $printmedium) : ?>
         <tr>
             <td class="label_medien"><?php echo $printmedium['printmedium'] ?></td>
-            <td class="label"><?php echo number_format($this->table[$printmedium['id_printmedium']]['all'], 0, ',', '.') ?>.-</td>
+            <td class="label"><?php $this->formatCurrency($this->table[$printmedium['id_printmedium']]['all'], Zend_Currency::NO_SYMBOL) ?>.-</td>
 <?php   for ($month = 1; $month <= 12; $month++) : ?>
-            <td class="label"><?php echo number_format($this->table[$printmedium['id_printmedium']][$month], 0, ',', '.') ?>.-</td>
+            <td class="label"><?php $this->formatCurrency($this->table[$printmedium['id_printmedium']][$month], Zend_Currency::NO_SYMBOL) ?>.-</td>
 <?php   endfor ?>
         </tr>
 <?php endforeach ?>

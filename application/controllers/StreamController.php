@@ -45,6 +45,8 @@ class StreamController extends Mobile_Controller_Action
             $this->_helper->getHelper('layout')->setLayoutPath(APPLICATION_PATH . '/layouts/mobile');
             $this->view->num_column = floor($this->view->num_column/2);
         }
+        
+        $this->view->headScript()->appendScript('document.getElementById("nav_stream").style.textDecoration = "underline";');
     }
     
     public function indexAction()
@@ -94,6 +96,21 @@ class StreamController extends Mobile_Controller_Action
     
     public function taggedAction()
     {
+        $year_from = $this->configuration->general->year;
+        $year_to = date('Y', time());
+        $year = $year = $this->getRequest()->getParam('year', date('Y', time() ));
+        $month = $month = $this->getRequest()->getParam('month', date('n', time() ));
+        
+        $list = Zend_Registry::get('list_months'); 
+        
+        // Check if the list is in range
+        if (empty($list[$year])) {
+            $count = end($list);
+            $year = key($list);
+            $month = max($list[$year]);
+        } else if (false == in_array($month, $list[$year])) 
+            $month = max($list[$year]);
+        
         // If user just tagged a new inserat, then say thank you.
         $this->view->thanks = false;
         if ($this->getRequest()->has('id')) {
@@ -107,7 +124,16 @@ class StreamController extends Mobile_Controller_Action
             $cache = $stream->setTableTagged();
         }
         
+        $this->view->year = $year;
+        $this->view->month = $month;
         $this->view->table = $cache;
+        $this->view->navigation = array(
+            'url' => '/stream/tagged', 
+            'month' => $month, 
+            'year' => $year, 
+            'list' => $list, 
+            'year_from' => $year_from, 
+            'year_to' => $year_to);
         
         if ($this->configuration->general->csv && !empty($cache) )
             $this->view->csv = true;
@@ -213,6 +239,9 @@ class StreamController extends Mobile_Controller_Action
     
     protected function streamUser($username)
     {
+        $this->view->year = $year = $this->getRequest()->getParam('year', date('Y', time() ));
+        $this->view->month = $month = $this->getRequest()->getParam('month', date('n', time() ));
+        
         $this->user_table = new Application_Model_Users();
         $form = new Application_Form_Untagged();
         $form = $this->setFormConfig($form, $username);
@@ -220,7 +249,7 @@ class StreamController extends Mobile_Controller_Action
         
         $id_user = $this->user_table->getUserId($username);
         $stream = new Application_Model_Stream();
-        $table = $stream->setTableTagged($id_user); // TODO1 Aus dem Cache laden und nach User filtern
+        $table = $stream->setTableTagged(false, false, $id_user); // TODO1 Aus dem Cache laden und nach User filtern
         
         $this->view->name = $this->user_table->getName($username);
         $this->view->tooltips = $table['tooltips'];

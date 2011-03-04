@@ -3,11 +3,14 @@ TODO
 
 Timeline:
 =========
+- ## Wenn CSRF auftritt dann nicht unbedingt eine Exception werfen. Wirft mich vielleicht aus der Session raus.
 - ## Kategorien der Printmedien (Tageszeitung, Magazin) bei der Eingabe der Formate verfügbar machen
+- ## Speedup -> Aufteilung Dojo (dojo_admin, dojo_input, dojo_statistic, dojo_tariff)
 - Ursprünglichen Bildnamen aus Datenbank löschen
 - acd_inserate_printmedium -> color_printmedium löschen
 - Logo der Zeitung statt Farbe -> Statistik Medium Farbe automatisch -> StatistikenController (nur optional)
 - Twitter Klasse in den Libraries löschen oder bearbeiten
+- Benachrichtigung, ob ein neuer Tarif eingetragen wurde
 
 Neues Design:
 http://wp-themes.com/evolve/?TB_iframe=true&width=600&height=400
@@ -31,7 +34,6 @@ Packet 2:
 - AGBs und Datenschutzerklärung überarbeiten
 - Hilfetext bei der Eingabe von neuen Inseraten hinzufügen
 - Verlauf der Inserate nach Parteien/Medien/Regionen sortieren
-- Verlauf der Inserate nur von einem Monat darstellen
 - Kalender mit Tagen von eingetragenen oder fehlenden Inseraten
 - Regierungsnahe Institutionen (ÖBB, Wiener Linien, ...) einbinden
 - Benachrichtigung bei Überschreitung von Grenzen, bsp. 100000 EUR Grenze an Inseraten.
@@ -50,21 +52,20 @@ Version 1:
 controllers/TarifeController.php:                // TODO1 Überprüfen, ob id_datafile in dem Printmedium existiert
 controllers/TarifeController.php:                        // TODO1 Überprüfen, ob Wochentag bereits ausgewählt wurde
 controllers/UserController.php:        $this->checkToken($form); // TODO1
+controllers/UserController.php:        $this->checkToken($form); // TODO1
+controllers/UserController.php:        $this->checkToken($form); // TODO1
 controllers/StatistikenController.php:                'color' => 'DDDDDD', // TODO1 $value['logo_printmedium'], 
-controllers/EingabeController.php:                                // TODO1 Falls nur Seitennummer unterschiedlich, dann darauf hinweisen.
 controllers/EingabeController.php:                'id_printmedium'        => $id_printmedium,  // TODO1 Funktioniert nicht mit _bit
 controllers/EingabeController.php:                // TODO1 Ursache des Fehlers überprüfen -> Timeout
-controllers/StreamController.php:        $table = $stream->setTableTagged($id_user); // TODO1 Aus dem Cache laden und nach User filtern
+controllers/StreamController.php:        $table = $stream->setTableTagged(false, false, $id_user); // TODO1 Aus dem Cache laden und nach User filtern
 forms/Format.php:        $this   ->addElement('NumberSpinner', 'pages', // TODO1 benötigt index
-models/Tariff.php:        $select = $this->select()->from(array('d' => 'acd_inserate_size'), // TODO1 Types Datenbank einbinden
-views/scripts/stream/untagged.phtml:<h2>Nicht zugeordnete Inserate</h2> <!-- TODO1 Anzahl der nicht zugeordneten Inseraten -->
-views/scripts/stream/tagged.phtml:<h2>Zugeordnete Inserate</h2> <!-- TODO1 Anzahl der zugeordneten Inseraten -->
+forms/Trash.php:                    // TODO1 Button mit "Nicht identisch" unterhalb anordnen, mit Hinweis, dass die Seitennummer nicht berücksichtigt wird
+models/Inserate.php:        if ($this->getID_Government($id_inserat) > 0) { // TODO1 Ist dieser extra Aufruf notwendig?
+models/Inserate.php:        if ($this->getID_Government($id_inserat) > 0) {  // TODO1 Ist dieser extra Aufruf notwendig?
 
 Service/Twitter.php:    // TODO1 Heißt jetzt Plixi
 
 Version 2:
-controllers/UserController.php:    public function lostpasswordAction() // TODO2
-controllers/UserController.php:    public function changepasswordAction() // TODO2
 controllers/UserController.php:    public function deleteAction() // TODO2
 controllers/EingabeController.php:                // TODO2 Kommentar hinzufügen -> Warum in den Mülleimer?
 controllers/EingabeController.php:        $mailer->sendNewInseratMail($id_inserat, $values['id_source'], $username); // TODO2 Nur gesammelt versenden (z.B. 1x am Tag)
@@ -74,7 +75,6 @@ controllers/StreamController.php:        $ch = curl_init($link_image); // TODO2 
 forms/Untagged.php:    // TODO2: Sortieren nach, Quelle (Homepage, Twitter), Datum, Uploader
 forms/Sizes.php:                        'label'          => 'So', // TODO2 So & Fei
 forms/Configuration.php:                         // TODO2 Twitteraccount zuordnen
-models/Stream.php:        $ID_Inserate = $this->table_inserat->getAllTaggedID_Inserate($id_user); // TODO2: Darstellung über Paginator
 views/scripts/user/profile.phtml:<!--TODO2 Benachrichtigung über neue hochgeladenen Inseraten-->
 views/scripts/eingabe/image.phtml:<?php echo $this->formFixer($this->rotate) ?> <!-- TODO2: Reload der Hauptseite nach dem Drehen -->
 
@@ -90,9 +90,10 @@ Service/Twitter.php:        // TODO2 Mit "Neu" markieren
 plot_front.js:        max: yaxis, // TODO2 Seems to be a bug -> calculate max yaxis
 
 Version 3:
-Bootstrap.php:        // TODO3: Übersetzungen
 controllers/EingabeController.php:        // TODO3 Foto zuschneiden -> Nur Inserat als Thumbnail sichtbar
 controllers/EingabeController.php:                $form->url_image_front->receive(); // TODO3: Process bar (Hochladen und größe ändern)
 controllers/StreamController.php:                // TODO3 Processanzeige
+views/scripts/tarife/index.phtml:<?php if ($this->advertisments) : ?> <!-- TODO3 Weitere Werbewege -->
+views/scripts/tarife/edit.phtml:<?php if ($this->advertisments) : ?> <!-- TODO3 Weitere Werbewege -->
 
 
