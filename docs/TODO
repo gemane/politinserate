@@ -3,9 +3,10 @@ TODO
 
 Timeline:
 =========
-- ## Wenn CSRF auftritt dann nicht unbedingt eine Exception werfen. Wirft mich vielleicht aus der Session raus.
-- ## Kategorien der Printmedien (Tageszeitung, Magazin) bei der Eingabe der Formate verfügbar machen
-- ## Speedup -> Aufteilung Dojo (dojo_admin, dojo_input, dojo_statistic, dojo_tariff)
+- Kategorien der Printmedien (Tageszeitung, Magazin) bei der Eingabe der Formate verfügbar machen
+- Speedup -> Aufteilung Dojo (dojo_admin, dojo_input, dojo_statistic, dojo_tariff)
+- Speedup -> Seiten auf Anzahl der Datenbankzugriffe untersuchen
+- Beschreibung wie das System funktioniert -> Kostenbewertung der Inserate ist nicht notwendig / User darauf aufmerksam machen, dass man nur ein Foto machen muß
 - Ursprünglichen Bildnamen aus Datenbank löschen
 - acd_inserate_printmedium -> color_printmedium löschen
 - Logo der Zeitung statt Farbe -> Statistik Medium Farbe automatisch -> StatistikenController (nur optional)
@@ -49,17 +50,17 @@ Kleinere Features bzw. Bugs:
 grep -R --exclude=*~ TODO1 *
 
 Version 1:
-controllers/TarifeController.php:                // TODO1 Überprüfen, ob id_datafile in dem Printmedium existiert
+Bootstrap.php:        //$this->frontController->registerPlugin(new Application_Plugin_TwitterSearch()); // TODO1 Brauch ich das noch? Verlangsamt das System ungemein!!!
 controllers/TarifeController.php:                        // TODO1 Überprüfen, ob Wochentag bereits ausgewählt wurde
-controllers/UserController.php:        $this->checkToken($form); // TODO1
-controllers/UserController.php:        $this->checkToken($form); // TODO1
-controllers/UserController.php:        $this->checkToken($form); // TODO1
-controllers/StatistikenController.php:                'color' => 'DDDDDD', // TODO1 $value['logo_printmedium'], 
+controllers/TarifeController.php:                    // TODO1 Überprüfen, ob id_datafile in dem Printmedium existiert
+controllers/StatistikenController.php:                'color' => '888888', // TODO1 $value['logo_printmedium'], 
 controllers/EingabeController.php:                'id_printmedium'        => $id_printmedium,  // TODO1 Funktioniert nicht mit _bit
 controllers/EingabeController.php:                // TODO1 Ursache des Fehlers überprüfen -> Timeout
+controllers/EingabeController.php:        // TODO1 Check how many times an application connects in a time range
+controllers/EingabeController.php:        $filename = 'img'; // TODO1 Soll entfernt werden
+controllers/EingabeController.php:            $id_printmedium = $values['id_printmedium'];  // TODO1 Funktioniert nicht mit _bit
 controllers/StreamController.php:        $table = $stream->setTableTagged(false, false, $id_user); // TODO1 Aus dem Cache laden und nach User filtern
 forms/Format.php:        $this   ->addElement('NumberSpinner', 'pages', // TODO1 benötigt index
-forms/Trash.php:                    // TODO1 Button mit "Nicht identisch" unterhalb anordnen, mit Hinweis, dass die Seitennummer nicht berücksichtigt wird
 models/Inserate.php:        if ($this->getID_Government($id_inserat) > 0) { // TODO1 Ist dieser extra Aufruf notwendig?
 models/Inserate.php:        if ($this->getID_Government($id_inserat) > 0) {  // TODO1 Ist dieser extra Aufruf notwendig?
 

@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 2.11.10.1
+-- version 2.11.11.3
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.2
--- Erstellungszeit: 28. Februar 2011 um 02:02
+-- Erstellungszeit: 06. März 2011 um 22:34
 -- Server Version: 4.1.22
 -- PHP-Version: 4.4.8
 
@@ -40,7 +40,7 @@ CREATE TABLE `acd_inserate_size` (
   `id_user` int(11) NOT NULL default '0',
   `timestamp` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id_size`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=101 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=110 ;
 
 --
 -- Daten für Tabelle `acd_inserate_size`
@@ -107,4 +107,13 @@ INSERT INTO `acd_inserate_size` (`id_size`, `size`, `cover`, `id_printmedium_typ
 (97, 'Fußzeile Titelseite', 1, 4, 0, 8, 48, 5800, 50, 111, 54, '2011-02-26 19:44:35'),
 (98, 'Titelseite Fußzeile', 1, 4, 0, 8, 48, 8592, 56, 112, 54, '2011-02-26 19:46:09'),
 (99, 'Kopfzeile', 0, 4, 0, 7, 46, 3312, 56, 113, 54, '2011-02-26 19:48:33'),
-(100, 'Fußzeile', 0, 4, 0, 8, 50, 3600, 56, 114, 54, '2011-02-26 19:49:23');
+(100, 'Fußzeile', 0, 4, 0, 8, 50, 3600, 56, 114, 54, '2011-02-26 19:49:23'),
+(101, '1/4 Seite', 0, 5, 0, 4, 75, 4690, 52, 115, 54, '2011-03-01 21:17:09'),
+(102, '1/4 Seite', 0, 5, 0, 4, 75, 6050, 52, 116, 54, '2011-03-01 21:18:03'),
+(103, '1/4 Seite', 0, 5, 0, 4, 75, 7200, 52, 117, 54, '2011-03-01 21:18:43'),
+(104, 'Fußzeile', 0, 5, 0, 8, 50, 3175, 52, 118, 54, '2011-03-06 17:40:45'),
+(105, 'Fußzeile', 0, 5, 0, 8, 50, 4050, 52, 119, 54, '2011-03-06 17:41:40'),
+(106, 'Fußzeile', 0, 5, 0, 8, 50, 4825, 52, 120, 54, '2011-03-06 17:42:43'),
+(107, '2/3 quer', 0, 5, 0, 11, 210, 10670, 52, 121, 54, '2011-03-06 20:37:50'),
+(108, '2/3 quer', 0, 5, 0, 11, 210, 13610, 52, 122, 54, '2011-03-06 20:38:31'),
+(109, '2/3 quer', 0, 5, 0, 11, 210, 16210, 52, 123, 54, '2011-03-06 20:39:19');

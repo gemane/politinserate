@@ -24,7 +24,7 @@
 <p>Anonym kann nur ein Foto pro Tag hochgeladen bzw nur 4 Einträge verändert werden. Als registrierter Benutzer liegt die Grenze zum Hochladen bei 10 Fotos, Einträge können jedoch unbegrenzt verändert werden. Außerdem ist es möglich neue Tarife einzutragen bzw. diese zu korrigieren.</p>
 
 <h4>Wie genau stimmen die Berechnungen?</h4>
-<p>Wenn die Daten korrekt zugeordnet wurden, entsprechen die Tarife wie in den Tarifblättern angegeben. Wie jedoch unten erwähnt, können wir nicht feststellen, ob ein Rabatt gewährt wurde oder nicht. Falls ein Tarif falsch eingetragen wurde, können Sie diesen im eingeloggten Zustand verändern.</p>
+<p>Wenn die Daten korrekt zugeordnet wurden, entsprechen die Tarife wie in den Tarifblättern angegeben. Wie jedoch weiter unten erwähnt, können wir nicht feststellen, ob ein Rabatt gewährt wurde oder nicht. Falls ein Tarif falsch eingetragen wurde, können Sie diesen im angemeldeten Zustand verändern.</p>
 
 <h4>Woher stammen die Tarife?</h4>
 <p>Die Tarife können auf den Seiten der Printmedien gefunden werden. Sind also allgemein zugänglich.</p>
@@ -37,7 +37,7 @@
 
 <?php if ($this->csv) : ?>
 <h4>Ich möchte die Verteilung visualisieren. Woher bekomme ich die Daten? </h4>
-<p>Die Inserate können auf der Seite <a href="<?php echo $this->csv_inserate ?>"><?php echo $this->csv_inserate ?></a> heruntergeladen werden. Die Datei enthält alle relevanten Daten und ein Archiv mit kleinen Bildern. Ein Update der Daten erfolgt nur alle 24 Stunden. Das Datenformat ist in CSV und einer UTF-8 Codierung.</p>
+<p>Die Inserate können auf der Seite <a href="<?php echo $this->csv_inserate ?>"><?php echo $this->csv_inserate ?></a> heruntergeladen werden. Die Datei enthält alle relevanten Daten der Inserate und ein Archiv mit kleinen Bildern. Ein Update der Daten erfolgt nur alle 24 Stunden. Das Datenformat ist in CSV und verwendet die UTF-8 Codierung.</p>
 <?php endif ?>
 
 <?php if ($this->twitter) : ?>
@@ -46,18 +46,18 @@
 <?php endif ?>
 
 <h4>Was ist mit "Unbrauchbar" gemeint?</h4>
-<p>Es kann sein, dass ein Inserat nicht lesbar und somit nicht einem Printmedium oder einer Partei zuzuordnen ist. Weiters könnten Fotos von einem Inserat mehrmals existieren, die man deshalb am Besten in diesen Ordner verschiebt.</p>
-<p>Wenn nach 30 Tagen keine Änderung an dem Inserat vorgenommen wurde, wird dieses automatisch vom Server gelöscht. Nicht zugeordnete Inserate wandern nach 180 Tagen in den "Unbrauchbar" Ordner, da diese nicht mehr zuzuordnen sind.</p>
+<p>Es kann sein, dass ein Inserat nicht lesbar und somit nicht einem Printmedium oder einer Partei zuzuordnen ist. Weiters könnten Fotos von einem Inserat mehrmals existieren, die man deshalb in diesen Ordner verschiebt.</p>
+<p>Wenn nach 30 Tagen keine Änderung an dem Inserat vorgenommen wurde, wird dieses automatisch vom Server gelöscht. Nicht zugeordnete Inserate wandern nach 180 Tagen in den "Unbrauchbar" Ordner, da diese anscheinend nicht mehr zuzuordnen sind.</p>
 
 <h4>Tolle Idee! Von wem kam die?</h4>
 <p>Diese Idee stammt von Georg Holzer, welcher auf seiner <a href="http://www.k2020.at/2010/04/15/inserate-in-die-datenbank/">http://www.k2020.at/</a> Seite den Vorschlag machte, die Inserate in den Medien zu dokumentieren.</p>
 
 <h4>Kann ich mithelfen?</h4>
-<p>Der Source Code für die Webseite und die Apps können in den folgenden Repositores gefunden werden:
+<p>Der Source Code für die Webseite und den Apps können in den folgenden Repositores gefunden werden:
     <ol>
         <li>Webseite: <a href="http://github.com/gemane/politinserate">https://github.com/gemane/politinserate</a></li>
         <li>Android: <a href="http://github.com/salendron/Polit-Inserate">https://github.com/salendron/Polit-Inserate</a></li>
-        <li>iPhone: <a href="http://github.com/">https://github.com/</a></li>
+        <li>iPhone: (noch nicht verfügbar) <!--<a href="http://github.com/">https://github.com/</a>--></li>
     </ol>
 </p>
 

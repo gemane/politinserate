@@ -19,7 +19,27 @@
 
 class Image_Editing
 {
-
+    public function checkImage($filename)
+    {
+        $formatInfo = exif_imagetype($filename);
+        
+        // non-image files will return false
+        if ($formatInfo === false)
+            return false;
+        else if (IMAGETYPE_GIF == $formatInfo || IMAGETYPE_JPEG == $formatInfo || IMAGETYPE_PNG == $formatInfo)
+            return true;
+        else
+            return false;
+    }
+    
+     public function checkImagebyID($id_inserat)
+     {
+        $path = APPLICATION_PATH .'/../data/uploads/images/original/';
+        $file = 'inserat_' . sprintf('%06d', $id_inserat) . '_o.jpg';
+        
+        return $this->checkImage($path . $file);
+     }
+    
      public function getImageOriginal($id_inserat)
      {
         $path = '/download/original/';

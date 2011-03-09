@@ -49,13 +49,15 @@ class Application_Model_Stream
             
             $table['tooltips'] =  $this->tooltipTagged($table);
             
-            if ($this->configuration->general->csv)
-                $lockfile = APPLICATION_PATH . '/../temp/lock_csv_inserate';
-                if (86400 < (time() - filemtime($lockfile))) { // 86400
+            if ($this->configuration->general->csv) {
+                $lockfile = realpath(APPLICATION_PATH . '/../temp/lock_csv_inserate');
+                if (86400 < (time() - filemtime($lockfile)) ) { // 86400
                     $this->createCSV();
                     $locktime = mktime($this->configuration->general->csv_time, 0, 0);
                     touch($lockfile, $locktime);
                 }
+            
+            }
         } else {
             $table['ids'] =  array();
             $table['tooltips'] = array();
@@ -210,7 +212,7 @@ class Application_Model_Stream
     * @param $array table of inserate
     * 
     */
-    protected function createCSV()
+    public function createCSV()
     {
         $this->table_config = new Application_Model_Config();
         $ID_Inserate = $this->table_inserat->getAllTaggedID_Inserate();
@@ -218,6 +220,7 @@ class Application_Model_Stream
         $path = APPLICATION_PATH . '/../data/downloads/';
         $path_target = $path . 'zugeordnete_inserate.zip';
         
+        $this->configuration = Zend_Registry::get('configuration');
         $path_table = $path . 'inserate/' . 'tabelle_inserate.csv';
         $path_image = $this->configuration->general->url . '/images/uploads/';
         $fp = fopen($path_table, 'w');

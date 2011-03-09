@@ -150,7 +150,6 @@ class TarifeController extends Mobile_Controller_Action
         // Check which parameters are set then decide for routine
         if ( -1 != $medium = $this->checkParam('medium') ) {
             if ( -1 != $datafile = $this->checkParam('file') ) {
-                // TODO1 Überprüfen, ob id_datafile in dem Printmedium existiert
                 if ( -1 != $tariff = $this->checkParam('tariff') ) {
                     $form = $this->editTariff($datafile, $tariff);
                 } else {
@@ -886,6 +885,7 @@ class TarifeController extends Mobile_Controller_Action
                     $result = $this->table_medium->checkPrintmedium($id);
                     break;
                 case 'file':
+                    // TODO1 Überprüfen, ob id_datafile in dem Printmedium existiert
                     $result = $this->table_datafile->checkDatafile($id);
                     break;
                 case 'tariff':

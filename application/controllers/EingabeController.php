@@ -36,14 +36,19 @@ class EingabeController extends Mobile_Controller_Action
         
         if ( $this->getRequest()->has('id') ) {
             $id_inserat = $this->getRequest()->getParam('id');
+            
             if (false == $this->table_inserat->checkInserat($id_inserat))
                 $this->_helper->redirector('index', 'index');
+            
             if (-1 == $this->table_inserat->getTagged($id_inserat)) {
                 $this->table_inserat->moveUntagged($id_inserat);
                 $this->cache = Zend_Registry::get('cache');
                 $this->cache->remove('table_stream_trash');
                 $this->cache->remove('table_stream_untagged');
+                $expenses_file = APPLICATION_PATH . '/../data/cache/expenses.txt';
+                unlink($expenses_file);
             }
+            
             if ( $this->getRequest()->has('trash') ) {
                 // TODO2 Kommentar hinzufügen -> Warum in den Mülleimer?
                 $this->table_inserat->moveTrash($id_inserat);
@@ -51,6 +56,9 @@ class EingabeController extends Mobile_Controller_Action
                 $this->cache->remove('table_stream_tagged');
                 $this->cache->remove('table_stream_untagged');
                 $this->cache->remove('table_stream_trash');
+                $expenses_file = APPLICATION_PATH . '/../data/cache/expenses.txt';
+                unlink($expenses_file);
+                
                 $this->_helper->redirector('trash', 'stream');
             }
         }
@@ -106,30 +114,14 @@ class EingabeController extends Mobile_Controller_Action
         $this->setNavigation('photo', $id_inserat);
     }
     
-    public function jsonAction() // TODO Change name to jsonAction
+    public function restAction()
     {
       $this->_helper->layout->disableLayout();
-        
-      //include_once('Intern/Service/Android.php');
       
       $server = new Zend_Json_Server();
       $server->setClass('AppService');
       
       $server->handle();
-
-    }
-    
-    public function restAction() // TODO Change name to restJSONAction
-    {
-      $this->_helper->layout->disableLayout();
-        
-      //include_once('Intern/Service/Android.php');
-      
-      $server = new Zend_Rest_Server();
-      $server->setClass('AppService');
-      
-      $server->handle();
-
     }
     
     public function mediumAction()
@@ -283,9 +275,6 @@ class EingabeController extends Mobile_Controller_Action
         $this->cache->remove('table_party');
         $this->cache->remove('table_stream_tagged');
         $this->cache->remove('table_stream_untagged');
-        
-        $expenses_file = APPLICATION_PATH . '/../data/cache/expenses.txt';
-        unlink($expenses_file);
     }
 
     public function kontrolleAction()
@@ -294,9 +283,13 @@ class EingabeController extends Mobile_Controller_Action
         if (1 != $this->table_inserat->getTagged($id_inserat)) {
             $this->view->tagged = false;
             if (true == $max_entries = $this->maxEntries()) {
-                if ( !$this->getRequest()->has('cancel') ) {
-                    if ( $this->getRequest()->has('id_inserat') ) {
-                        $form = new Application_Form_Check($id_inserat);
+                if ( !$this->getRequest()->has('cancel')) {
+                    if ( $this->getRequest()->has('id_inserat')) {
+                        if ($this->getRequest()->has('nonidentical'))
+                            $form = new Application_Form_Trash($id_inserat);
+                        else
+                            $form = new Application_Form_Check($id_inserat);
+                        
                         $form->setAction('/eingabe/kontrolle/id/' . $id_inserat);
                         if ($form->isValid($_POST)) {
                             if (2 == $this->table_inserat->getIDSource($id_inserat) ) {
@@ -324,13 +317,15 @@ class EingabeController extends Mobile_Controller_Action
                             }
                             $values['id_tagger'] = $id_tagger;
                             if ($file_copied) {
-                                $this->table_inserat->updateTagger($values['id_inserat'], $values);
                                 $this->table_inserat->updatePrice($values['id_inserat']);
+                                $this->table_inserat->updateTagger($values['id_inserat'], $values);
                             }
                             if (!$this->auth->hasIdentity())
                                 $this->ip_table->insertIP('entry');
                             
                             $this->resetCache();
+                            $expenses_file = APPLICATION_PATH . '/../data/cache/expenses.txt';
+                            unlink($expenses_file);
                             
                             $this->_helper->redirector('tagged', 'stream', null,
                                                         array('id' => $id_inserat));
@@ -347,7 +342,7 @@ class EingabeController extends Mobile_Controller_Action
                                 $this->view->inserat_tagged = $this->table_inserat->getInseratAll($id_inserat_tagged);
                                 $this->view->image = $this->image->orientationImageThumbnail($id_inserat);
                                 $this->view->inserat = $this->table_inserat->getInseratAll($id_inserat);
-                                $this->view->form = new Application_Form_Trash($id_inserat);
+                                $this->view->form = $this->setFormTrash();
                                 $this->setNavigation('check', $id_inserat);
                                 $this->renderScript('eingabe/kontrolle_exist.phtml');
                             } else {
@@ -466,7 +461,11 @@ class EingabeController extends Mobile_Controller_Action
         if (0 < $values['id_printmedium'] || 0 < $values['print_page'] || 0 < $values['id_region_printmedium_bit']) {
                 $data = $values;
         } else {
-            $date = $this->image->getImageDatebyID($id_inserat);
+            if ($this->image->checkImagebyID($id_inserat))
+                $date = $this->image->getImageDatebyID($id_inserat);
+            else
+                $date = false;
+            
             if (false == $date) {
                 $date = date('Y-m-d', time());
             }
@@ -536,9 +535,9 @@ class EingabeController extends Mobile_Controller_Action
     }
     
     /**
-    * Setting default values for format form.
+    * Setting default values for check form.
     *
-    * @return Zend_Form This Zend_Form object for format
+    * @return Zend_Form This Zend_Form object for check
     */
     protected function setFormCheck()
     {
@@ -549,6 +548,22 @@ class EingabeController extends Mobile_Controller_Action
         $form->setDefaults($data);
         
         $this->formRotate('kontrolle');
+        
+        return $form;
+    }
+    
+    /**
+    * Setting default values for trash form (if advertisements are identical)
+    *
+    * @return Zend_Form This Zend_Form object for trash
+    */
+    protected function setFormTrash()
+    {
+        $id_inserat = $this->getRequest()->getParam('id');
+        $form = new Application_Form_Trash($id_inserat);
+        
+        $data = array('id_inserat' => $id_inserat);
+        $form->setDefaults($data);
         
         return $form;
     }
@@ -764,23 +779,50 @@ class EingabeController extends Mobile_Controller_Action
 
 /**
 /* 
-/* curl -d '{"method": "login", "params": ["username", "password"], "id":99}' http://politinserate.at/eingabe/rest
-/* curl -d '{"method": "submit", "params": ["username", "password", "{base64}", "{4->Android, 5->iPhone, 6->Nokia}"], "id":99}' http://politinserate.at/eingabe/rest
+/* curl -d '{"method": "login", "params": ["username", "password", "{4->Android, 5->iPhone, 6->Nokia}", "apikey"], "id":99}' http://politinserate.at/eingabe/rest
 /*
+/* curl -d '{"method": "submit", "params": ["username", "password", "{4->Android, 5->iPhone, 6->Nokia}", "apikey", "{base64}"], "id":99}' http://politinserate.at/eingabe/rest
+/*
+/* curl -d '{"method": "getMedium", "params": ["username", "password", "{4->Android, 5->iPhone, 6->Nokia}", "apikey", "id_inserat"], "id":99}' http://inserate.local/eingabe/rest
+/*
+/* curl -d '{"method": "setMedium", "params": ["username", "password", "{4->Android, 5->iPhone, 6->Nokia}", "apikey", "id_inserat", "id_printmedium"], "id":99}' http://inserate.local/eingabe/rest
+*/
+/**  
+/* Zur Diskussion:
+/* "submit" -> "uploadPhoto"
+/* Error Codes verändert
+/* $app und $hash zu login hinzugefügt
+/* The question should be: how to hide data inside Android apps.
 */
 
+/**
+/*
+/* URL: http://politinserate.at/eingabe/rest/v/1
+/* Method(s): POST
+/*
+*/
 class AppService
 {
     
-    /**
-     * Return sum of two variables
-     *
-     * @param  string $username
-     * @param  string $password
-     * @return int
-     */
-    public function login($username, $password)
+    public function __construct()
     {
+        // TODO1 Check how many times an application connects in a time range
+    }
+    
+    /**
+    /* Authentication of user
+    /*
+    /* @param string $username
+    /* @param string $password
+    /* @param int $app
+    /* @param string $apikey
+    /* @return bool
+    */
+    public function login($username, $password, $app, $apikey)
+    {   
+        if (!$this->checkHash($app, $apikey))
+            return false;
+        
         $user = new AppLogin();
         
         $return = $user->submitLogin('', $username, $password);
@@ -789,24 +831,31 @@ class AppService
     }
     
     /**
-     * Return sum of two variables
-     *
-     * @param  string $username
-     * @param  string $password
-     * @param  string $file64
-     * @param  int $app
-     * @return int
-     */
-    public function submit($username, $password, $file64, $app)
+    /* Upload foto
+    /*
+    /* @param string $username
+    /* @param string $password
+    /* @param int $app
+    /* @param string $apikey
+    /* @param string $file64
+    /* @return string
+    */
+    public function uploadPhoto($username, $password, $app, $credential, $file64)
     {
+        if (!$this->checkCredentials($app, $credential))
+            return Array('message' => 'Credentials are not correct', 'code' => 403);
+        
         $user = new AppLogin();
         
         $this->user_table = new Application_Model_Users();
         
         if (!$return = $user->submitLogin('', $username, $password))
-            return Array('message' => 'Login Error', 'code' => 4);
+            return Array('message' => 'Login Error', 'code' => 401);
         
-        $filename='img';
+        if (!$file = base64_decode($file64))
+            return Array('message' => 'File Error', 'code' => 415);
+        
+        $filename = 'img'; // TODO1 Soll entfernt werden
         $values_photo['id_uploader'] = $this->user_table->getUserId($username);
         $values_photo['ip_uploader'] = $_SERVER['REMOTE_ADDR'];
         $values_photo['id_source'] = $app;
@@ -814,9 +863,6 @@ class AppService
         
         $this->table_inserat = new Application_Model_Inserate();
         $id_inserat = $this->table_inserat->insertPhoto($values_photo);
-        
-        if (!$file = base64_decode($file64))
-            return Array('message' => 'File Error', 'code' => 5);
         
         $source_path = APPLICATION_PATH .'/../data/uploads/images/original/';
         $source_file = 'inserat_'. sprintf('%06d', $id_inserat) . '_o.jpg'; // o...Original
@@ -826,6 +872,12 @@ class AppService
         fclose($f);
         
         $this->image = new Image_Editing();
+        if (!$this->image->checkImage($source_path . $source_file)) {
+            $this->table_inserat->deleteInserat($id_inserat);
+            
+            return Array('message' => 'Filetype is not supported', 'code' => 415);
+        }
+        
         $destination_path = APPLICATION_PATH .'/../public/images/uploads/';
         $destination_file = 'default/inserat_'. sprintf('%06d', $id_inserat) . '_d.jpg'; // d...Default
         $this->image->createThumbnail($source_path . $source_file, $destination_path . $destination_file, 750, 750);
@@ -842,10 +894,146 @@ class AppService
         
         $this->cache = Zend_Registry::get('cache');
         $this->cache->remove('table_stream_untagged');
+        $expenses_file = APPLICATION_PATH . '/../data/cache/expenses.txt';
+        unlink($expenses_file);
         
-        return Array('message' => 'Ok', 'code' => 0);
+        return Array('message' => 'Ok', 'code' => 200);
+    }
+    
+    /**
+    /* Get parameters for medium
+    /*
+    /* @param int $username
+    /* @param string $password
+    /* @param int $app
+    /* @param string $apikey
+    /* @param int $id_inserat
+    /* @return array
+    */
+    public function getMedium($username, $password, $app, $credential, $id_inserat)
+    {
+        if (!$this->checkCredentials($app, $credential))
+            return Array('message' => 'Credentials are not correct', 'code' => 403);
+        
+        $user = new AppLogin();
+        if (!$return = $user->submitLogin('', $username, $password))
+            return Array('message' => 'Login Error', 'code' => 401);
+        
+        // Ranges
+        $table_medium = new Application_Model_Printmedium();
+        $printmedium['0'] = '(Wähle Printmedium)';
+        foreach ($table_medium->getAllMedium() as $key)
+            $printmedium[$key['id_printmedium']] = $key['printmedium'];
+        
+        $table_config = new Application_Model_Config();
+        foreach ($table_config->getAllRegion() as $key)
+            $region_printmedium_bit[$key['region_abb']] = $key['region'];
+        
+        // Selected values
+        $this->table_inserat = new Application_Model_Inserate();
+        $values = $this->table_inserat->getMediumTagged($id_inserat);
+        if (0 < $values['id_printmedium'] || 0 < $values['print_page'] || 0 < $values['id_region_printmedium_bit']) {
+            $id_printmedium = $values['id_printmedium'];  // TODO1 Funktioniert nicht mit _bit
+            $region = $values['id_region_printmedium_bit'];
+            $date = $values['print_date'];
+            $page = $values['print_page'];
+        } else {
+            $this->user_table = new Application_Model_Users();
+            $id_printmedium = $this->user_table->getPreferedPrintmedium($username);
+            $region = $this->user_table->getPreferedRegion($username);
+            $date = date('Y-m-d', time());
+            $page = 1;
+        }
+        
+        return Array('printmedien' => $printmedium, 'regions' => $region_printmedium_bit, 'medium' => $id_printmedium, 'region' => $region, 'date' => $date, 'page' => $page);
+    }
+    
+    /**
+    /* Set parameters for medium
+    /*
+    /* @param string $username
+    /* @param string $password
+    /* @param int $app
+    /* @param string $apikey
+    /* @param string $id
+    /* @param string $id_printmedium
+    /* @param array $region
+    /* @param string $date
+    /* @param string $page
+    /* @return string
+    */
+    public function setMedium($username, $password, $app, $apikey, $id_inserat, $id_printmedium = "", $region = array(), $date = "", $page = "")
+    {
+        $this->table_inserat = new Application_Model_Inserate();
+        if (false == $this->table_inserat->checkInserat($id_inserat))
+            return Array('message' => 'ID value does not exist.', 'code' => 400);
+        
+        $table_medium = new Application_Model_Printmedium();
+        if (!empty($id_printmedium))
+            if (false == $table_medium->checkPrintmedium($id_printmedium))
+                return Array('message' => 'Printmedium value does not exist.', 'code' => 400);
+            else
+                $values['id_printmedium'] = $id_printmedium;
+        
+        if (!empty($page))
+            if ($page > 0 || $page < 100)
+                $values['print_page'] = $page;
+            else
+                return Array('message' => 'Page value is out of range.', 'code' => 400);
+        
+        if (!empty($date))
+            if (time() > strtotime($date))
+                $values['print_date'] = $date;
+            else
+                return Array('message' => 'Date is out of range.', 'code' => 400);
+        
+        if (!is_array($region))
+            return Array('message' => 'Region is not an array.', 'code' => 400);
+        
+        if (empty($region['aut']))
+            $values['aut'] = 0;
+        
+        $config = new Application_Model_Config();
+        foreach ($config->getAllRegion() as $regions ) {
+            if (!empty($region[$regions['region_abb']]) )
+                $values[$regions['region_abb']] = 0;
+            else
+                $values[$regions['region_abb']] = 1;
+        }
+
+        $this->table_inserat->updateMedium($id_inserat, $values);
+        $this->cache = Zend_Registry::get('cache');
+        $this->cache->remove('table_stream_untagged');
+        
+        return Array('message' => 'Ok', 'code' => 200);
+    }
+    
+    protected function checkCredentials($app, $credential)
+    {
+        $this->configuration = Zend_Registry::get('configuration');
+        
+        switch ($app) {
+        case 4: 
+            if ($credential == $this->configuration->app->android->hash)
+                return true;
+            else
+                return false;
+        case 5:
+            if ($credential == $this->configuration->app->iphone->hash)
+                return true;
+            else
+                return false;
+        case 6:
+            if ($credential == $this->configuration->app->symbian->hash)
+                return true;
+            else
+                return false;
+        default:
+            return false;
+        }
     }
 }
+
 
 class AppLogin
 {

@@ -27,7 +27,7 @@ class Application_Plugin_CheckMobile extends Zend_Controller_Plugin_Abstract
     // if user is inactive vor X minutes and surfs to
     // www.example.com, we'll ask him again if he wants
     // to user mobile or desktop version
-    private $ask_again_after_x_minutes = 10;
+    private $ask_again_after_x_minutes = 10080; // 7 Tage
     
     // used to test your mobile layout. Set this
     // to 'true' to emulate a mobile device

@@ -117,7 +117,7 @@ class StatistikenController extends Zend_Controller_Action
         foreach ($printmedien as $value) {
             $printmedium[] = array(
                 'link' => $link . '/medium/' . $value['id_printmedium'], 
-                'color' => 'DDDDDD', // TODO1 $value['logo_printmedium'], 
+                'color' => '888888', // TODO1 $value['logo_printmedium'], 
                 'name' => $value['printmedium']);
         }
         $this->view->form_printmedium = $printmedium;

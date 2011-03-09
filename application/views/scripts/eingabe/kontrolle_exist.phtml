@@ -2,7 +2,7 @@
 $this->headTitle()->append('überprüfung der Eingabe');
 ?>
 <?php echo $this->partial('partials/input/partial_navigation.phtml', $this->navigation) ?>
-<h2 style="clear:left;">Identisches Inserat gefunden</h2>
+<h2 style="clear:left;">Identisches Inserat gefunden *)</h2>
 <div style="width:300px;float:left;margin-left:70px;color:#852806;">
 <ul class="inserat" style="color:#852806;">
     <li style="height:120px; vertical-align:bottom; margin-bottom:5px;"><a href="/stream/index/inserat/<?php echo $this->inserat_tagged[0]['id_inserat'] ?>"><img src="<?php echo $this->image_tagged['image'] ?>" width="<?php echo $this->image_tagged['width'] ?>" height="<?php echo $this->image_tagged['height'] ?>" alt="Inserat" <?php if (120 > $this->image_tagged['height']) echo 'style="margin-top:' . (120-$this->image_tagged['height']) . 'px;"' ?> /></a></li>
@@ -34,6 +34,7 @@ $this->headTitle()->append('überprüfung der Eingabe');
     <li>Quelle: <?php echo $this->inserat[0]['source'] ?></li>
     <li><?php echo $this->formatTime($this->inserat[0]['timestamp']) ?></li>
     <li><?php echo $this->formFixer($this->form) ?></li>
+    <li>*) Seitennummern werden beim Vergleich nicht berücksichtigt.</li>
 </ul>
 </div>
 

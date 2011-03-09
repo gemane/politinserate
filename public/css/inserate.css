@@ -171,9 +171,11 @@ dl.datafile_form dd { padding-bottom: 15px; text-align: left; clear: right; }
 #send-element,
 #cancel-element { float: left; margin-left: 0px; margin-top: 10px; margin-bottom: 20px; }
 #trash-element { float: left; margin-left: 20px; margin-top: 10px; margin-bottom: 20px; }
+#nonidentical-label,
 #rotate_right-label,
 #cancel-label,
 #trash-label { width: 0px; margin-top: 10px; margin-bottom: 20px; }
+#nonidentical-element { clear:left; margin-left: 20px; margin-top: 10px; margin-bottom: 20px; }
 
 #fieldset-id_region_printmedium_bit { margin: 5px; padding: 5px; }
 #fieldset-id_region_printmedium_bit dd,

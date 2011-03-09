@@ -51,8 +51,14 @@ class Application_Form_Trash extends Zend_Dojo_Form
                             'ignore'     => true,
                             'label'      => 'Abbrechen',
                         )
+                    )
+                    ->addElement('SubmitButton','nonidentical',
+                    array(
+                            'required'   => false,
+                            'ignore'     => true,
+                            'label'      => 'Inserate sind nicht identisch',
+                        )
                     );
-                    // TODO1 Button mit "Nicht identisch" unterhalb anordnen, mit Hinweis, dass die Seitennummer nicht berücksichtigt wird
         
     }
 }

@@ -119,8 +119,8 @@ class Application_Model_Inserate extends Zend_Db_Table_Abstract
         $select_inserat = $this->query->where('d.id_inserat = ?', $id_inserat);
         $result = $this->fetchAll($select_inserat)->toArray();
         
-        $result[0]['size_width'] = $this->calculateWidth($id_inserat);
-        $result[0]['price_inserat'] = $this->calculatePrice($id_inserat);
+        $result[0]['size_width'] = $this->calculateWidth($result);
+        $result[0]['price_inserat'] = $this->calculatePrice($result);
         
         $config = new Application_Model_Config();
         $result[0]['region_printmedium_bit'] = $config->formatRegion($result[0]['id_region_printmedium_bit']);
@@ -149,7 +149,28 @@ class Application_Model_Inserate extends Zend_Db_Table_Abstract
         return $result;
     }
     
-    protected function calculatePrice($id_inserat)
+    protected function calculatePrice($result)
+    {
+        $inserat_columns = floor($result[0]['printmedium_width'] / $result[0]['printmedium_columns_width']);
+        
+        return $result[0]['pages'] * $result[0]['price'] * $result[0]['inserat_columns'] / $inserat_columns;
+    }
+    
+    protected function calculateWidth($result)
+    {
+        $columns_width = $result[0]['printmedium_columns_width'];
+        $columns = floor($result[0]['printmedium_width'] / $result[0]['printmedium_columns_width']);
+        $gap = ($result[0]['printmedium_width'] - $columns * $result[0]['printmedium_columns_width']) / ($columns - 1);
+        
+        if (1 < $result[0]['inserat_columns'])
+            $width = $result[0]['inserat_columns'] * $columns_width + ($result[0]['inserat_columns'] - 1) * $gap;
+        else
+            $width = $result[0]['inserat_columns'] * $columns_width;
+        
+        return round($width);
+    }
+    
+    protected function calculatePriceByID($id_inserat)
     {
         $select = $this->select()->from(array('d' => 'acd_inserate'),
                                         array('id_inserat', 'pages', 'inserat_columns'))
@@ -165,17 +186,21 @@ class Application_Model_Inserate extends Zend_Db_Table_Abstract
         return $result[0]['pages'] * $result[0]['price'] * $result[0]['inserat_columns'] / $table_types->getColumnsByInserat($id_inserat);
     }
     
-    protected function calculateWidth($id_inserat)
+    protected function calculateWidthByID($id_inserat)
     {
         $select = $this->select()->from(array('acd_inserate'),
                                         array('inserat_columns'));
         $select = $select->where('id_inserat = ?', $id_inserat);
         $result = $this->fetchAll($select);
         
-        $table_types = new Application_Model_PrintmediumTypes();
+        $type_position = $this->getPrintmediumTypePositionByInserat($id_inserat);
         
-        $gap = $table_types->getGapByInserat($id_inserat);
-        $columns_width = $table_types->getColumnwidthByInserat($id_inserat);
+        $table_tariff = new Application_Model_Tariff();
+        $types = $table_tariff->getPrintmediumTypeByInserat($id_inserat);
+        
+        $columns_width = $types[$type_position]['printmedium_columns_width'];
+        $columns = floor($types[$type_position]['printmedium_width'] / $types[$type_position]['printmedium_columns_width']);
+        $gap = ($types[$type_position]['printmedium_width'] - $columns * $types[$type_position]['printmedium_columns_width']) / ($columns - 1);
         
         if (1 < $result[0]['inserat_columns'])
             $width = $result[0]['inserat_columns'] * $columns_width + ($result[0]['inserat_columns'] - 1) * $gap;
@@ -321,7 +346,7 @@ class Application_Model_Inserate extends Zend_Db_Table_Abstract
                                             array('source'))
                                     ->join(array('y' => 'acd_inserate_printmedium_type'),
                                             'r.id_printmedium_type = y.id_printmedium_type',
-                                            array('printmedium_type_name'))
+                                            array('printmedium_type_name', 'printmedium_columns_width', 'printmedium_width'))
                                     ->order('print_date DESC');
         $this->query->setIntegrityCheck(false);
     }
@@ -519,7 +544,7 @@ class Application_Model_Inserate extends Zend_Db_Table_Abstract
     
     public function deleteInserat($id_inserat)
     {   
-        $where = $this->getAdapter()->quoteInto('tagged = -1 AND id_inserat = ?', $id_inserat);
+        $where = $this->getAdapter()->quoteInto('id_inserat = ?', $id_inserat);
         
         return $this->delete($where);
     }
@@ -529,7 +554,8 @@ class Application_Model_Inserate extends Zend_Db_Table_Abstract
         $array = array('id_printmedium', 'print_date', 'print_page');
         $where = $this->getAdapter()->quoteInto('id_inserat = ?', $id_inserat);
         foreach ($array as $key)
-            $values_inserat[$key] = $values[$key];
+            if (!empty($values[$key]) )
+                $values_inserat[$key] = $values[$key];
             
         $bit = 0;
         $config = new Application_Model_Config();
@@ -571,7 +597,7 @@ class Application_Model_Inserate extends Zend_Db_Table_Abstract
     public function updatePrice($id_inserat)
     {
         $where = $this->getAdapter()->quoteInto('id_inserat = ?', $id_inserat);
-        $values_inserat['price_inserat'] = $this->calculatePrice($id_inserat);
+        $values_inserat['price_inserat'] = $this->calculatePriceByID($id_inserat);
         
         $this->update($values_inserat, $where);
     }
@@ -919,7 +945,7 @@ class Application_Model_Inserate extends Zend_Db_Table_Abstract
                 $values_inserat['pages'] = 1;
             }
             //if (0 == $result[0]['price_inserat']) {
-                $values_inserat['price_inserat'] = $this->calculatePrice($values);
+                $values_inserat['price_inserat'] = $this->calculatePriceByID($values);
             //}
             if (!empty($values_inserat)) {
                 $this->update($values_inserat, $where);

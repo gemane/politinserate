@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 2.11.10.1
+-- version 2.11.11.3
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.2
--- Erstellungszeit: 28. Februar 2011 um 02:03
+-- Erstellungszeit: 06. März 2011 um 22:34
 -- Server Version: 4.1.22
 -- PHP-Version: 4.4.8
 
@@ -46,17 +46,17 @@ CREATE TABLE `acd_inserate_config` (
 --
 
 INSERT INTO `acd_inserate_config` (`id_config`, `party`, `region`, `region_abb`, `government`, `source`, `color_party`, `color_region`, `size_image`, `height_image`, `height_name`) VALUES
-(1, 'SPÖ', 'Österreich', 'aut', 'Republik Österreich', 'Homepage', 'e3001b', 'ec0000', '1x1_01-Seite', '1x1_01-Seite', 'Ganze Seite 1/1'),
+(1, 'SPÖ', 'Österreich', 'aut', 'Republik Österreich', 'Homepage', 'e3001b', 'ec0000', '1x1_01-Seite', '1x1_01-Seite', 'Ganze Seite'),
 (2, 'ÖVP', 'Wien', 'w', 'Gemeinde Wien', 'Twitter', '000000', 'ec8e00', '1xJuniorpage', '1x1_02-Seite', 'Halbe Seite'),
 (3, 'FPÖ', 'Niederösterreich', 'noe', 'Land Niederösterreich', 'Facebook', '0c7fc2', 'bdec00', '1x1_02-Seite', '1x1_03-Seite', 'Drittel Seite'),
 (4, 'Die Grünen', 'Oberösterreich', 'ooe', 'Land Oberösterreich', 'Android', '4da112', '2fec00', '1x1_04-Seite', '1x1_04-Seite', 'Viertel Seite'),
 (5, 'BZÖ', 'Salzburg', 'sbg', 'Land Salzburg', 'iPhone', 'f29400', '00ec5f', '1x1_06-Seite', '1x1_06-Seite', 'Sechstel Seite'),
-(6, 'FPK', 'Steiermark', 'stm', 'Land Steiermark', 'Nokia', '0076bd', '00ecec', '1x1_08-Seite', '1x1_08-Seite', 'Achtel Seite 1/8'),
+(6, 'FPK', 'Steiermark', 'stm', 'Land Steiermark', 'Nokia', '0076bd', '00ecec', '1x1_08-Seite', '1x1_08-Seite', 'Achtel Seite'),
 (7, '', 'Burgenland', 'bgl', 'Land Burgenland', '', '', '005fec', '1x1_16-Seite', 'Kopfzeile', 'Kopfzeile'),
 (8, '', 'Kärnten', 'ktn', 'Land Kärnten', '', '', '2f00ec', '2x1_1-Seite', 'Fusszeile', 'Fusszeile'),
 (9, '', 'Tirol', 'tir', 'Land Tirol', '', '', 'bd00ec', '2xJuniorpage', 'Juniorpage', 'Juniorpage'),
 (10, '', 'Vorarlberg', 'vbg', 'Land Vorarlberg', '', '', 'ec008e', '2x1_2-Seite', 'Sonderformat', 'Sonderformat'),
-(11, '', '', '', '', '', '', '', 'Sonderformat', '', ''),
+(11, '', '', '', '', '', '', '', 'Sonderformat', '1x2_03-Seite', 'Zweidrittel Seite'),
 (12, '', '', '', '', '', '', '', '1x1_03-Seite', '', ''),
 (13, '', '', '', '', '', '', '', '1x1_02-Seite_h', '', ''),
 (14, '', '', '', '', '', '', '', '1x1_04-Seite_q', '', ''),

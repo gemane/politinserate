@@ -45,4 +45,9 @@ Version 1.1.3 (2011-03-04)
 * Finetuning Blogdesign
 * Login leitet zur ursprünglichen Seite zurück
 
-
+Version 1.1.4 (2011-03-09)
+==========================
+* Icon mit 2/3 Höhe bei Tarifauswahl hinzugefügt
+* Fast identische Inserate (unterschiedliche Seite) können jetzt akzeptiert werden
+* Webservice API getMedium und setMedium für /eingabe/rest hinzugefügt
+* getInseratAll überarbeitet

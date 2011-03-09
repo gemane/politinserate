@@ -237,6 +237,33 @@ class StreamController extends Mobile_Controller_Action
         $this->view->message = "Export erfolgreich.";
     }
     
+    /**
+    * Create CSV file for advertisements
+    *
+    * @see $message
+    */
+    public function createcsvAction()
+    {
+        $this->auth = Zend_Registry::get('auth');
+        if ($this->auth->hasIdentity()) {
+            if ('admin' == $this->auth->getIdentity()->username) {
+                $stream = new Application_Model_Stream();
+                $stream->createCSV();
+                
+                $this->configuration = Zend_Registry::get('configuration');
+                $lockfile = realpath(APPLICATION_PATH . '/../temp/lock_csv_inserate');
+                $locktime = mktime($this->configuration->general->csv_time, 0, 0);
+                touch($lockfile, $locktime);
+                
+                $this->view->message = "Erstellung erfolgreich.";
+            } else {
+                $this->view->message = "You have to be Admin to do that.";
+            }
+        } else {
+            $this->view->message = "You have to be Admin to do that.";
+        }
+    }
+    
     protected function streamUser($username)
     {
         $this->view->year = $year = $this->getRequest()->getParam('year', date('Y', time() ));

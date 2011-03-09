@@ -156,9 +156,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         
         $this->frontController->registerPlugin(new Application_Plugin_SessionCheck());
         $this->frontController->registerPlugin(new Application_Plugin_GetPayments());
-        $this->frontController->registerPlugin(new Application_Plugin_TwitterSearch());
         $this->frontController->registerPlugin(new Application_Plugin_PrintmediumTypes());
         $this->frontController->registerPlugin(new Application_Plugin_CheckMobile());
+        //$this->frontController->registerPlugin(new Application_Plugin_TwitterSearch()); // TODO1 Brauch ich das noch? Verlangsamt das System ungemein!!!
         //$this->frontController->addModuleDirectory(APPLICATION_PATH . '/modules');
     }
     

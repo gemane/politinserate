@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 2.11.10.1
+-- version 2.11.11.3
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.2
--- Erstellungszeit: 28. Februar 2011 um 02:02
+-- Erstellungszeit: 06. März 2011 um 22:35
 -- Server Version: 4.1.22
 -- PHP-Version: 4.4.8
 
@@ -36,7 +36,7 @@ CREATE TABLE `acd_inserate_size_weekdays` (
   `Sat` tinyint(1) NOT NULL default '0',
   `Sun` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`id_weekdays`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=115 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=124 ;
 
 --
 -- Daten für Tabelle `acd_inserate_size_weekdays`
@@ -58,6 +58,7 @@ INSERT INTO `acd_inserate_size_weekdays` (`id_weekdays`, `Mon`, `Tue`, `Wed`, `T
 (38, 0, 0, 0, 1, 1, 0, 0),
 (39, 0, 0, 0, 0, 0, 0, 1),
 (40, 1, 1, 1, 1, 1, 1, 1),
+(115, 1, 1, 1, 0, 0, 1, 0),
 (42, 1, 1, 1, 0, 0, 1, 0),
 (43, 0, 0, 0, 1, 1, 0, 0),
 (44, 0, 0, 0, 0, 0, 0, 1),
@@ -103,4 +104,12 @@ INSERT INTO `acd_inserate_size_weekdays` (`id_weekdays`, `Mon`, `Tue`, `Wed`, `T
 (111, 1, 1, 1, 1, 1, 1, 1),
 (112, 1, 1, 1, 1, 1, 1, 1),
 (113, 1, 1, 1, 1, 1, 1, 1),
-(114, 1, 1, 1, 1, 1, 1, 1);
+(114, 1, 1, 1, 1, 1, 1, 1),
+(116, 0, 0, 0, 1, 1, 0, 0),
+(117, 0, 0, 0, 0, 0, 0, 1),
+(118, 1, 1, 1, 0, 0, 1, 0),
+(119, 0, 0, 0, 1, 1, 0, 0),
+(120, 0, 0, 0, 0, 0, 0, 1),
+(121, 1, 1, 1, 0, 0, 1, 0),
+(122, 0, 0, 0, 1, 1, 0, 0),
+(123, 0, 0, 0, 0, 0, 0, 1);

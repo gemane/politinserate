@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 2.11.10.1
+-- version 2.11.11.3
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.2
--- Erstellungszeit: 28. Februar 2011 um 02:02
+-- Erstellungszeit: 06. März 2011 um 22:34
 -- Server Version: 4.1.22
 -- PHP-Version: 4.4.8
 

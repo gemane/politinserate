@@ -61,7 +61,7 @@ class UserController extends Mobile_Controller_Action
         
         $form = new Application_Form_Login();
         $form->setAction('/user/login');
-        $this->checkToken($form); // TODO1
+        $this->checkToken($form);
         if ( $this->getRequest()->has('login_hidden') ) {
             $values = $form->getValues();
             $username = $values['username'];
@@ -75,7 +75,7 @@ class UserController extends Mobile_Controller_Action
                 
                 if ($this->submitLogin($username, $password) ) {
                     $this->unsetSSL();
-                    if (0 === strpos( $values['return_link'], $this->configuration->general->url) || strpos( $values['return_link'], "http://blog.politinserate.at"))
+                    if ((0 === strpos( $values['return_link'], $this->configuration->general->url) && 0 === strpos( $values['return_link'], "logout")) || 0 === strpos( $values['return_link'], "http://blog.politinserate.at"))
                         $this->_helper->redirector->gotoUrl($values['return_link']);
                     else
                         $this->_helper->redirector('index', $this->auth->getIdentity()->username);
@@ -202,7 +202,7 @@ class UserController extends Mobile_Controller_Action
         
         $form = new Application_Form_Lost();
         $form->setAction('/user/lostpassword');
-        $this->checkToken($form); // TODO1
+        $this->checkToken($form);
         if ( $this->getRequest()->has('lost_hidden') ) {
             if ($form->isValid($_POST)) {
                 $values = $form->getValues();
@@ -249,7 +249,7 @@ class UserController extends Mobile_Controller_Action
         
         $form = new Application_Form_Password();
         $form->setAction('/user/changepassword');
-        $this->checkToken($form); // TODO1
+        $this->checkToken($form);
         if ( $this->getRequest()->has('password_hidden') ) {
             if ($form->isValid($_POST)) {
                 $values = $form->getValues();
