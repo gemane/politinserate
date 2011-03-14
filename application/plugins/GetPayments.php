@@ -71,6 +71,13 @@ class Application_Plugin_GetPayments extends Zend_Controller_Plugin_Abstract
             }
             $values['list_months'] = $list_year;
             
+            // Last changes in the project
+            $lastEdited_application = $this->filemtime_r(APPLICATION_PATH);
+            $lastEdited_css = $this->filemtime_r(APPLICATION_PATH . '/../public/css');
+            $lastEdited_js = $this->filemtime_r(APPLICATION_PATH . '/../public/js/intern');
+             
+            $values['last_edited'] = max($lastEdited_application, $lastEdited_css, $lastEdited_js);
+            
             // Write values to file
             file_put_contents($file,serialize($values), LOCK_EX);
         } else {
@@ -84,6 +91,32 @@ class Application_Plugin_GetPayments extends Zend_Controller_Plugin_Abstract
         Zend_Registry::set('last_month', $values['last_month']);
         Zend_Registry::set('last_year', $values['last_year']);
         Zend_Registry::set('list_months', $values['list_months']);
+        Zend_Registry::set('last_edited', $values['last_edited']);
+    }
+    
+    protected function filemtime_r($path)
+    {
+        $allowedExtensions = array(
+            'php',
+            'phtml',
+            'css',
+            'js'
+        );
+        
+        if (!file_exists($path))
+            return 0;
+        
+        $extension = end(explode(".", $path));
+        if (is_file($path) && in_array($extension, $allowedExtensions))
+            return filemtime($path);
+        $ret = 0;
+        
+        foreach (glob($path."/*") as $fn)
+        {
+            if ($this->filemtime_r($fn) > $ret)
+                $ret = $this->filemtime_r($fn);
+        }
+        return $ret;
     }
     
 }

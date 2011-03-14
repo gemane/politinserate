@@ -20,6 +20,10 @@ if ($this->dojo()->isEnabled() && !Zend_Registry::get('StartPage'))
 
 ?>
 
+<?php if (false && 'testing' == APPLICATION_ENV && strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE 7.') !== FALSE /*&& 'admin' == Zend_Registry::get('auth')->getIdentity()->username*/ ) : ?>
+<script type="text/javascript" src="http://fbug.googlecode.com/svn/lite/branches/firebug1.3/content/firebug-lite-dev.js"></script>
+<?php endif ?>
+
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 </head>
 <body class="body tundra" onload="InsertSidebar();" <?php if (Zend_Registry::get('PrintmediumTypes')) echo ' onload="UpdateFields();"' ?>>
@@ -34,7 +38,7 @@ if ($this->dojo()->isEnabled() && !Zend_Registry::get('StartPage'))
 <?php endif ?>
 </div>
 
-<div class="layout_position layout_size layout_design" style="background-color: #FCFF98;border:1px solid black;padding-bottom:10px;margin-bottom:0px;background: url(/images/frame_yellow.png) 0 0 repeat-x;">
+<div class="layout_position layout_size layout_design" style="background-color: #FCFF98;border:1px solid black;padding-bottom:10px;margin-bottom:0px;background-image: url(/images/frame_yellow.png);">
 <h1 id="header"><a href="/"><img src="/images/logo.png" width="217" height="52" alt="Logo:Polit-Inserate.at, Wir zahlen, sie werben." style="border:none;" /></a></h1>
 
 <ul id="main_navigation" style="position:absolute; right:1em;">
@@ -47,7 +51,7 @@ if ($this->dojo()->isEnabled() && !Zend_Registry::get('StartPage'))
 </ul>
 <div id="describe" onmouseover="clear_delayhide()" onmouseout="resetit(event)"></div>
 </div>
-<div class="layout_position layout_size layout_design" style="background-color:#646567;border:1px solid black;padding-top:5px;padding-bottom:5px;margin-bottom:0px;background: url(/images/frame_grey.png) 0 0 repeat-x;">
+<div class="layout_position layout_size layout_design" style="background-color:#646567;border:1px solid black;padding-top:5px;padding-bottom:5px;margin-bottom:0px;background-image: url(/images/frame_grey.png);">
 <span style="color:white;text-align:center;">Gesamtausgaben für Inseratschaltungen im System: <?php $this->formatCurrency(Zend_Registry::get('expense')) ?> (seit Mitte 2010)</span>
 </div>
 <?php if ('testing' == APPLICATION_ENV) : ?>
@@ -77,7 +81,7 @@ if (isset($this->ev))
 
 <!-- Count Uploads -->
 <div style="padding: 10px 0px 0px 10px;clear:both;">
-    <div style="padding: 10px; text-align:left;background-color:#FCFF98;border:1px solid black;color:#852806; -moz-border-radius: 7px; -webkit-border-radius: 7px; border-radius:7px; background: url(/images/frame_yellow.png) 0 0 repeat-x;">
+    <div class="count">
         <dl style="margin:0px;">
             <dt>Neue Inserate</dt><dd style="text-align:right;"><?php echo Zend_Registry::get('num_tagged_month') ?></dd>
             <dt>und Zahlungen</dt><dd style="text-align:right;"><?php $this->formatCurrency(Zend_Registry::get('expense_month')) ?></dd>

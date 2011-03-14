@@ -102,7 +102,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         
         $this->view->doctype('XHTML1_STRICT');
         $this->view->headTitle($this->view->title)->setSeparator(' - ');
-        $this->view->headLink()->appendStylesheet('/css/inserate.css');
+        $this->view->headLink()->appendStylesheet('/css/main.css');
         $this->view->headLink(Array('rel' => 'icon', 'href' => '/favicon.ico', 'type' => 'image/x-icon'));
     }
     
@@ -141,12 +141,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Zend_Dojo_View_Helper_Dojo::setUseDeclarative(); 
         $this->view->dojo()->setDjConfigOption('parseOnLoad', true) 
                            ->setDjConfigOption('isDebug', false)
-                           ->setLocalPath('/js/dojo/dojo.js');  // Default
-                           //->setCdnBase(Zend_Dojo::CDN_BASE_GOOGLE)
-                           //->setCdnDojoPath(Zend_Dojo::CDN_DOJO_PATH_GOOGLE)
-                           //->addStyleSheetModule('dijit.themes.tundra'); 
-        //$this->view->headLink()->appendStylesheet('/css/tundra.css');
-        $this->view->headLink()->appendStylesheet('http://ajax.googleapis.com/ajax/libs/dojo/1.4.3/dijit/themes/tundra/tundra.css');
+                           ->setLocalPath('/js/dojo/dojo.js');
+        $this->view->headLink()->appendStylesheet('http://ajax.googleapis.com/ajax/libs/dojo/1.5/dijit/themes/tundra/tundra.css');
     }
     
     protected function _initFront()

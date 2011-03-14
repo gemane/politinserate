@@ -82,7 +82,7 @@ INSTALLATION
    In this particular example, we use the ServerName "inserate.local"; you
    will need to add this to your hosts file:
 
-    127.0.1.1 inserate.local
+    127.0.0.1 inserate.local
 
 6. Finally, simply fire your browser to:
 

@@ -385,10 +385,12 @@ class UserController extends Mobile_Controller_Action
             
             $this->session->username = $result->getIdentity();
             $this->user_table->updateLastAccess($username);
+            
             return true;
         } else {
             $this->_helper->flashMessenger->addMessage("Ungültige Authentifizierung.");
             sleep(3);
+            
             return false;
         }
     }

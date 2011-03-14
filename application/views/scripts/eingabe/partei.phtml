@@ -19,10 +19,10 @@ function openwindow(url)
 <span class="errors"><?php   print_r($this->message) ?></span>
 <?php endif ?>
 <?php if ($this->max_entries && !$this->tagged) : ?>
-<div style="float:left; padding-left:80px;">
+<div style="float:left; padding:0 0 0 80px; margin:0px; width:550px; ">
 <?php echo $this->formFixer($this->form) ?>
 </div>
-<div style="float:left;margin-left:20px;">
+<div style="float:left;margin:0 0 0 20px;padding:0px;">
     <a href="/eingabe/image/id/<?php echo $this->id ?>" target="_blank" onclick="openwindow(this.href);return false"><img src="<?php echo $this->imageThumbnail['image'] ?>" width="<?php echo $this->imageThumbnail['width'] ?>" height="<?php echo $this->imageThumbnail['height'] ?>" border="1" alt="Inserat" /></a>
 </div>
 <?php endif ?>

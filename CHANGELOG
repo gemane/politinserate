@@ -51,3 +51,9 @@ Version 1.1.4 (2011-03-09)
 * Fast identische Inserate (unterschiedliche Seite) können jetzt akzeptiert werden
 * Webservice API getMedium und setMedium für /eingabe/rest hinzugefügt
 * getInseratAll überarbeitet
+
+Version 1.1.5 (2011-03-14)
+==========================
+* Kompatibilität Internet Explorer
+* Update Dojo von Version 1.4.3 -> 1.5
+

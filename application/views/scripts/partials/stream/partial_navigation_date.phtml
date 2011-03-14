@@ -1,6 +1,4 @@
-<div class="">
-
-<div style="font-size:20px;text-decoration: none;border: 1px solid #AAA; padding:5px;margin:0 auto;width:350px; -moz-border-radius: 7px; -webkit-border-radius: 7px; border-radius:7px; background: url(/images/button_grey.png) 0 0 repeat-x;">
+<div class="stream_navigation">
 Jahr: 
 <?php for ($year = $this->year_from; $year <= $this->year_to; $year++) : if ($year == $this->year) : ?>
     <strong><?php echo $this->year ?></strong>
@@ -19,4 +17,4 @@ Monat:
     <a href="<?php echo $this->url . '/year/' . $this->year . '/month/' . $month ?>" style="text-decoration: none;"><?php echo $month ?></a>
 <?php endif; endfor ?>
 </div>
-</div>
+

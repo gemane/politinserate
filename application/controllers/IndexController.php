@@ -139,12 +139,7 @@ class IndexController extends Mobile_Controller_Action
     
     public function impressumAction()
     {
-        $lastEdited_application = $this->filemtime_r(APPLICATION_PATH);
-        $lastEdited_css = $this->filemtime_r(APPLICATION_PATH . '/../public/css');
-        $lastEdited_js = $this->filemtime_r(APPLICATION_PATH . '/../public/js/intern');
-        
-        $lastEdited = max($lastEdited_application, $lastEdited_css, $lastEdited_js);
-        $this->view->lastEdited = $lastEdited;
+        $this->view->lastEdited = Zend_Registry::get('last_edited');
     }
 
     public function faqAction()
@@ -178,11 +173,6 @@ class IndexController extends Mobile_Controller_Action
             $form = $this->setContact($form);
         }
         $this->view->form = $form;
-    }
-    
-    public function linksAction()
-    {
-    
     }
     
     public function setPlotDataParty($data)
